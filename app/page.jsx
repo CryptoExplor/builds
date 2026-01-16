@@ -115,8 +115,8 @@ export default function ToolHub({ tools }) {
 }
 
 // Fetch tools data on the server side
-export async function getStaticProps() {
-  const tools = await loadTools();
+export function getStaticProps() {
+  const tools = loadTools();
   return {
     props: {
       tools,
