@@ -2,9 +2,22 @@
 
 > A registry of everything I ship — tools, apps, experiments.
 
+**Live:** [cryptoexplor.vercel.app](https://cryptoexplor.vercel.app)
+
 ---
 
-## 🚀 Getting Started
+## ✨ Features
+
+- 🔄 **Auto-sync** — Add a `.js` file, push, and it's live
+- 🔍 **Search** — Find projects by name, tags, or description
+- 🏷️ **Status filters** — Filter by production, beta, alpha, or paused
+- 📊 **Auto serials** — Projects numbered automatically by launch date
+- 🎨 **Dark theme** — Clean, modern UI inspired by Web3 aesthetics
+- ⚡ **Fast deploys** — Vercel auto-builds on every push
+
+---
+
+## 🚀 Quick Start
 
 ```bash
 # Install dependencies
@@ -33,13 +46,21 @@ export default {
   visibility: "public", // public | private
   liveUrl: "https://my-project.vercel.app",
   github: "https://github.com/CryptoExplor/my-project",
-  launched: "2025-01-16" // YYYY-MM-DD
+  launched: "2025-01-17" // YYYY-MM-DD
 }
 ```
 
 **Serial numbers are auto-generated** — don't add them manually!
 
-Push and Vercel auto-deploys. Done.
+Then push:
+
+```bash
+git add tools/my-project.js
+git commit -m "Add my-project"
+git push
+```
+
+Vercel auto-deploys in ~30 seconds. Done! ✅
 
 ---
 
@@ -51,19 +72,19 @@ builds/
 │   ├── layout.jsx          # Root layout
 │   ├── page.jsx            # Home page (server)
 │   ├── globals.css         # Global styles
+│   ├── components/
+│   │   ├── Navbar.jsx      # Navigation
+│   │   ├── ToolCard.jsx    # Tool cards
+│   │   ├── ToolGrid.jsx    # Grid with filters (client)
+│   │   ├── StatusBadge.jsx # Status badges
+│   │   └── Footer.jsx      # Footer
 │   └── tools/
 │       └── [slug]/
 │           └── page.jsx    # Tool detail pages
-├── components/
-│   ├── Navbar.jsx          # Navigation
-│   ├── ToolCard.jsx        # Tool cards
-│   ├── ToolGrid.jsx        # Grid with filters (client)
-│   ├── StatusBadge.jsx     # Status badges
-│   └── Footer.jsx          # Footer
 ├── lib/
 │   └── loadTools.js        # Tool loader
-├── tools/
-│   ├── farm-labs.js
+├── tools/                  # 🔥 ADD YOUR PROJECTS HERE
+│   ├── farmlabs.js
 │   └── tempo.js
 └── ...
 ```
@@ -72,25 +93,76 @@ builds/
 
 ## 🌐 Deployment
 
-Deploy to Vercel:
-1. Push to GitHub
-2. Import repo on Vercel
-3. Deploy
+This site is deployed on **Vercel** at [cryptoexplor.vercel.app](https://cryptoexplor.vercel.app)
 
-Recommended URL: `dev.cryptoexplor.vercel.app`
+### Deploy Your Own:
+1. Push to GitHub
+2. Import repo on [Vercel](https://vercel.com)
+3. Framework: **Next.js** (auto-detected)
+4. Deploy!
+
+Every push auto-deploys.
 
 ---
 
 ## 📦 Tech Stack
 
-- Next.js 14 (App Router)
-- React 18
-- Tailwind CSS
-- Lucide Icons
-- Vercel (hosting)
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 14 (App Router) |
+| Styling | Tailwind CSS |
+| Icons | Lucide React |
+| Hosting | Vercel |
+| Data Source | Git (tools/*.js) |
 
 ---
 
-## License
+## 🎨 Design Philosophy
 
-MIT
+- **Git = Source of Truth** — No database needed
+- **Auto-everything** — Serial numbers, routing, metadata
+- **Zero manual UI edits** — Just drop files
+- **Fast shipping** — From idea to live in minutes
+
+---
+
+## 📝 Example Projects
+
+Current projects on the live site:
+
+- **FarmLabs** — Web3 automation suite for EVM testnet testing
+- **Tempo Tools** — Developer utilities for the Tempo ecosystem
+
+---
+
+## 🔮 Roadmap
+
+- [ ] GitHub API integration (stars, last commit)
+- [ ] Tag/category filters
+- [ ] Featured projects flag
+- [ ] Custom domain support
+- [ ] Project screenshots/thumbnails
+- [ ] RSS feed for new projects
+
+---
+
+## 🤝 Contributing
+
+Issues and PRs welcome! This is a living project registry.
+
+---
+
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE) for details
+
+---
+
+## 💬 Contact
+
+- GitHub: [@CryptoExplor](https://github.com/CryptoExplor)
+- Live Site: [cryptoexplor.vercel.app](https://cryptoexplor.vercel.app)
+
+---
+
+**Built with ❤️ using Next.js and Vercel**
