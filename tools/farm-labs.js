@@ -9,4 +9,4 @@ export default {
   liveUrl: "https://farmlabs.pages.dev",
   github: "https://github.com/CryptoExplor/farmlabs",
   launched: "2025-07-13"
-}
+};
