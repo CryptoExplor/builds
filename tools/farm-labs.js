@@ -1,5 +1,4 @@
 export default {
-  serial: 1,
   name: "Farm Labs",
   slug: "farm-labs",
   description: "Experimental DeFi farming strategies and yield optimization",

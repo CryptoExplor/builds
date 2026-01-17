@@ -4,91 +4,93 @@
 
 ---
 
-## 📁 Project Structure
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Open http://localhost:3000
+```
+
+---
+
+## ✨ Adding New Projects
+
+Create a file in `tools/` (e.g., `my-project.js`):
+
+```js
+export default {
+  name: "My Project",
+  slug: "my-project", // Used in URL
+  description: "What this project does",
+  category: ["Category1", "Category2"],
+  tags: ["tag1", "tag2", "tag3"],
+  status: "production", // alpha | beta | production | paused
+  visibility: "public", // public | private
+  liveUrl: "https://my-project.vercel.app",
+  github: "https://github.com/CryptoExplor/my-project",
+  launched: "2025-01-16" // YYYY-MM-DD
+}
+```
+
+**Serial numbers are auto-generated** — don't add them manually!
+
+Push and Vercel auto-deploys. Done.
+
+---
+
+## 🏗️ Project Structure
 
 ```
 builds/
 ├── app/
-│   ├── layout.jsx
-│   ├── page.jsx
-│   ├── globals.css
+│   ├── layout.jsx          # Root layout
+│   ├── page.jsx            # Home page (server)
+│   ├── globals.css         # Global styles
 │   └── tools/
 │       └── [slug]/
-│           └── page.jsx
+│           └── page.jsx    # Tool detail pages
 ├── components/
-│   ├── Navbar.jsx
-│   ├── ToolCard.jsx
-│   ├── StatusBadge.jsx
-│   ├── ToolGrid.jsx
-│   └── Footer.jsx
+│   ├── Navbar.jsx          # Navigation
+│   ├── ToolCard.jsx        # Tool cards
+│   ├── ToolGrid.jsx        # Grid with filters (client)
+│   ├── StatusBadge.jsx     # Status badges
+│   └── Footer.jsx          # Footer
 ├── lib/
-│   └── loadTools.js
+│   └── loadTools.js        # Tool loader
 ├── tools/
-│   ├── tempo-wallet.js
-│   ├── tempo.js
-│   └── flush-rewarder.js
-├── public/
-├── package.json
-├── tailwind.config.js
-├── next.config.js
-└── README.md
+│   ├── farm-labs.js
+│   └── tempo.js
+└── ...
 ```
-
----
-
-## 🚀 Getting Started
-
-First, install the dependencies:
-
-```bash
-npm install
-```
-
-Then, run the development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
----
-
-## 🛠️ Adding New Tools
-
-To add a new tool to the registry:
-
-1. Create a new JavaScript file in the `tools/` directory (e.g., `my-tool.js`)
-2. Export a default object with the tool's information:
-
-```javascript
-export default {
-  serial: 6, // Increment the serial number
-  name: "My Tool",
-  slug: "my-tool",
-  description: "Description of my tool",
-  category: ["Category1", "Category2"],
-  tags: ["tag1", "tag2", "tag3"],
-  status: "production", // production, beta, alpha, paused
-  visibility: "public",
-  liveUrl: "https://my-tool.example.com",
-  github: "https://github.com/username/my-tool",
-  launched: "2024-01-01" // YYYY-MM-DD format
-}
-```
-
-3. The tool will automatically appear on the site after restarting the development server.
-
----
-
-## 📦 Dependencies
-
-- [Next.js](https://nextjs.org/) - React framework
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Lucide React](https://lucide.dev/) - Icons
 
 ---
 
 ## 🌐 Deployment
 
-This project is ready for deployment on Vercel or any other platform that supports Next.js applications.
+Deploy to Vercel:
+1. Push to GitHub
+2. Import repo on Vercel
+3. Deploy
+
+Recommended URL: `dev.cryptoexplor.vercel.app`
+
+---
+
+## 📦 Tech Stack
+
+- Next.js 14 (App Router)
+- React 18
+- Tailwind CSS
+- Lucide Icons
+- Vercel (hosting)
+
+---
+
+## License
+
+MIT
