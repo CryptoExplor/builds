@@ -1,4 +1,4 @@
-import { loadToolsSync } from '@/lib/loadTools'
+import { loadTools } from '@/lib/loadTools'
 import { getStatusClass } from '@/lib/statusStyles'
 import { ExternalLink, Github, Calendar, Tag, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
