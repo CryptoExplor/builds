@@ -8,16 +8,17 @@ export default function ToolCard({ tool }) {
       href={`/tools/${tool.slug}`}
       className="block rounded-xl border border-white/10 bg-[#111827] p-5 hover:border-indigo-500 transition cursor-pointer group relative overflow-hidden"
     >
-      {/* Featured Badge */}
-      {tool.featured && (
-        <div className="absolute top-2 right-2 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded-full px-2 py-1 text-xs font-semibold flex items-center gap-1">
-          <Star size={12} className="fill-current" />
-          Featured
-        </div>
-      )}
-
       <div className="flex justify-between items-center mb-3">
-        <span className="text-xs opacity-60 font-mono">#{tool.serial.toString().padStart(3, '0')}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs opacity-60 font-mono">#{tool.serial.toString().padStart(3, '0')}</span>
+          {/* Featured Badge - Inline with serial */}
+          {tool.featured && (
+            <span className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded-full px-2 py-0.5 text-xs font-semibold flex items-center gap-1">
+              <Star size={10} className="fill-current" />
+              Featured
+            </span>
+          )}
+        </div>
         <StatusBadge status={tool.status} />
       </div>
 
