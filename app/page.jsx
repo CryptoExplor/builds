@@ -1,11 +1,11 @@
-import { loadTools } from '../lib/loadTools'
+import { loadToolsSync } from '@/lib/loadTools'
 import Navbar from './components/Navbar'
 import ToolGrid from './components/ToolGrid'
 import Footer from './components/Footer'
 
 export default function HomePage() {
-  // Server-side data loading
-  const tools = loadTools()
+  // Server-side data loading (sync for now, migrate to async later)
+  const tools = loadToolsSync()
 
   return (
     <div className="min-h-screen bg-[#0b0f14] text-white">
