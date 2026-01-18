@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 // Generate static paths at build time
 export function generateStaticParams() {
-  const tools = loadToolsSync()
+  const tools = loadTools()
   return tools.map(tool => ({
     slug: tool.slug,
   }))
@@ -13,7 +13,7 @@ export function generateStaticParams() {
 
 // Generate metadata for SEO and social sharing
 export function generateMetadata({ params }) {
-  const tools = loadToolsSync()
+  const tools = loadTools()
   const tool = tools.find(t => t.slug === params.slug)
   
   if (!tool) {
@@ -74,7 +74,7 @@ function getRelatedTools(currentTool, allTools) {
 }
 
 export default function ToolPage({ params }) {
-  const tools = loadToolsSync()
+  const tools = loadTools()
   const tool = tools.find(t => t.slug === params.slug)
   
   if (!tool) {
