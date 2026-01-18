@@ -1,0 +1,24 @@
+# Code Owners for Builds Registry
+# These owners will be requested for review when someone opens a pull request
+
+# Default owner for everything in the repo
+* @CryptoExplor
+
+# Core application files
+/app/ @CryptoExplor
+/lib/ @CryptoExplor
+
+# Tool definitions (auto-approve community additions)
+/tools/ @CryptoExplor
+
+# GitHub configuration
+/.github/ @CryptoExplor
+
+# Documentation
+*.md @CryptoExplor
+/docs/ @CryptoExplor
+
+# Configuration files
+package.json @CryptoExplor
+next.config.js @CryptoExplor
+tailwind.config.js @CryptoExplor
