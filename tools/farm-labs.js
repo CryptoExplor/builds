@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   name: "FarmLabs",
   slug: "farmlabs",
   description: "Web3 automation suite for testing & research. Local-first, no-code wallet simulation for EVM testnets with human-like behavior patterns.",
