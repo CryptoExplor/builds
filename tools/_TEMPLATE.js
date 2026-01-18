@@ -2,6 +2,9 @@
  * Tool Schema Template
  * Copy this file when adding a new project
  * 
+ * IMPORTANT: Use CommonJS (module.exports) not ES6 (export default)
+ * This is required for Next.js build-time static generation
+ * 
  * REQUIRED FIELDS:
  * - name: string (display name)
  * - slug: string (URL-safe, unique identifier)
@@ -24,7 +27,7 @@
  * - keywords: string[] (additional SEO keywords)
  */
 
-export default {
+module.exports = {
   // ============================================
   // REQUIRED FIELDS
   // ============================================
