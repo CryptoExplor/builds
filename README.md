@@ -1,6 +1,11 @@
 # Builds by CryptoExplor
 
-> A registry of everything I ship — tools, apps, experiments.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black)](https://vercel.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
+
+> A living registry of everything I ship — Web3 tools, blockchain apps, and DeFi experiments.
 
 **Live:** [cryptoexplor.vercel.app](https://cryptoexplor.vercel.app)
 
@@ -8,18 +13,23 @@
 
 ## ✨ Features
 
-- 🔄 **Auto-sync** — Add a `.js` file, push, and it's live
-- 🔍 **Search** — Find projects by name, tags, or description
-- 🏷️ **Status filters** — Filter by production, beta, alpha, or paused
-- 📊 **Auto serials** — Projects numbered automatically by launch date
-- 🎨 **Dark theme** — Clean, modern UI inspired by Web3 aesthetics
-- ⚡ **Fast deploys** — Vercel auto-builds on every push
+- 🔄 **Auto-sync** — Add a `.js` file, push, and it's live in 30 seconds
+- 🔍 **Smart Search** — Find projects by name, tags, or description
+- 🏷️ **Status Filters** — Filter by production, beta, alpha, or paused
+- 📊 **Auto Serials** — Projects numbered automatically by launch date
+- 🎨 **Dark Theme** — Clean, modern UI inspired by Web3 aesthetics
+- ⚡ **Edge Optimized** — Static generation for instant page loads
+- 🌐 **Web3 Native** — Built for blockchain developers and researchers
 
 ---
 
 ## 🚀 Quick Start
 
 ```bash
+# Clone the repository
+git clone https://github.com/CryptoExplor/builds.git
+cd builds
+
 # Install dependencies
 npm install
 
@@ -69,24 +79,25 @@ Vercel auto-deploys in ~30 seconds. Done! ✅
 ```
 builds/
 ├── app/
-│   ├── layout.jsx          # Root layout
-│   ├── page.jsx            # Home page (server)
-│   ├── globals.css         # Global styles
+│   ├── layout.jsx          # Root layout + metadata
+│   ├── page.jsx            # Home page (server-rendered)
+│   ├── globals.css         # Global styles + Tailwind
 │   ├── components/
-│   │   ├── Navbar.jsx      # Navigation
-│   │   ├── ToolCard.jsx    # Tool cards
+│   │   ├── Navbar.jsx      # Navigation bar
+│   │   ├── ToolCard.jsx    # Project cards
 │   │   ├── ToolGrid.jsx    # Grid with filters (client)
-│   │   ├── StatusBadge.jsx # Status badges
-│   │   └── Footer.jsx      # Footer
+│   │   ├── StatusBadge.jsx # Status indicators
+│   │   └── Footer.jsx      # Footer with links
 │   └── tools/
 │       └── [slug]/
-│           └── page.jsx    # Tool detail pages
+│           └── page.jsx    # Dynamic project pages
 ├── lib/
-│   └── loadTools.js        # Tool loader
+│   └── loadTools.js        # Core: Git-based data loader
 ├── tools/                  # 🔥 ADD YOUR PROJECTS HERE
 │   ├── farmlabs.js
 │   └── tempo.js
-└── ...
+├── .github/                # Templates & workflows
+└── public/                 # Static assets
 ```
 
 ---
@@ -96,12 +107,12 @@ builds/
 This site is deployed on **Vercel** at [cryptoexplor.vercel.app](https://cryptoexplor.vercel.app)
 
 ### Deploy Your Own:
-1. Push to GitHub
-2. Import repo on [Vercel](https://vercel.com)
-3. Framework: **Next.js** (auto-detected)
+1. Fork this repository
+2. Import on [Vercel](https://vercel.com)
+3. Framework preset: **Next.js** (auto-detected)
 4. Deploy!
 
-Every push auto-deploys.
+Every push to `main` triggers auto-deployment.
 
 ---
 
@@ -112,57 +123,80 @@ Every push auto-deploys.
 | Framework | Next.js 14 (App Router) |
 | Styling | Tailwind CSS |
 | Icons | Lucide React |
-| Hosting | Vercel |
-| Data Source | Git (tools/*.js) |
+| Hosting | Vercel (Edge Network) |
+| Data Source | Git (tools/*.js files) |
+| Language | JavaScript |
 
 ---
 
 ## 🎨 Design Philosophy
 
-- **Git = Source of Truth** — No database needed
-- **Auto-everything** — Serial numbers, routing, metadata
-- **Zero manual UI edits** — Just drop files
-- **Fast shipping** — From idea to live in minutes
+- **Git = Database** — No CMS, no API, just version-controlled files
+- **Zero Config** — Drop a file, get a page automatically
+- **Static First** — Build-time generation for maximum speed
+- **Developer UX** — Optimized for shipping fast
 
 ---
 
-## 📝 Example Projects
+## 📝 Current Projects
 
-Current projects on the live site:
+Live projects on the registry:
 
-- **FarmLabs** — Web3 automation suite for EVM testnet testing
-- **Tempo Tools** — Developer utilities for the Tempo ecosystem
+- **[FarmLabs](https://farmlabs.pages.dev)** — Web3 automation suite for EVM testnet testing & wallet simulation
+- **[Tempo Tools](https://tempo.xyz)** — Developer utilities for the Tempo blockchain ecosystem
 
 ---
 
 ## 🔮 Roadmap
 
+- [x] Core registry functionality
+- [x] Search and filters
+- [x] Auto-generated routing
 - [ ] GitHub API integration (stars, last commit)
-- [ ] Tag/category filters
 - [ ] Featured projects flag
-- [ ] Custom domain support
 - [ ] Project screenshots/thumbnails
+- [ ] Tag-based related projects
 - [ ] RSS feed for new projects
+- [ ] Analytics dashboard
 
 ---
 
 ## 🤝 Contributing
 
-Issues and PRs welcome! This is a living project registry.
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
+
+### Quick Contribution Steps:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
-MIT License - See [LICENSE](LICENSE) for details
+MIT License - See [LICENSE](LICENSE) for details.
+
+This means you can use, modify, and distribute this code freely.
 
 ---
 
-## 💬 Contact
+## 💬 Connect
 
-- GitHub: [@CryptoExplor](https://github.com/CryptoExplor)
-- Live Site: [cryptoexplor.vercel.app](https://cryptoexplor.vercel.app)
+<div align="center">
+
+**Tip:** `0x4f6Fb0A6c8A4C667bdF73C0257BE162B144c1624`
+
+Made with 🔥 by **CryptoExplor**
+
+*Trust through transparency*
+
+[![Farcaster](https://img.shields.io/badge/Farcaster-dare1.eth-8A63D2)](https://farcaster.xyz/dare1.eth)
+[![GitHub](https://img.shields.io/badge/GitHub-CryptoExplor-black)](https://github.com/CryptoExplor)
+
+</div>
 
 ---
 
-**Built with ❤️ using Next.js and Vercel**
+**Built with Next.js • Deployed on Vercel**
