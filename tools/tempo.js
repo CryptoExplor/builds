@@ -6,9 +6,9 @@ module.exports = {
   tags: ["tempo", "testnet", "defi", "dex", "nft", "liquidity", "swap", "faucet", "evm"],
   status: "production",
   visibility: "public",
-  liveUrl: "https://tempo.xyz",
+  liveUrl: "https://tempo-dapp.vercel.app/",
   github: "https://github.com/CryptoExplor/tempo",
-  launched: "2024-12-20",
+  launched: "2026-01-10",
   
   // Featured project
   featured: false,
@@ -48,3 +48,4 @@ module.exports = {
   
   keywords: ["tempo", "testnet", "blockchain", "defi", "developer-tools", "evm", "web3"]
 }
+
