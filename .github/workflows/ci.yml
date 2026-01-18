@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-build:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Build project
+        run: npm run build
+
+      - name: Check for build errors
+        run: |
+          if [ -d ".next" ]; then
+            echo "✅ Build successful"
+          else
+            echo "❌ Build failed"
+            exit 1
+          fi
+
+  validate-tools:
+    name: Validate Tool Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Validate tool schema
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          
+          const toolsDir = path.join(process.cwd(), 'tools');
+          const files = fs.readdirSync(toolsDir).filter(f => f.endsWith('.js'));
+          
+          const required = ['name', 'slug', 'description', 'category', 'tags', 'status', 'visibility', 'liveUrl', 'github', 'launched'];
+          let errors = [];
+          
+          files.forEach(file => {
+            const content = fs.readFileSync(path.join(toolsDir, file), 'utf8');
+            const match = content.match(/export\s+default\s+({[\s\S]*?});?\s*$/m);
+            
+            if (!match) {
+              errors.push(\`❌ \${file}: No default export found\`);
+              return;
+            }
+            
+            const tool = eval(\`(\${match[1]})\`);
+            
+            required.forEach(field => {
+              if (!tool[field]) {
+                errors.push(\`❌ \${file}: Missing required field '\${field}'\`);
+              }
+            });
+            
+            if (tool.status && !['alpha', 'beta', 'production', 'paused'].includes(tool.status)) {
+              errors.push(\`❌ \${file}: Invalid status '\${tool.status}'\`);
+            }
+            
+            if (tool.visibility && !['public', 'private'].includes(tool.visibility)) {
+              errors.push(\`❌ \${file}: Invalid visibility '\${tool.visibility}'\`);
+            }
+          });
+          
+          if (errors.length > 0) {
+            console.error('\\n' + errors.join('\\n'));
+            process.exit(1);
+          } else {
+            console.log(\`✅ All \${files.length} tool files are valid\`);
+          }
+          "
+
+  check-duplicates:
+    name: Check Duplicate Slugs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for duplicate slugs
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          
+          const toolsDir = path.join(process.cwd(), 'tools');
+          const files = fs.readdirSync(toolsDir).filter(f => f.endsWith('.js'));
+          
+          const slugs = new Set();
+          let duplicates = [];
+          
+          files.forEach(file => {
+            const content = fs.readFileSync(path.join(toolsDir, file), 'utf8');
+            const match = content.match(/export\s+default\s+({[\s\S]*?});?\s*$/m);
+            
+            if (match) {
+              const tool = eval(\`(\${match[1]})\`);
+              if (slugs.has(tool.slug)) {
+                duplicates.push(\`❌ Duplicate slug '\${tool.slug}' in \${file}\`);
+              }
+              slugs.add(tool.slug);
+            }
+          });
+          
+          if (duplicates.length > 0) {
+            console.error('\\n' + duplicates.join('\\n'));
+            process.exit(1);
+          } else {
+            console.log(\`✅ No duplicate slugs found (\${slugs.size} unique projects)\`);
+          }
+          "
