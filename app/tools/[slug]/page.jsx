@@ -272,9 +272,11 @@ export default function ToolPage({ params }) {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-6 py-3 bg-purple-600/10 hover:bg-purple-600/20 border border-purple-500/20 rounded-lg transition font-medium"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.945 10.215c0-.32-.14-.625-.384-.834a1.166 1.166 0 0 0-.87-.264l-1.857.185V3.594c0-.463-.375-.844-.833-.844H6.999c-.458 0-.833.381-.833.844v5.708l-1.857-.185a1.166 1.166 0 0 0-.87.264 1.166 1.166 0 0 0-.384.834v9.891c0 .462.375.844.833.844h.834v2.531c0 .463.375.844.833.844h2.5c.458 0 .833-.381.833-.844V20.95h5.834v2.531c0 .463.375.844.833.844h2.5c.458 0 .833-.382.833-.844V20.95h.834c.458 0 .833-.382.833-.844v-9.89Z"/>
-                </svg>
+                <img 
+                  src="/farcaster.png" 
+                  alt="Farcaster" 
+                  className="w-5 h-5"
+                />
                 View on Farcaster
               </a>
             )}
