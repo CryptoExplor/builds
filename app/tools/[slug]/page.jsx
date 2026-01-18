@@ -131,6 +131,60 @@ export default function ToolPage({ params }) {
           {/* Description */}
           <p className="text-lg opacity-80 mb-8">{tool.description}</p>
 
+          {/* Features Section */}
+          {tool.features && tool.features.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span>✨</span> Key Features
+              </h2>
+              <div className="grid gap-3">
+                {tool.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+                    <div className="text-lg mt-0.5">{feature.split(' - ')[0]}</div>
+                    <div className="flex-1">
+                      <p className="text-sm opacity-90">
+                        {feature.split(' - ').slice(1).join(' - ')}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Use Cases */}
+          {tool.useCases && tool.useCases.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span>🎯</span> Use Cases
+              </h2>
+              <ul className="space-y-2">
+                {tool.useCases.map((useCase, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm opacity-80">
+                    <span className="text-indigo-400 mt-1">•</span>
+                    <span>{useCase}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Tech Stack */}
+          {tool.techStack && tool.techStack.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <span>🛠️</span> Tech Stack
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {tool.techStack.map((tech, idx) => (
+                  <span key={idx} className="px-3 py-1.5 bg-indigo-500/10 text-indigo-300 rounded-lg text-sm border border-indigo-500/20">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-8">
             {tool.tags.map(tag => (
