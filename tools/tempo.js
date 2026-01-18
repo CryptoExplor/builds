@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   name: "Tempo Tools",
   slug: "tempo",
   description: "Developer tools and utilities for the Tempo ecosystem",
