@@ -8,7 +8,7 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://celo-nft-phi.vercel.app",
   github: "https://github.com/CryptoExplor/CeloNFT",
-  launched: "2024-11-15",
+  launched: "2025-11-15",
   
   // Featured project
   featured: true,
