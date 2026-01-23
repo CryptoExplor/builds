@@ -6,8 +6,8 @@ module.exports = {
   tags: ["intuition", "counter", "dapp", "nft", "badges", "farcaster", "web3", "gaming"],
   status: "production",
   visibility: "public",
-  liveUrl: "https://intuition-counter.vercel.app",
-  github: "https://github.com/CryptoExplor/intuition-counter",
+  liveUrl: "https://intuition-pi.vercel.app",
+  github: "https://github.com/CryptoExplor/intuition",
   launched: "2025-10-23",
   
   // Farcaster integration
