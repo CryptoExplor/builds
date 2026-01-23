@@ -8,7 +8,7 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://stacks-tip-jar.vercel.app",
   github: "https://github.com/CryptoExplor/stacks-tip-jar",
-  launched: "2025-01-05",
+  launched: "2025-12-22",
   
   // Deployment
   chains: ["stacks"],
