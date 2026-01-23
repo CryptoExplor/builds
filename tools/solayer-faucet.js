@@ -8,7 +8,7 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://solayer-devnet-faucet.vercel.app",
   github: "https://github.com/CryptoExplor/Solayer-devnet-faucet",
-  launched: "2025-01-12",
+  launched: "2025-08-24",
   
   // Features
   features: [
