@@ -51,50 +51,77 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Validate tool schema
         run: |
           node -e "
-          const fs = require('fs');
-          const path = require('path');
-          
-          const toolsDir = path.join(process.cwd(), 'tools');
-          const files = fs.readdirSync(toolsDir).filter(f => f.endsWith('.js'));
-          
           const required = ['name', 'slug', 'description', 'category', 'tags', 'status', 'visibility', 'liveUrl', 'github', 'launched'];
+          const validStatuses = ['alpha', 'beta', 'production', 'paused'];
+          const validVisibility = ['public', 'private'];
           let errors = [];
-          
-          files.forEach(file => {
-            const content = fs.readFileSync(path.join(toolsDir, file), 'utf8');
-            const match = content.match(/export\s+default\s+({[\s\S]*?});?\s*$/m);
+
+          // Import the tools using the same method as loadTools.js
+          const tools = {
+            'farmlabs.js': require('./tools/farmlabs.js'),
+            'tempo.js': require('./tools/tempo.js'),
+            'celonft.js': require('./tools/celonft.js'),
+            'circle-faucet.js': require('./tools/circle-faucet.js'),
+            'github-bot.js': require('./tools/github-bot.js'),
+            'nexus-counter.js': require('./tools/nexus-counter.js'),
+            'weather-app.js': require('./tools/weather-app.js'),
+            'stacks-tipjar.js': require('./tools/stacks-tipjar.js'),
+            'intuition-counter.js': require('./tools/intuition-counter.js'),
+            'celo-simulator.js': require('./tools/celo-simulator.js'),
+            'solayer-faucet.js': require('./tools/solayer-faucet.js'),
+          };
+
+          Object.entries(tools).forEach(([file, module]) => {
+            if (file.startsWith('_')) return;
             
-            if (!match) {
-              errors.push(\`❌ \${file}: No default export found\`);
-              return;
-            }
-            
-            const tool = eval(\`(\${match[1]})\`);
-            
+            const tool = module.default || module;
+
+            // Check required fields
             required.forEach(field => {
               if (!tool[field]) {
                 errors.push(\`❌ \${file}: Missing required field '\${field}'\`);
               }
             });
-            
-            if (tool.status && !['alpha', 'beta', 'production', 'paused'].includes(tool.status)) {
+
+            // Validate status
+            if (tool.status && !validStatuses.includes(tool.status)) {
               errors.push(\`❌ \${file}: Invalid status '\${tool.status}'\`);
             }
-            
-            if (tool.visibility && !['public', 'private'].includes(tool.visibility)) {
+
+            // Validate visibility
+            if (tool.visibility && !validVisibility.includes(tool.visibility)) {
               errors.push(\`❌ \${file}: Invalid visibility '\${tool.visibility}'\`);
             }
+
+            // Validate arrays
+            if (!Array.isArray(tool.category) || tool.category.length === 0) {
+              errors.push(\`❌ \${file}: category must be a non-empty array\`);
+            }
+
+            if (!Array.isArray(tool.tags) || tool.tags.length === 0) {
+              errors.push(\`❌ \${file}: tags must be a non-empty array\`);
+            }
+
+            // Validate date format
+            const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+            if (!datePattern.test(tool.launched)) {
+              errors.push(\`❌ \${file}: launched date must be in YYYY-MM-DD format\`);
+            }
           });
-          
+
           if (errors.length > 0) {
             console.error('\\n' + errors.join('\\n'));
             process.exit(1);
           } else {
-            console.log(\`✅ All \${files.length} tool files are valid\`);
+            console.log(\`✅ All \${Object.keys(tools).length} tool files are valid\`);
           }
           "
 
@@ -106,31 +133,45 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Check for duplicate slugs
         run: |
           node -e "
-          const fs = require('fs');
-          const path = require('path');
-          
-          const toolsDir = path.join(process.cwd(), 'tools');
-          const files = fs.readdirSync(toolsDir).filter(f => f.endsWith('.js'));
-          
+          const tools = {
+            'farmlabs.js': require('./tools/farmlabs.js'),
+            'tempo.js': require('./tools/tempo.js'),
+            'celonft.js': require('./tools/celonft.js'),
+            'circle-faucet.js': require('./tools/circle-faucet.js'),
+            'github-bot.js': require('./tools/github-bot.js'),
+            'nexus-counter.js': require('./tools/nexus-counter.js'),
+            'weather-app.js': require('./tools/weather-app.js'),
+            'stacks-tipjar.js': require('./tools/stacks-tipjar.js'),
+            'intuition-counter.js': require('./tools/intuition-counter.js'),
+            'celo-simulator.js': require('./tools/celo-simulator.js'),
+            'solayer-faucet.js': require('./tools/solayer-faucet.js'),
+          };
+
           const slugs = new Set();
           let duplicates = [];
-          
-          files.forEach(file => {
-            const content = fs.readFileSync(path.join(toolsDir, file), 'utf8');
-            const match = content.match(/export\s+default\s+({[\s\S]*?});?\s*$/m);
+
+          Object.entries(tools).forEach(([file, module]) => {
+            if (file.startsWith('_')) return;
             
-            if (match) {
-              const tool = eval(\`(\${match[1]})\`);
-              if (slugs.has(tool.slug)) {
-                duplicates.push(\`❌ Duplicate slug '\${tool.slug}' in \${file}\`);
-              }
-              slugs.add(tool.slug);
+            const tool = module.default || module;
+            if (slugs.has(tool.slug)) {
+              duplicates.push(\`❌ Duplicate slug '\${tool.slug}' in \${file}\`);
             }
+            slugs.add(tool.slug);
           });
-          
+
           if (duplicates.length > 0) {
             console.error('\\n' + duplicates.join('\\n'));
             process.exit(1);
