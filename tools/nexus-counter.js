@@ -8,10 +8,10 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://nexus-counter.vercel.app",
   github: "https://github.com/CryptoExplor/nexus-counter-app",
-  launched: "2025-01-10",
+  launched: "2025-11-07",
   
   // Farcaster integration
-  farcaster: "https://warpcast.com/~/composers?embeds[]=https://nexus-counter.vercel.app",
+  farcaster: "https://farcaster.xyz/miniapps/Nf8kjDxT6YXs/nexus-counter",
   
   // Deployment
   chains: ["nexus-testnet"],
