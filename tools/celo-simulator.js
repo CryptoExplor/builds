@@ -8,7 +8,7 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://github.com/CryptoExplor/Celo-Wallet-Simulator",
   github: "https://github.com/CryptoExplor/Celo-Wallet-Simulator",
-  launched: "2024-11-20",
+  launched: "2025-11-19",
   
   // Features
   features: [
