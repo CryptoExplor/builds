@@ -8,7 +8,7 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://githubbot-html.vercel.app",
   github: "https://github.com/CryptoExplor/GitHub-Contribution-Bot",
-  launched: "2025-01-15",
+  launched: "2025-11-12",
   
   // Detailed features
   features: [
