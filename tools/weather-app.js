@@ -8,10 +8,10 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://weather-base-app.vercel.app",
   github: "https://github.com/CryptoExplor/weather-mini-app",
-  launched: "2024-12-05",
+  launched: "2025-11-09",
   
   // Farcaster integration
-  farcaster: "https://warpcast.com/~/composers?embeds[]=https://weather-base-app.vercel.app",
+  farcaster: "https://farcaster.xyz/miniapps/EqlgelQ1dlTV/castweather",
   
   // Features
   features: [
