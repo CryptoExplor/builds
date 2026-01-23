@@ -8,10 +8,10 @@ module.exports = {
   visibility: "public",
   liveUrl: "https://intuition-counter.vercel.app",
   github: "https://github.com/CryptoExplor/intuition-counter",
-  launched: "2024-12-28",
+  launched: "2025-10-23",
   
   // Farcaster integration
-  farcaster: "https://warpcast.com/~/composers?embeds[]=https://intuition-counter.vercel.app",
+  farcaster: "https://farcaster.xyz/miniapps/WRKou2E_oREh/intuition-counter",
   
   // Features
   features: [
