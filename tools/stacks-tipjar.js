@@ -6,7 +6,7 @@ module.exports = {
   tags: ["stacks", "bitcoin", "clarity", "tipjar", "dapp", "farcaster", "web3"],
   status: "production",
   visibility: "public",
-  liveUrl: "https://stacks-tip-jar.vercel.app",
+  liveUrl: "https://stacks-jar.vercel.app",
   github: "https://github.com/CryptoExplor/stacks-tip-jar",
   launched: "2025-12-22",
   
