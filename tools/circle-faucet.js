@@ -1,106 +1,62 @@
 module.exports = {
   name: "Circle Faucet",
   slug: "circle-faucet",
-  description:
-    "A secure, API-key–powered USDC/EURC faucet built on Circle APIs, supporting per-user API keys, admin-protected default keys, rate limiting, and multi-network token distribution with abuse protection.",
-  
+  description: "A secure, serverless multi-key testnet token claimer built on Circle APIs with password-protected default keys, round-robin API key rotation, automatic fallback, and persistent analytics powered by Vercel KV (Redis). Supports USDC/EURC distribution across 10+ networks.",
   category: ["Faucet", "Web3", "Infrastructure"],
-  
-  tags: [
-    "circle",
-    "usdc",
-    "eurc",
-    "faucet",
-    "api",
-    "web3",
-    "stablecoin",
-    "testnet",
-    "infrastructure"
-  ],
-  
+  tags: ["circle", "usdc", "eurc", "faucet", "api", "web3", "stablecoin", "testnet", "infrastructure", "vercel-kv"],
   status: "production",
   visibility: "public",
-  
   liveUrl: "https://circle-api-faucet.vercel.app",
   github: "https://github.com/CryptoExplor/Circle-Faucet",
-  
   launched: "2026-01-20",
-
-  // Featured in your tools directory
+  
+  // Featured project
   featured: true,
-
-  // Supported assets & chains
-  chains: [
-    "ethereum",
-    "polygon",
-    "avalanche",
-    "arbitrum",
-    "optimism",
-    "base"
-  ],
-
-  assets: ["USDC", "EURC"],
-
-  // Faucet configuration
-  faucet: {
-    claimLimit: "5 claims per API key per 24 hours",
-    cooldown: "24 hours per wallet",
-    amount: {
-      usdc: "Configurable (admin controlled)",
-      eurc: "Configurable (admin controlled)"
-    }
-  },
-
-  // Security & access control
-  security: {
-    userApiKeys: true,
-    adminApiKeys: true,
-    adminPasswordProtected: true,
-    rateLimiting: true,
-    abusePrevention: [
-      "per-api-key limits",
-      "per-wallet cooldown",
-      "server-side validation",
-      "Vercel environment isolation"
-    ]
-  },
-
-  // Core features
+  
+  // Supported networks
+  chains: ["ethereum", "polygon", "avalanche", "arbitrum", "optimism", "base", "solana", "aptos"],
+  
+  // Detailed features
   features: [
-    "🔑 User-Supplied Circle API Keys – Users claim using their own API credentials",
-    "🛡️ Admin-Protected Default Keys – Optional fallback keys secured by password",
-    "⏱️ Rate Limiting – Max 5 claims per API key every 24 hours",
-    "🌍 Multi-Network Support – Ethereum, Polygon, Arbitrum, Optimism, Base",
-    "💵 Stablecoin Faucet – USDC & EURC distribution via Circle APIs",
-    "📊 Claim Tracking – Per-key and per-wallet usage monitoring",
-    "🚀 Vercel-Optimized – Serverless, fast, and globally distributed"
+    "🔑 Dual Mode - User API keys (unlimited) or password-protected default faucet (1/24h)",
+    "🔄 Smart Key Rotation - Round-robin distribution across multiple API keys",
+    "🛡️ Automatic Fallback - Tries next key if one fails or hits rate limit",
+    "📊 Persistent Analytics - Vercel KV (Redis) for real-time stats that survive restarts",
+    "🌍 Multi-Network - ARC, ETH, AVAX, MATIC, SOL, ARB, UNI, BASE, OP, APTOS testnets",
+    "💵 Dual Token - USDC & EURC distribution via Circle APIs",
+    "⏱️ Rate Limiting - 1 claim/wallet/network/24h (default mode), DoS protection",
+    "📈 Live Dashboard - Success rates, key usage, network distribution, uptime tracking"
   ],
-
+  
+  // Technical details
+  keyFeatures: {
+    rotation: "Round-robin with automatic cycling",
+    fallback: "Tries all keys before failing",
+    analytics: "Vercel KV for true persistence",
+    security: "Password-protected, API key hashing, rate limiting"
+  },
+  
   // Tech stack
   techStack: [
-    "Node.js",
-    "Express",
+    "Node.js + Express",
     "Circle API",
     "Vercel Serverless Functions",
-    "Vercel Environment Variables",
-    "Redis / KV (rate limiting)",
-    "Vanilla JS frontend"
+    "Vercel KV (Redis)",
+    "Vanilla JS Frontend"
   ],
-
+  
+  // Network support
+  networkInfo: {
+    supported: "10+ testnets",
+    tokens: "USDC, EURC",
+    analytics: "/analytics.html endpoint"
+  },
+  
   stats: {
     github_stars: 0,
     deployments: 1,
     security_audit: "internal"
   },
-
-  keywords: [
-    "circle",
-    "usdc",
-    "eurc",
-    "faucet",
-    "stablecoin",
-    "web3",
-    "infrastructure",
-    "api"
-  ]
-};
+  
+  keywords: ["circle", "usdc", "eurc", "faucet", "stablecoin", "web3", "infrastructure", "api", "redis", "vercel"]
+}
