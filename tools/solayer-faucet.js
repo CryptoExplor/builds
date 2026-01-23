@@ -6,7 +6,7 @@ module.exports = {
   tags: ["solayer", "solana", "faucet", "automation", "devnet", "browser", "client-side"],
   status: "production",
   visibility: "public",
-  liveUrl: "https://solayer-devnet-faucet.vercel.app",
+  liveUrl: "https://solayer-devnet.vercel.app",
   github: "https://github.com/CryptoExplor/Solayer-devnet-faucet",
   launched: "2025-08-24",
   
