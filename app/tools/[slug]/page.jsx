@@ -82,7 +82,7 @@ export default function ToolPage({ params }) {
       <div className="min-h-screen bg-[#0b0f14] text-white">
         <div className="max-w-3xl mx-auto px-6 py-20 text-center">
           <h1 className="text-2xl font-bold mb-4">Project not found</h1>
-          <p className="opacity-60 mb-6">The project you're looking for doesn't exist or has been removed.</p>
+          <p className="opacity-60 mb-6">The project you&apos;re looking for doesn&apos;t exist or has been removed.</p>
           <Link href="/" className="text-indigo-400 hover:underline inline-flex items-center gap-2">
             <ArrowLeft size={16} />
             Back to all projects
