@@ -80,6 +80,21 @@ function validate(tool, file, errors) {
   if (tool.farcaster && !isValidUrl(tool.farcaster)) {
     errors.push(`${file}: farcaster is not a valid URL: ${tool.farcaster}`)
   }
+
+  // app/tools/[slug]/page.jsx splits features on ' - ' to fill the label and
+  // detail columns. An em dash, or no separator at all, renders the whole string
+  // in the label column and leaves the detail column empty.
+  if (Array.isArray(tool.features)) {
+    tool.features.forEach((feature, i) => {
+      if (typeof feature !== 'string' || !feature.includes(' - ')) {
+        errors.push(
+          `${file}: features[${i}] must use the " - " separator (label - detail), got: ${String(
+            feature
+          ).slice(0, 60)}`
+        )
+      }
+    })
+  }
 }
 
 /**

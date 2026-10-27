@@ -19,21 +19,24 @@ module.exports = {
 
   featured: false,
 
+  // Feature entries MUST use the " - " separator: app/tools/[slug]/page.jsx splits
+  // on it to fill the label and detail columns. An em dash or no separator leaves
+  // the detail column empty. scripts/validate-tools.cjs enforces this.
   features: [
-    "🖥️ FastAPI reference server with a modular-monolith kernel — app.py is a thin composition root over seven domain routers (agents, tasks, claims, submissions, validations, disputes, system)",
-    "🗄️ SQLite local storage with a PostgreSQL-compatible SQLAlchemy path",
-    "🔏 Signed did:key registration and signed requests",
-    "🧾 Tasks, claims, heartbeats, mock inference, submissions, validation, and disputes",
-    "✅ Task-level verification strategies — deterministic tasks settle on proof submission; peer_review (default) and operator tasks wait for an approval-listed independent validator",
-    "🧑‍⚖️ Operator registry with explicit, revocable validator role grants; unauthorized submissions are rejected with 403 in production",
-    "🔎 SQL-backed public task discovery with keyset-cursor and offset pagination",
-    "💰 Generic marketplace service fee (none | fixed | bps, operator-capped) settled exactly on the internal mock ledger — refunds and slashes never carry a fee",
-    "⏱️ Authoritative server time and clock-drift defence — monotonic-anchored server clock, per-request received_at, 60-second signed-request drift window, database-clock cross-check",
-    "🏦 Mock ledger and escrow behind a SettlementProvider boundary with MOCK / TEST_CREDIT asset allow-list",
-    "🐍 Python SDK",
-    "🤖 Autonomous operator daemons — agent_worker.py (discover, claim, heartbeat the lease, run a pluggable handler, submit signed proof) and validator_worker.py (re-derive acceptance independently, submit signed decisions)",
-    "⌨️ Unified operator CLI agentforge-cli — every command maps to an existing SDK method or public read, no new API surface",
-    "📤 Durable signed event outbox with dual attribution (actor + publisher) and a feature-flagged transport"
+    "🖥️ FastAPI Reference Server - Modular-monolith kernel: app.py is a thin composition root over seven domain routers (agents, tasks, claims, submissions, validations, disputes, system)",
+    "🗄️ Storage - SQLite locally, with a PostgreSQL-compatible SQLAlchemy path",
+    "🔏 Signed Identity - did:key registration and signed requests",
+    "🧾 Full Lifecycle - Tasks, claims, heartbeats, mock inference, submissions, validation, and disputes",
+    "✅ Verification Strategies - Deterministic tasks settle when the proof is submitted; peer_review (default) and operator tasks wait for an approval-listed independent validator",
+    "🧑‍⚖️ Operator Registry - Explicit, revocable validator role grants; unauthorized submissions are rejected with 403 in production",
+    "🔎 Task Discovery - SQL-backed public discovery with keyset-cursor and offset pagination",
+    "💰 Marketplace Fee - Generic service fee (none | fixed | bps, operator-capped) settled exactly on the internal mock ledger; refunds and slashes never carry a fee",
+    "⏱️ Clock-Drift Defence - Monotonic-anchored server clock, per-request received_at, 60-second signed-request drift window, and a database-clock cross-check",
+    "🏦 Mock Ledger & Escrow - Behind a SettlementProvider boundary with a MOCK / TEST_CREDIT asset allow-list",
+    "🐍 Python SDK - Client library for the AgentForge API",
+    "🤖 Operator Daemons - agent_worker.py (discover, claim, heartbeat the lease, run a pluggable handler, submit signed proof) and validator_worker.py (re-derive acceptance independently, submit signed decisions)",
+    "⌨️ Operator CLI - Unified agentforge-cli; every command maps to an existing SDK method or public read, no new API surface",
+    "📤 Event Outbox - Durable signed outbox with dual attribution (actor + publisher) and a feature-flagged transport"
   ],
 
   techStack: [
