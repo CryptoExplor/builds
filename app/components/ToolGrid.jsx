@@ -149,9 +149,9 @@ export default function ToolGrid({ tools }) {
           <div className="mb-4 text-xs uppercase tracking-[0.2em] text-white/40">
             Showing {filteredTools.length} of {tools.length} projects
           </div>
-          <div ref={gridRef} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div ref={gridRef} className="grid auto-rows-fr gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredTools.map(tool => (
-              <div key={tool.slug} data-card>
+              <div key={tool.slug} data-card className="h-full">
                 <ToolCard tool={tool} />
               </div>
             ))}
