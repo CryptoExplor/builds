@@ -9,7 +9,7 @@
  */
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { MapPin, Globe, CalendarDays, Github, Twitter, Rss } from 'lucide-react'
+import { MapPin, Globe, CalendarDays, Github, Twitter } from 'lucide-react'
 import { PROFILE } from '@/lib/profile'
 
 export default function ProfileHero({ toolCount, miniAppCount, chainCount }) {

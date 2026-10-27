@@ -55,10 +55,7 @@ module.exports = {
   ],
 
   stats: {
-    github_stars: 0,
-    deployments: 1,
-    gas_optimized: false,
-    security_audit: "none"
+    github_stars: 0
   },
 
   keywords: ["base", "nft", "battle-arena", "gaming", "opensea", "farcaster", "mini-app", "siwe", "wagmi", "viem"]

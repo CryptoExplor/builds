@@ -119,7 +119,7 @@ builds/
 │   └── statusStyles.js        # Centralized status badge styles
 ├── scripts/
 │   └── validate-tools.cjs     # Scans tools/ — schema + duplicate slugs
-├── tools/                     # 🔥 ADD YOUR PROJECTS HERE (21 files)
+├── tools/                     # 🔥 ADD YOUR PROJECTS HERE (24 files)
 │   ├── _TEMPLATE.js           # Schema reference (skipped by the loader)
 │   ├── farmlabs.js
 │   └── ...
@@ -174,7 +174,7 @@ Every push to `main` triggers auto-deployment.
 
 ## 📝 Current Projects
 
-The registry holds **20 public projects** (21 tool files; 1 currently private). Run `npm run validate` to print the live list.
+The registry holds **23 public projects** (24 tool files; 1 currently private), drawn from two GitHub accounts: [CryptoExplor](https://github.com/CryptoExplor) and the [buildbyravi](https://github.com/buildbyravi) org. Run `npm run validate` to print the live list.
 
 Featured / flagship:
 

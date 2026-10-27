@@ -5,9 +5,10 @@ module.exports = {
   category: ["Blockchain", "DevTools", "DeFi"],
   tags: ["tempo", "testnet", "defi", "dex", "nft", "liquidity", "swap", "faucet", "evm"],
   status: "production",
-  // HIDDEN 2026-10-27: the source repo https://github.com/CryptoExplor/tempo returns
-  // HTTP 403 (deleted or made private), so the GitHub link on the detail page is dead.
-  // Set back to "public" once the repo is reachable again.
+  // HIDDEN 2026-10-27: https://github.com/CryptoExplor/tempo is a PRIVATE repo
+  // (confirmed by the owner). The GitHub API returns 403 for it, so the repo link
+  // on the detail page would 404 for every visitor. Set back to "public" if the
+  // repo is ever made public.
   visibility: "private",
   liveUrl: "https://tempo-dapp.vercel.app/",
   github: "https://github.com/CryptoExplor/tempo",

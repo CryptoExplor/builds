@@ -49,10 +49,7 @@ module.exports = {
   ],
 
   stats: {
-    github_stars: 0,
-    deployments: 1,
-    gas_optimized: false,
-    security_audit: "none"
+    github_stars: 0
   },
 
   keywords: ["teqoin", "faucet", "telegram-mini-app", "l2", "testnet", "usdt", "usdc", "dai", "cors-proxy"]

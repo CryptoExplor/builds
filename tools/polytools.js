@@ -76,11 +76,9 @@ module.exports = {
     "The backend facade speaks MCP server-side and re-exposes CORS-open GET JSON. It is not a private-account proxy and must not receive account private keys."
   ],
 
+  // Only verified values: star count from the GitHub API.
   stats: {
-    github_stars: 0,
-    deployments: 1,
-    gas_optimized: false,
-    security_audit: "none"
+    github_stars: 0
   },
 
   keywords: ["polyester", "polytools", "order-book", "market-data", "dex", "cross-chain", "mcp", "typescript", "defi"]

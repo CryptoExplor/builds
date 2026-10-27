@@ -43,10 +43,7 @@ module.exports = {
   ],
 
   stats: {
-    github_stars: 0,
-    deployments: 5,
-    gas_optimized: true,
-    security_audit: "none"
+    github_stars: 0
   },
 
   keywords: ["omnitap", "multichain", "tap-to-earn", "counter-dapp", "leaderboard", "base", "arbitrum", "bsc", "celo", "monad"]

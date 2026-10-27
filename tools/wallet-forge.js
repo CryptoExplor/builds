@@ -50,12 +50,11 @@ module.exports = {
     auditability: "Single open-source HTML file"
   },
 
+  // version + license are from the README badges; stars from the GitHub API.
   stats: {
     github_stars: 0,
-    deployments: 1,
     version: "2.1.0",
-    license: "MIT",
-    security_audit: "self-auditable"
+    license: "MIT"
   },
 
   keywords: ["wallet-forge", "private-keys", "eip-55", "bip-39", "seed-phrase", "client-side", "offline", "crypto-tools"]

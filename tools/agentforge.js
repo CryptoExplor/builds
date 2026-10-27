@@ -59,10 +59,10 @@ module.exports = {
     "The SDK architecture and discovery scalability plans remain design records, not implemented subscriptions, a broker, or a concurrency claim."
   ],
 
+  // security_audit "pending" is from the README: "independent review and
+  // production verification are pending".
   stats: {
     github_stars: 0,
-    deployments: 0,
-    gas_optimized: false,
     security_audit: "pending"
   },
 

@@ -41,10 +41,7 @@ module.exports = {
   ],
 
   stats: {
-    github_stars: 0,
-    deployments: 0,
-    gas_optimized: true,
-    security_audit: "n/a"
+    github_stars: 0
   },
 
   keywords: ["hardhat", "create2", "deterministic-deployment", "multichain", "evm", "deploy-scripts", "etherscan", "blockscout"]

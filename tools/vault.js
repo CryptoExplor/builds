@@ -45,9 +45,7 @@ module.exports = {
   ],
 
   stats: {
-    github_stars: 0,
-    deployments: 1,
-    security_audit: "none"
+    github_stars: 0
   },
 
   keywords: ["vault", "password-manager", "notes", "local-encryption", "zero-knowledge", "privacy", "master-password"]

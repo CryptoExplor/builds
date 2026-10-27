@@ -68,6 +68,41 @@ export default function ProfileSections() {
         </div>
       </Reveal>
 
+      {/* GitHub accounts */}
+      <Reveal className="mb-14" y={24}>
+        <h2 className="text-2xl font-bold mb-1">Where the code lives</h2>
+        <p className="text-sm text-white/50 mb-6">
+          This registry pulls from two GitHub accounts.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {PROFILE.accounts.map(account => (
+            <a
+              key={account.login}
+              href={account.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-[#111827] p-5 hover:border-indigo-500/60 transition"
+            >
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-semibold group-hover:text-indigo-300 transition">
+                    {account.login}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.14em] px-2 py-0.5 rounded-full border border-white/10 bg-white/[0.04] text-white/50">
+                    {account.kind}
+                  </span>
+                </div>
+                <p className="text-xs text-white/55 mt-2 leading-relaxed">{account.note}</p>
+              </div>
+              <ExternalLink
+                size={15}
+                className="mt-0.5 shrink-0 opacity-35 group-hover:opacity-90 transition"
+              />
+            </a>
+          ))}
+        </div>
+      </Reveal>
+
       {/* Signals */}
       <Reveal className="mb-4" y={24}>
         <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-500/[0.08] to-cyan-500/[0.04] p-6">
