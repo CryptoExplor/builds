@@ -7,7 +7,8 @@ module.exports = {
   status: "production",
   visibility: "public",
   liveUrl: "https://stacks-jar.vercel.app",
-  github: "https://github.com/CryptoExplor/stacks-tip-jar",
+  // Canonical repo casing: Stacks-Tip-Jar
+  github: "https://github.com/CryptoExplor/Stacks-Tip-Jar",
   launched: "2025-12-22",
   
   // Deployment

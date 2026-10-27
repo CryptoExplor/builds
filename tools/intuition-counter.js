@@ -4,7 +4,9 @@ module.exports = {
   description: "A decentralized counter application built as a Farcaster Mini App featuring evolving badge NFTs based on interaction levels, a top-50 leaderboard, seamless wallet integration, and gamified blockchain interactions with real-time updates.",
   category: ["dApp", "Gaming", "NFT"],
   tags: ["intuition", "counter", "dapp", "nft", "badges", "farcaster", "web3", "gaming"],
-  status: "production",
+  // PAUSED 2026-10-27: the source repo https://github.com/CryptoExplor/intuition
+  // is archived on GitHub (archived=true), so it is no longer under active development.
+  status: "paused",
   visibility: "public",
   liveUrl: "https://intuition-pi.vercel.app",
   github: "https://github.com/CryptoExplor/intuition",

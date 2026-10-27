@@ -51,80 +51,14 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      # Schema validation + duplicate-slug check in one pass.
+      # scripts/validate-tools.cjs scans tools/*.js itself, so new tool files are
+      # covered automatically — no hardcoded filename list to keep in sync.
+      - name: Validate tool schema and slugs
+        run: node scripts/validate-tools.cjs --list
 
-      - name: Validate tool schema
-        run: |
-          node -e "
-          const required = ['name', 'slug', 'description', 'category', 'tags', 'status', 'visibility', 'liveUrl', 'github', 'launched'];
-          const validStatuses = ['alpha', 'beta', 'production', 'paused'];
-          const validVisibility = ['public', 'private'];
-          let errors = [];
-
-          // Import the tools using the same method as loadTools.js
-          const tools = {
-            'farmlabs.js': require('./tools/farmlabs.js'),
-            'tempo.js': require('./tools/tempo.js'),
-            'celonft.js': require('./tools/celonft.js'),
-            'circle-faucet.js': require('./tools/circle-faucet.js'),
-            'github-bot.js': require('./tools/github-bot.js'),
-            'nexus-counter.js': require('./tools/nexus-counter.js'),
-            'weather-app.js': require('./tools/weather-app.js'),
-            'stacks-tipjar.js': require('./tools/stacks-tipjar.js'),
-            'intuition-counter.js': require('./tools/intuition-counter.js'),
-            'celo-simulator.js': require('./tools/celo-simulator.js'),
-            'solayer-faucet.js': require('./tools/solayer-faucet.js'),
-          };
-
-          Object.entries(tools).forEach(([file, module]) => {
-            if (file.startsWith('_')) return;
-            
-            const tool = module.default || module;
-
-            // Check required fields
-            required.forEach(field => {
-              if (!tool[field]) {
-                errors.push(\`❌ \${file}: Missing required field '\${field}'\`);
-              }
-            });
-
-            // Validate status
-            if (tool.status && !validStatuses.includes(tool.status)) {
-              errors.push(\`❌ \${file}: Invalid status '\${tool.status}'\`);
-            }
-
-            // Validate visibility
-            if (tool.visibility && !validVisibility.includes(tool.visibility)) {
-              errors.push(\`❌ \${file}: Invalid visibility '\${tool.visibility}'\`);
-            }
-
-            // Validate arrays
-            if (!Array.isArray(tool.category) || tool.category.length === 0) {
-              errors.push(\`❌ \${file}: category must be a non-empty array\`);
-            }
-
-            if (!Array.isArray(tool.tags) || tool.tags.length === 0) {
-              errors.push(\`❌ \${file}: tags must be a non-empty array\`);
-            }
-
-            // Validate date format
-            const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-            if (!datePattern.test(tool.launched)) {
-              errors.push(\`❌ \${file}: launched date must be in YYYY-MM-DD format\`);
-            }
-          });
-
-          if (errors.length > 0) {
-            console.error('\\n' + errors.join('\\n'));
-            process.exit(1);
-          } else {
-            console.log(\`✅ All \${Object.keys(tools).length} tool files are valid\`);
-          }
-          "
-
-  check-duplicates:
-    name: Check Duplicate Slugs
+  registry-sync:
+    name: Check Registry Sync
     runs-on: ubuntu-latest
 
     steps:
@@ -136,43 +70,27 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check for duplicate slugs
+      # Catches the classic failure mode: a file exists in tools/ but was never
+      # registered in lib/loadTools.js, so it silently never reaches the site.
+      - name: Verify every tool file is registered in lib/loadTools.js
         run: |
           node -e "
-          const tools = {
-            'farmlabs.js': require('./tools/farmlabs.js'),
-            'tempo.js': require('./tools/tempo.js'),
-            'celonft.js': require('./tools/celonft.js'),
-            'circle-faucet.js': require('./tools/circle-faucet.js'),
-            'github-bot.js': require('./tools/github-bot.js'),
-            'nexus-counter.js': require('./tools/nexus-counter.js'),
-            'weather-app.js': require('./tools/weather-app.js'),
-            'stacks-tipjar.js': require('./tools/stacks-tipjar.js'),
-            'intuition-counter.js': require('./tools/intuition-counter.js'),
-            'celo-simulator.js': require('./tools/celo-simulator.js'),
-            'solayer-faucet.js': require('./tools/solayer-faucet.js'),
-          };
+          const fs = require('fs');
+          const path = require('path');
+          const loader = fs.readFileSync('lib/loadTools.js', 'utf8');
 
-          const slugs = new Set();
-          let duplicates = [];
+          const files = fs.readdirSync('tools')
+            .filter(f => f.endsWith('.js') && !f.startsWith('_'))
+            .sort();
 
-          Object.entries(tools).forEach(([file, module]) => {
-            if (file.startsWith('_')) return;
-            
-            const tool = module.default || module;
-            if (slugs.has(tool.slug)) {
-              duplicates.push(\`❌ Duplicate slug '\${tool.slug}' in \${file}\`);
-            }
-            slugs.add(tool.slug);
-          });
+          const missing = files.filter(f => !loader.includes(\`tools/\${f}\`));
 
-          if (duplicates.length > 0) {
-            console.error('\\n' + duplicates.join('\\n'));
+          if (missing.length > 0) {
+            console.error('❌ Present in tools/ but not registered in lib/loadTools.js:');
+            missing.forEach(f => console.error('   - ' + f));
+            console.error('   Add them to the importAllTools() map so they render on the site.');
             process.exit(1);
-          } else {
-            console.log(\`✅ No duplicate slugs found (\${slugs.size} unique projects)\`);
           }
+
+          console.log('✅ All ' + files.length + ' tool files are registered in lib/loadTools.js');
           "

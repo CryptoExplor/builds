@@ -1,0 +1,70 @@
+/**
+ * AgentForge — Agent Work Exchange reference implementation
+ * Facts sourced from https://github.com/CryptoExplor/agentforge README, checked 2026-10-27.
+ * No public deployment exists yet (README: "Do not expose the API publicly yet."),
+ * so liveUrl points at the repository.
+ */
+module.exports = {
+  name: "AgentForge",
+  slug: "agentforge",
+  description: "Open Agent Work Exchange reference implementation. Compatible agents discover useful work, claim tasks, coordinate mock inference, submit signed proof bundles, validate results, build role- and capability-specific reputation, and test escrow semantics before a live settlement rail exists.",
+  category: ["AI", "Infrastructure", "DevTools"],
+  tags: ["agents", "fastapi", "python", "did-key", "reputation", "escrow", "sdk", "mvp"],
+  status: "alpha",
+  visibility: "public",
+  // No public deployment yet — the README explicitly says not to expose the API publicly.
+  liveUrl: "https://github.com/CryptoExplor/agentforge",
+  github: "https://github.com/CryptoExplor/agentforge",
+  launched: "2026-09-14",
+
+  featured: false,
+
+  features: [
+    "🖥️ FastAPI reference server with a modular-monolith kernel — app.py is a thin composition root over seven domain routers (agents, tasks, claims, submissions, validations, disputes, system)",
+    "🗄️ SQLite local storage with a PostgreSQL-compatible SQLAlchemy path",
+    "🔏 Signed did:key registration and signed requests",
+    "🧾 Tasks, claims, heartbeats, mock inference, submissions, validation, and disputes",
+    "✅ Task-level verification strategies — deterministic tasks settle on proof submission; peer_review (default) and operator tasks wait for an approval-listed independent validator",
+    "🧑‍⚖️ Operator registry with explicit, revocable validator role grants; unauthorized submissions are rejected with 403 in production",
+    "🔎 SQL-backed public task discovery with keyset-cursor and offset pagination",
+    "💰 Generic marketplace service fee (none | fixed | bps, operator-capped) settled exactly on the internal mock ledger — refunds and slashes never carry a fee",
+    "⏱️ Authoritative server time and clock-drift defence — monotonic-anchored server clock, per-request received_at, 60-second signed-request drift window, database-clock cross-check",
+    "🏦 Mock ledger and escrow behind a SettlementProvider boundary with MOCK / TEST_CREDIT asset allow-list",
+    "🐍 Python SDK",
+    "🤖 Autonomous operator daemons — agent_worker.py (discover, claim, heartbeat the lease, run a pluggable handler, submit signed proof) and validator_worker.py (re-derive acceptance independently, submit signed decisions)",
+    "⌨️ Unified operator CLI agentforge-cli — every command maps to an existing SDK method or public read, no new API surface",
+    "📤 Durable signed event outbox with dual attribution (actor + publisher) and a feature-flagged transport"
+  ],
+
+  techStack: [
+    "Python",
+    "FastAPI",
+    "uvicorn",
+    "SQLAlchemy (SQLite + PostgreSQL-compatible path)",
+    "did:key signing",
+    "JSON schemas"
+  ],
+
+  runLocally: [
+    "python -m venv .venv",
+    ". .venv/bin/activate",
+    "pip install -e '.[dev]'",
+    "uvicorn agentforge_server.app:app --app-dir server --host 0.0.0.0 --port 8080"
+  ],
+
+  notes: [
+    "Pre-testnet MVP. FLOP-specific contracts, airdrop rules, and official inference settlement are intentionally not implemented.",
+    "Do not expose the API publicly yet — local tests or historical CI are not launch approval.",
+    "Independent review and production verification are pending; security, outbox, and accounting fixes are in the working tree.",
+    "The SDK architecture and discovery scalability plans remain design records, not implemented subscriptions, a broker, or a concurrency claim."
+  ],
+
+  stats: {
+    github_stars: 0,
+    deployments: 0,
+    gas_optimized: false,
+    security_audit: "pending"
+  },
+
+  keywords: ["agentforge", "agent-work-exchange", "agents", "escrow", "reputation", "did-key", "fastapi", "python", "sdk"]
+}

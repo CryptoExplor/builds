@@ -6,7 +6,8 @@ module.exports = {
   tags: ["circle", "usdc", "eurc", "faucet", "api", "web3", "stablecoin", "testnet", "infrastructure", "vercel-kv"],
   status: "production",
   visibility: "public",
-  liveUrl: "https://circle-api-faucet.vercel.app",
+  // Updated 2026-10-27 to the current `homepage` field on the Circle-Faucet repo
+  liveUrl: "https://circle-faucet-alpha.vercel.app",
   github: "https://github.com/CryptoExplor/Circle-Faucet",
   launched: "2026-01-20",
   
