@@ -90,7 +90,10 @@ export default function ToolGrid({ tools }) {
           }),
       })
 
-      return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      // No explicit cleanup here on purpose: ScrollTrigger.getAll() would kill
+      // every trigger on the page, including the Reveal triggers owned by the
+      // profile sections in app/page.jsx, leaving them stuck at opacity: 0.
+      // The mm.revert() below already reverts this grid's own triggers.
     })
 
     return () => mm.revert()

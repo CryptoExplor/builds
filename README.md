@@ -13,7 +13,7 @@
 
 ## ✨ Features
 
-- 🔄 **Auto-sync** — Add a `.js` file, push, and it's live in 30 seconds
+- 🔄 **Git-backed** — Add a `.js` file, register it, push, and it's live in 30 seconds
 - 🔍 **Smart Search** — Find projects by name, tags, or description
 - 🏷️ **Status Filters** — Filter by production, beta, alpha, or paused
 - 📊 **Auto Serials** — Projects numbered automatically by launch date

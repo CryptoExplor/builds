@@ -185,6 +185,8 @@ export default function ProfileHero({ toolCount, miniAppCount, chainCount }) {
         >
           {headlineWords.map((word, i) => (
             <span key={word} className="inline-block overflow-hidden align-bottom pr-3">
+              {/* Real space so copied/announced text reads as three words, not one run-on */}
+              {i > 0 && <span aria-hidden="true"> </span>}
               <span
                 className={`inline-block ${
                   i === 0

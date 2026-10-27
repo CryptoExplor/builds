@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+# Least privilege: these jobs only read the checkout.
+permissions:
+  contents: read
+
 jobs:
   lint-and-build:
     name: Lint & Build
@@ -51,46 +55,9 @@ jobs:
         with:
           node-version: '18'
 
-      # Schema validation + duplicate-slug check in one pass.
-      # scripts/validate-tools.cjs scans tools/*.js itself, so new tool files are
-      # covered automatically — no hardcoded filename list to keep in sync.
-      - name: Validate tool schema and slugs
+      # One pass over tools/: schema, duplicate slugs, and registration.
+      # The script scans the directory itself (no hardcoded filename list) and
+      # parses ACTIVE require() calls, so the commented-out example line in
+      # lib/loadTools.js cannot mask an unregistered file.
+      - name: Validate tool schema, slugs, and registration
         run: node scripts/validate-tools.cjs --list
-
-  registry-sync:
-    name: Check Registry Sync
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      # Catches the classic failure mode: a file exists in tools/ but was never
-      # registered in lib/loadTools.js, so it silently never reaches the site.
-      - name: Verify every tool file is registered in lib/loadTools.js
-        run: |
-          node -e "
-          const fs = require('fs');
-          const path = require('path');
-          const loader = fs.readFileSync('lib/loadTools.js', 'utf8');
-
-          const files = fs.readdirSync('tools')
-            .filter(f => f.endsWith('.js') && !f.startsWith('_'))
-            .sort();
-
-          const missing = files.filter(f => !loader.includes(\`tools/\${f}\`));
-
-          if (missing.length > 0) {
-            console.error('❌ Present in tools/ but not registered in lib/loadTools.js:');
-            missing.forEach(f => console.error('   - ' + f));
-            console.error('   Add them to the importAllTools() map so they render on the site.');
-            process.exit(1);
-          }
-
-          console.log('✅ All ' + files.length + ' tool files are registered in lib/loadTools.js');
-          "

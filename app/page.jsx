@@ -36,7 +36,7 @@ export default function HomePage() {
             <div>
               <h2 className="text-3xl font-bold mb-2">The registry</h2>
               <p className="text-white/60">
-                Everything I ship — tools, apps, experiments. Auto-synced from Git.
+                Everything I ship — tools, apps, experiments. Curated from Git.
               </p>
             </div>
             <div className="flex items-center gap-4 text-sm text-white/50">

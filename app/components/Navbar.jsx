@@ -37,6 +37,7 @@ export default function Navbar({ toolCount }) {
             href={PROFILE.github}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${PROFILE.handle} on GitHub`}
             className="flex items-center gap-2 text-sm opacity-60 hover:opacity-100 transition"
           >
             <Github size={18} />

@@ -82,6 +82,33 @@ function validate(tool, file, errors) {
   }
 }
 
+/**
+ * Extract the set of tool files that are ACTIVELY registered in
+ * lib/loadTools.js. Parses out comment lines first so the commented-out
+ * `// 'my-new-tool.js': require(...)` example is not mistaken for a real
+ * registration.
+ *
+ * @returns {{registered:Set<string>, dangling:string[]}}
+ */
+function readRegistrations() {
+  const loaderPath = path.join(__dirname, '..', 'lib', 'loadTools.js')
+  const source = fs
+    .readFileSync(loaderPath, 'utf8')
+    .split('\n')
+    .filter(line => !line.trim().startsWith('//'))
+    .join('\n')
+
+  const registered = new Set()
+  for (const match of source.matchAll(/require\(\s*['"]\.\.\/tools\/([\w.-]+\.js)['"]\s*\)/g)) {
+    registered.add(match[1])
+  }
+
+  // Registrations pointing at a file that no longer exists.
+  const dangling = [...registered].filter(f => !fs.existsSync(path.join(TOOLS_DIR, f)))
+
+  return { registered, dangling }
+}
+
 function main() {
   const files = fs
     .readdirSync(TOOLS_DIR)
@@ -91,6 +118,20 @@ function main() {
   const errors = []
   const slugs = new Map()
   const loaded = []
+
+  // Registration check: a file in tools/ that is missing from the importAllTools()
+  // map validates fine but never reaches the site.
+  const { registered, dangling } = readRegistrations()
+  for (const file of files) {
+    if (!registered.has(file)) {
+      errors.push(
+        `${file}: present in tools/ but NOT registered in lib/loadTools.js importAllTools()`
+      )
+    }
+  }
+  for (const file of dangling) {
+    errors.push(`${file}: registered in lib/loadTools.js but the file does not exist`)
+  }
 
   for (const file of files) {
     let tool
