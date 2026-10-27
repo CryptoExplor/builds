@@ -119,7 +119,7 @@ builds/
 │   └── statusStyles.js        # Centralized status badge styles
 ├── scripts/
 │   └── validate-tools.cjs     # Scans tools/ — schema + duplicate slugs
-├── tools/                     # 🔥 ADD YOUR PROJECTS HERE (22 files)
+├── tools/                     # 🔥 ADD YOUR PROJECTS HERE (21 files)
 │   ├── _TEMPLATE.js           # Schema reference (skipped by the loader)
 │   ├── farmlabs.js
 │   └── ...
@@ -174,7 +174,7 @@ Every push to `main` triggers auto-deployment.
 
 ## 📝 Current Projects
 
-The registry holds **21 public projects** (22 tool files; 1 currently private). Run `npm run validate` to print the live list.
+The registry holds **20 public projects** (21 tool files; 1 currently private). Run `npm run validate` to print the live list.
 
 Featured / flagship:
 
@@ -185,7 +185,7 @@ Featured / flagship:
 - **[Wallet Forge](https://wallet-forge.vercel.app)** — 100% client-side wallet key import, validation, and export
 - **[Circle Faucet](https://circle-faucet-alpha.vercel.app)** — Automated claimer for Circle testnet tokens
 
-Newest additions: [AgentForge](https://github.com/CryptoExplor/agentforge), [TeQoin Faucet](https://t.me/teqoinfaucetbot/faucet), [Base Mint](https://base-mintapp.vercel.app), [OmniTap](https://omnitap.vercel.app), [Vault](https://note-pass-vault.vercel.app), [LinesNFT](https://github.com/CryptoExplor/LinesNFT), [Multichain Hardhat Deployer](https://github.com/CryptoExplor/multichain-hardhat-deployer).
+Newest additions: [AgentForge](https://github.com/CryptoExplor/agentforge), [TeQoin Faucet](https://t.me/teqoinfaucetbot/faucet), [Base Mint](https://base-mintapp.vercel.app), [OmniTap](https://omnitap.vercel.app), [Vault](https://note-pass-vault.vercel.app), [Multichain Hardhat Deployer](https://github.com/CryptoExplor/multichain-hardhat-deployer).
 
 > Entries are hidden, not deleted, when their source repo disappears. `tools/tempo.js` is set to `visibility: "private"` because `CryptoExplor/tempo` now returns HTTP 403. Flip it back to `"public"` if the repo returns.
 
