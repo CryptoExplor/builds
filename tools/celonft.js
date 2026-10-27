@@ -7,7 +7,8 @@ module.exports = {
   status: "production",
   visibility: "public",
   liveUrl: "https://celo-nft-phi.vercel.app",
-  github: "https://github.com/CryptoExplor/CeloNFT",
+  // Repo renamed: CeloNFT -> Flicker (GitHub redirects the old URL; this is the canonical one)
+  github: "https://github.com/CryptoExplor/Flicker",
   launched: "2025-11-15",
   
   // Featured project

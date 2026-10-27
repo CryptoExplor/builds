@@ -2,6 +2,12 @@ import { loadTools } from '@/lib/loadTools'
 import { getStatusClass } from '@/lib/statusStyles'
 import { ExternalLink, Github, Calendar, Tag, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
+
+// Only the slugs returned by generateStaticParams may render. Anything else
+// (a typo, or a project whose visibility was set to "private") 404s at the
+// router instead of being rendered on demand as a 200 "not found" page.
+export const dynamicParams = false
 
 // Generate static paths at build time
 export function generateStaticParams() {
@@ -77,19 +83,11 @@ export default function ToolPage({ params }) {
   const tools = loadTools()
   const tool = tools.find(t => t.slug === params.slug)
   
+  // Triggers Next.js' real 404 (proper status code) rather than rendering a
+  // 200 page that merely says "not found". Reached when a slug is requested that
+  // is not in generateStaticParams — e.g. a project marked visibility: "private".
   if (!tool) {
-    return (
-      <div className="min-h-screen bg-[#0b0f14] text-white">
-        <div className="max-w-3xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-2xl font-bold mb-4">Project not found</h1>
-          <p className="opacity-60 mb-6">The project you&apos;re looking for doesn&apos;t exist or has been removed.</p>
-          <Link href="/" className="text-indigo-400 hover:underline inline-flex items-center gap-2">
-            <ArrowLeft size={16} />
-            Back to all projects
-          </Link>
-        </div>
-      </div>
-    )
+    notFound()
   }
 
   const relatedTools = getRelatedTools(tool, tools)

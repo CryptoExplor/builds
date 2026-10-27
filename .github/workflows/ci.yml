@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+# Least privilege: these jobs only read the checkout.
+permissions:
+  contents: read
+
 jobs:
   lint-and-build:
     name: Lint & Build
@@ -21,7 +25,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint
@@ -51,128 +55,9 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Validate tool schema
-        run: |
-          node -e "
-          const required = ['name', 'slug', 'description', 'category', 'tags', 'status', 'visibility', 'liveUrl', 'github', 'launched'];
-          const validStatuses = ['alpha', 'beta', 'production', 'paused'];
-          const validVisibility = ['public', 'private'];
-          let errors = [];
-
-          // Import the tools using the same method as loadTools.js
-          const tools = {
-            'farmlabs.js': require('./tools/farmlabs.js'),
-            'tempo.js': require('./tools/tempo.js'),
-            'celonft.js': require('./tools/celonft.js'),
-            'circle-faucet.js': require('./tools/circle-faucet.js'),
-            'github-bot.js': require('./tools/github-bot.js'),
-            'nexus-counter.js': require('./tools/nexus-counter.js'),
-            'weather-app.js': require('./tools/weather-app.js'),
-            'stacks-tipjar.js': require('./tools/stacks-tipjar.js'),
-            'intuition-counter.js': require('./tools/intuition-counter.js'),
-            'celo-simulator.js': require('./tools/celo-simulator.js'),
-            'solayer-faucet.js': require('./tools/solayer-faucet.js'),
-          };
-
-          Object.entries(tools).forEach(([file, module]) => {
-            if (file.startsWith('_')) return;
-            
-            const tool = module.default || module;
-
-            // Check required fields
-            required.forEach(field => {
-              if (!tool[field]) {
-                errors.push(\`❌ \${file}: Missing required field '\${field}'\`);
-              }
-            });
-
-            // Validate status
-            if (tool.status && !validStatuses.includes(tool.status)) {
-              errors.push(\`❌ \${file}: Invalid status '\${tool.status}'\`);
-            }
-
-            // Validate visibility
-            if (tool.visibility && !validVisibility.includes(tool.visibility)) {
-              errors.push(\`❌ \${file}: Invalid visibility '\${tool.visibility}'\`);
-            }
-
-            // Validate arrays
-            if (!Array.isArray(tool.category) || tool.category.length === 0) {
-              errors.push(\`❌ \${file}: category must be a non-empty array\`);
-            }
-
-            if (!Array.isArray(tool.tags) || tool.tags.length === 0) {
-              errors.push(\`❌ \${file}: tags must be a non-empty array\`);
-            }
-
-            // Validate date format
-            const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-            if (!datePattern.test(tool.launched)) {
-              errors.push(\`❌ \${file}: launched date must be in YYYY-MM-DD format\`);
-            }
-          });
-
-          if (errors.length > 0) {
-            console.error('\\n' + errors.join('\\n'));
-            process.exit(1);
-          } else {
-            console.log(\`✅ All \${Object.keys(tools).length} tool files are valid\`);
-          }
-          "
-
-  check-duplicates:
-    name: Check Duplicate Slugs
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check for duplicate slugs
-        run: |
-          node -e "
-          const tools = {
-            'farmlabs.js': require('./tools/farmlabs.js'),
-            'tempo.js': require('./tools/tempo.js'),
-            'celonft.js': require('./tools/celonft.js'),
-            'circle-faucet.js': require('./tools/circle-faucet.js'),
-            'github-bot.js': require('./tools/github-bot.js'),
-            'nexus-counter.js': require('./tools/nexus-counter.js'),
-            'weather-app.js': require('./tools/weather-app.js'),
-            'stacks-tipjar.js': require('./tools/stacks-tipjar.js'),
-            'intuition-counter.js': require('./tools/intuition-counter.js'),
-            'celo-simulator.js': require('./tools/celo-simulator.js'),
-            'solayer-faucet.js': require('./tools/solayer-faucet.js'),
-          };
-
-          const slugs = new Set();
-          let duplicates = [];
-
-          Object.entries(tools).forEach(([file, module]) => {
-            if (file.startsWith('_')) return;
-            
-            const tool = module.default || module;
-            if (slugs.has(tool.slug)) {
-              duplicates.push(\`❌ Duplicate slug '\${tool.slug}' in \${file}\`);
-            }
-            slugs.add(tool.slug);
-          });
-
-          if (duplicates.length > 0) {
-            console.error('\\n' + duplicates.join('\\n'));
-            process.exit(1);
-          } else {
-            console.log(\`✅ No duplicate slugs found (\${slugs.size} unique projects)\`);
-          }
-          "
+      # One pass over tools/: schema, duplicate slugs, and registration.
+      # The script scans the directory itself (no hardcoded filename list) and
+      # parses ACTIVE require() calls, so the commented-out example line in
+      # lib/loadTools.js cannot mask an unregistered file.
+      - name: Validate tool schema, slugs, and registration
+        run: node scripts/validate-tools.cjs --list

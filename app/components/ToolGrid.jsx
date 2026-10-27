@@ -2,12 +2,19 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Search, Filter } from 'lucide-react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ToolCard from './ToolCard'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function ToolGrid({ tools }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const searchInputRef = useRef(null)
+  const gridRef = useRef(null)
 
   const allStatuses = ['all', ...new Set(tools.map(t => t.status))]
   const hasActiveFilters = searchQuery.trim().length > 0 || selectedStatus !== 'all'
@@ -52,6 +59,46 @@ export default function ToolGrid({ tools }) {
     })
   }, [tools, searchQuery, selectedStatus])
 
+  /**
+   * Cards fade/slide in as a batch when they scroll into view.
+   * Re-runs whenever the filtered set changes so newly-filtered cards animate too,
+   * and is fully skipped for prefers-reduced-motion.
+   */
+  useEffect(() => {
+    const grid = gridRef.current
+    if (!grid) return
+
+    const mm = gsap.matchMedia()
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const cards = grid.querySelectorAll('[data-card]')
+      if (!cards.length) return
+
+      gsap.set(cards, { opacity: 0, y: 26 })
+
+      ScrollTrigger.batch(cards, {
+        start: 'top 92%',
+        once: true,
+        onEnter: batch =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            stagger: 0.07,
+            ease: 'power3.out',
+            overwrite: true,
+          }),
+      })
+
+      // No explicit cleanup here on purpose: ScrollTrigger.getAll() would kill
+      // every trigger on the page, including the Reveal triggers owned by the
+      // profile sections in app/page.jsx, leaving them stuck at opacity: 0.
+      // The mm.revert() below already reverts this grid's own triggers.
+    })
+
+    return () => mm.revert()
+  }, [filteredTools])
+
   return (
     <>
       {/* Filters */}
@@ -60,7 +107,7 @@ export default function ToolGrid({ tools }) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 opacity-40" size={18} />
           <input
             type="text"
-            placeholder="Search projects, tags, or descriptions..."
+            placeholder="Search projects, tags, or descriptions...  ( / )"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             ref={searchInputRef}
@@ -68,7 +115,7 @@ export default function ToolGrid({ tools }) {
             className="w-full pl-10 pr-4 py-3 bg-[#111827] border border-white/10 rounded-lg focus:outline-none focus:border-indigo-500 transition"
           />
         </div>
-        
+
         <div className="flex flex-wrap gap-2 items-center">
           <Filter size={18} className="opacity-40" />
           {allStatuses.map(status => (
@@ -102,9 +149,11 @@ export default function ToolGrid({ tools }) {
           <div className="mb-4 text-xs uppercase tracking-[0.2em] text-white/40">
             Showing {filteredTools.length} of {tools.length} projects
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div ref={gridRef} className="grid auto-rows-fr gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredTools.map(tool => (
-              <ToolCard key={tool.slug} tool={tool} />
+              <div key={tool.slug} data-card className="h-full">
+                <ToolCard tool={tool} />
+              </div>
             ))}
           </div>
         </>
