@@ -12,31 +12,28 @@
  */
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Alert, CheckCircle, External, Trash } from '@/app/components/icons'
-import { MAX_ROWS, parseBatch, summarize } from '../lib/batch.mjs'
+import { MAX_ROWS, SAMPLE_BATCH, parseBatch, summarize } from '../lib/batch.mjs'
 
 const formatNumber = value => new Intl.NumberFormat('en-US').format(value)
+// Two decimals at minimum so a total reads like money, up to the eight the
+// preview accepts, so a legitimate 0.001 is never displayed as 0.00.
 const formatAmount = value =>
   new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 8,
   }).format(value)
 
-const SAMPLE = [
-  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045, 120.5',
-  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, 48',
-  '0x8878b70a01bdda92ab8ea48dd7893b64c69298c0, 300.25',
-].join('\n')
-
 export default function BatchComposer() {
-  const [value, setValue] = useState(SAMPLE)
+  const [value, setValue] = useState(SAMPLE_BATCH)
   const [estimating, setEstimating] = useState(false)
   const timer = useRef(null)
 
   const { rows, truncated } = useMemo(() => parseBatch(value), [value])
-  const { valid, invalid, total, standaloneGas, batchGas, savedPercent, canSend } = useMemo(
-    () => summarize(rows),
-    [rows]
-  )
+  const { valid, invalid, total, totalFinite, standaloneGas, batchGas, savedPercent, canSend } =
+    useMemo(
+      () => summarize(rows),
+      [rows]
+    )
 
   // Re-estimating runs on a short, visible delay, and only when the number of
   // recipients changes. Editing an amount updates the total instantly; adding a
@@ -69,7 +66,7 @@ export default function BatchComposer() {
         <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => setValue(SAMPLE)}
+            onClick={() => setValue(SAMPLE_BATCH)}
             className="rounded-lg px-3 py-2 text-sm font-semibold text-white/60 transition-colors duration-300 ease-settle hover:bg-surface-3 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             Reload sample
@@ -112,7 +109,7 @@ export default function BatchComposer() {
           </p>
           <button
             type="button"
-            onClick={() => setValue(SAMPLE)}
+            onClick={() => setValue(SAMPLE_BATCH)}
             className="mt-4 rounded-full border border-surface-4 px-3 py-2 text-sm font-semibold text-white transition-colors duration-300 ease-settle hover:bg-surface-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             Load sample list
@@ -186,7 +183,11 @@ export default function BatchComposer() {
           {/* Summary */}
           <div aria-live="polite" className="mt-4 grid gap-4 sm:grid-cols-3">
             <SummaryCell label="Recipients" value={formatNumber(valid.length)} loading={estimating} />
-            <SummaryCell label="Total to send, in token units" value={formatAmount(total)} loading={estimating} />
+            <SummaryCell
+              label="Total to send, in token units"
+              value={totalFinite ? formatAmount(total) : 'Too large'}
+              loading={estimating}
+            />
             <SummaryCell
               label="Gas saved"
               value={savedPercent > 0 ? `${savedPercent}%` : 'None'}
@@ -200,14 +201,15 @@ export default function BatchComposer() {
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <p className="max-w-xs text-xs text-white/55">
-          Estimates only. The wallet shows the real figure before you sign.
+          Estimates only. The wallet shows the real figure before you sign. Your list is not
+          carried into the app, so paste it there once more.
         </p>
         {canSend ? (
           <a
             href="https://farsend.vercel.app"
             className="group inline-flex items-center gap-2 rounded-full bg-accent px-3 py-2 text-base font-semibold text-surface-1 transition-colors duration-300 ease-settle hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
-            Send this batch
+            Open batch sender
             <External
               size={17}
               aria-hidden="true"
@@ -219,7 +221,7 @@ export default function BatchComposer() {
             aria-disabled="true"
             className="inline-flex items-center gap-2 rounded-full bg-surface-4 px-3 py-2 text-base font-semibold text-white/55"
           >
-            Send this batch
+            Open batch sender
             <External size={17} aria-hidden="true" />
           </span>
         )}
@@ -233,7 +235,7 @@ function SummaryCell({ label, value, hint, loading, accent = false }) {
     <div>
       <p className="text-xs text-white/55">{label}</p>
       {loading ? (
-        <div className="mt-2 h-7 w-24 animate-pulse rounded-sm bg-surface-4" aria-hidden="true" />
+        <div className="mt-2 h-7 w-24 animate-pulse rounded-sm bg-surface-4 motion-reduce:animate-none" aria-hidden="true" />
       ) : (
         <p
           className={`mt-1 font-mono text-2xl font-semibold ${

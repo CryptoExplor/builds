@@ -401,7 +401,7 @@ export default function FarSendPage() {
                     <Plus
                       size={16}
                       aria-hidden="true"
-                      className="mt-1 shrink-0 text-white/55 transition-transform duration-500 ease-settle group-open:rotate-45"
+                      className="mt-1 shrink-0 text-white/55 transition-transform duration-500 ease-settle group-open:rotate-45 motion-reduce:transform-none motion-reduce:transition-none"
                     />
                   </summary>
                   <p className="mt-3 text-base leading-relaxed text-white/55">{item.a}</p>

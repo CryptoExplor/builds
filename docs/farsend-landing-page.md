@@ -161,6 +161,31 @@ The copy was re-verified against `farsend.vercel.app`, `public/chains.json` and 
 | Total units | Labelled USDC | The app lets you choose the asset, so the preview no longer names one |
 | Random amounts | Not mentioned | Added as a benefit and in the steps: fixed, apply to all, or spread across a min and max |
 
+### Review findings, 28 October 2026
+
+Codex and CodeRabbit left 9 inline findings on `8dcf2b4`. All 9 were still valid
+against the current code and are now fixed.
+
+| # | Finding | Fix |
+|---|---|---|
+| 1 | The demo rows paid the **USDC contract** and the **FarSend contract**, so sending the sample for real would strand tokens | Sample addresses are derived from fixed strings, belong to nobody, and moved into `SAMPLE_BATCH` so a test asserts they pass validation |
+| 2 | "Send this batch" opened the app without carrying the list over | Renamed to **Open batch sender**, plus a line saying the list is not carried over |
+| 3 | Total rounded to 2 decimals, so a valid `0.001` showed as `0.00` | `maximumFractionDigits: 8`, and amounts with more precision than the preview can show are rejected instead of rounded |
+| 4 | No EIP-55 checksum validation, though the page claims addresses are checksummed three times | `toChecksumAddress` and `isChecksumValid` over keccak256, tested against the four official EIP-55 vectors. Mixed case must match; all lower and all upper carry no checksum and stay accepted. Checksum errors are reported separately from length errors |
+| 5 | A 309 digit amount became `Infinity` and still enabled the send link | Rejected as "too large to total", and a total that overflows is flagged instead of formatted |
+| 6 | Same as 2, reported twice | Covered by 2 |
+| 7 | Tab could move focus behind the open mobile menu | Focus is contained between the toggle and the panel, wrapping at both ends, and returns to the toggle on close |
+| 8 | Menu glyph, panel and links animated under `prefers-reduced-motion` | `motion-reduce` variants on the glyph, panel, list items, skeleton and FAQ icon |
+| 9 | The fixed mobile panel clipped its links at large text sizes and could not scroll | Panel is `overflow-y-auto`, inner column is `min-h-full` with vertical padding |
+
+One finding the bots did not catch, found while auditing:
+
+- **`check-no-emoji.mjs` imported `fs.globSync`**, which only exists from Node 22, while CI pins **Node 18**. `npm test` would have crashed in CI, so the guard was failing the build rather than guarding anything. Replaced with a `readdirSync` walk.
+
+Known and left alone, since they are pre existing and outside this change:
+`ToolGrid.jsx` and `ToolHubClient.jsx` have three `<button>` elements with no
+`type`, which makes them submit buttons inside a form.
+
 Not changed, worth knowing:
 
 - The page has no screenshots. Nothing here could be rendered headlessly in the sandbox, so the layout is verified through the served CSS, the asset graph and the DOM, not by eye. Open `/farsend` on a phone before merging.

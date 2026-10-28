@@ -11,7 +11,11 @@
 import {
   parseBatch,
   summarize,
+  toChecksumAddress,
+  isChecksumValid,
+  SAMPLE_BATCH,
   MAX_ROWS,
+  MAX_DECIMALS,
   GAS_PER_STANDALONE_TRANSFER,
   GAS_BATCH_BASE,
   GAS_PER_BATCHED_RECIPIENT,
@@ -118,6 +122,63 @@ const mixed = summarize(parseBatch(`${A}, 5\nbad, 1\n${B}, 5`).rows)
 check('invalid rows block sending', mixed.canSend === false)
 check('invalid rows are excluded from the total', Math.abs(mixed.total - 10) < 1e-9, String(mixed.total))
 check('invalid rows are listed', mixed.invalid.length === 1)
+
+// ── The shipped sample must be valid, checksums included ───────────────────
+const sample = summarize(parseBatch(SAMPLE_BATCH).rows)
+check('the demo rows all pass validation', sample.invalid.length === 0, JSON.stringify(sample.invalid.map(r => r.error)))
+check('the demo rows are sendable', sample.canSend === true)
+// The old sample paid the USDC contract and the FarSend contract.
+for (const bad of ['0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', '0x8878b70a01bdda92ab8ea48dd7893b64c69298c0']) {
+  check(`the demo rows no longer include ${bad.slice(0, 10)}…`, !SAMPLE_BATCH.toLowerCase().includes(bad.slice(2)))
+}
+
+// ── EIP-55 checksums ───────────────────────────────────────────────────────
+// Official vectors from the EIP.
+const VECTORS = [
+  '0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed',
+  '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359',
+  '0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB',
+  '0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb',
+]
+for (const vector of VECTORS) {
+  check(`checksum matches the EIP-55 vector ${vector.slice(0, 10)}…`, isChecksumValid(vector), vector)
+  check(`recomputing the checksum is stable for ${vector.slice(0, 10)}…`, toChecksumAddress(vector.toLowerCase()) === vector)
+}
+
+// A mixed case address with one letter flipped is a different address.
+const flipped = '0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAeD'
+check('a case flipped mixed address is rejected', !isChecksumValid(flipped))
+check('the flipped address is reported as a checksum error', parseBatch(`${flipped}, 1`).rows[0].error?.includes('Checksum'), parseBatch(`${flipped}, 1`).rows[0].error)
+
+// All lowercase and all uppercase carry no checksum and stay accepted.
+check('all lowercase is accepted', isChecksumValid(VECTORS[0].toLowerCase()))
+check('all uppercase is accepted', isChecksumValid('0x' + VECTORS[0].slice(2).toUpperCase()))
+
+// Length and checksum errors stay distinct.
+const shortErr = parseBatch('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAe, 1').rows[0].error
+check('a short address reports length, not checksum', shortErr?.includes('characters after 0x'), shortErr)
+const nonHex = parseBatch('0xZZAeb6053F3E94C9b9A09f33669435E7Ef1BeAed, 1').rows[0].error
+check('a non hex address reports the character', nonHex?.includes('hex digit'), nonHex)
+const noPrefix = parseBatch('5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed, 1').rows[0].error
+check('a missing 0x prefix is named', noPrefix?.includes('0x'), noPrefix)
+
+// ── Amounts that cannot be represented ─────────────────────────────────────
+const huge = parseBatch(`${A}, ${'9'.repeat(309)}`).rows[0]
+check('a 309 digit amount is rejected', Boolean(huge.error), huge.error)
+check('the overflow error says it is too large', huge.error?.includes('too large'), huge.error)
+check('an overflowing list cannot send', summarize(parseBatch(`${A}, ${'9'.repeat(309)}`).rows).canSend === false)
+
+check('zero is rejected with a clear reason', parseBatch(`${A}, 0`).rows[0].error?.includes('more than zero'), parseBatch(`${A}, 0`).rows[0].error)
+check('a negative is rejected', Boolean(parseBatch(`${A}, -5`).rows[0].error))
+
+const tooPrecise = parseBatch(`${A}, 0.${'1'.repeat(MAX_DECIMALS + 1)}`).rows[0]
+check('more decimals than the preview can show is rejected', tooPrecise.error?.includes('decimal places'), tooPrecise.error)
+check('exactly the maximum decimals is accepted', !parseBatch(`${A}, 0.${'1'.repeat(MAX_DECIMALS)}`).rows[0].error)
+check('a small amount stays valid so it is not displayed as 0.00', !parseBatch(`${A}, 0.001`).rows[0].error)
+
+// A total is only sendable if it is a finite number.
+const big = summarize(Array.from({ length: 3 }, () => ({ address: A, amount: '1e308', error: null })))
+check('a total that overflows is flagged', big.totalFinite === false)
 
 // ── Report ────────────────────────────────────────────────────────────────
 if (failures.length) {

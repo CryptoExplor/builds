@@ -8,13 +8,22 @@
  * depend on the system emoji font, which renders differently on every platform
  * and cannot take the site's colour, weight or size. Terminal output in
  * scripts/ is out of scope, since it never reaches a browser.
+ *
+ * Walks the tree with readdirSync rather than fs.glob, which only exists from
+ * Node 22 and would break CI, where the workflow pins Node 18.
  */
 
-import { readFileSync } from 'node:fs'
-import { globSync } from 'node:fs'
-import { relative } from 'node:path'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { join, relative } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const ROOT = new URL('..', import.meta.url).pathname
+const ROOT = fileURLToPath(new URL('..', import.meta.url))
+
+// Directories that hold shipped UI or registry data. Scripts are excluded on
+// purpose: their output goes to a terminal, not to a browser.
+const TARGETS = ['app', 'lib', 'tools']
+const EXTENSIONS = ['.js', '.jsx', '.mjs']
+const SKIP_DIRS = new Set(['node_modules', '.next', '.next-build', '.git', 'dist', 'build'])
 
 const EMOJI = new RegExp(
   '[' +
@@ -28,21 +37,49 @@ const EMOJI = new RegExp(
   'u'
 )
 
-// Where emoji are not allowed. Scripts are excluded on purpose: their output
-// goes to a terminal, not to a browser.
-const TARGETS = ['app/**/*.{js,jsx,mjs}', 'lib/**/*.{js,mjs}', 'tools/**/*.js']
+/** Every file under the target roots whose extension is one we scan. */
+function walk(dir, found = []) {
+  let entries
+  try {
+    entries = readdirSync(dir, { withFileTypes: true })
+  } catch {
+    return found
+  }
 
-const files = TARGETS.flatMap(pattern => globSync(pattern, { cwd: ROOT }))
+  for (const entry of entries) {
+    if (entry.name.startsWith('.') && entry.isDirectory()) continue
+    if (SKIP_DIRS.has(entry.name)) continue
+
+    const full = join(dir, entry.name)
+    if (entry.isDirectory()) {
+      walk(full, found)
+    } else if (EXTENSIONS.some(ext => entry.name.endsWith(ext))) {
+      found.push(full)
+    }
+  }
+
+  return found
+}
+
+const files = TARGETS.flatMap(target => {
+  const root = join(ROOT, target)
+  try {
+    if (!statSync(root).isDirectory()) return []
+  } catch {
+    return []
+  }
+  return walk(root)
+})
 
 const violations = []
 
 for (const file of files) {
-  const source = readFileSync(`${ROOT}${file}`, 'utf8')
+  const source = readFileSync(file, 'utf8')
   source.split('\n').forEach((line, index) => {
     const match = line.match(EMOJI)
     if (match) {
       violations.push({
-        file,
+        file: relative(ROOT, file),
         line: index + 1,
         glyph: match[0],
         code: line.trim().slice(0, 90),
@@ -54,7 +91,7 @@ for (const file of files) {
 if (violations.length) {
   console.error(`\n✗ emoji found in UI or data: ${violations.length}\n`)
   for (const v of violations.slice(0, 20)) {
-    console.error(`  ${relative('.', `${ROOT}${v.file}`)}:${v.line}  ${v.glyph}`)
+    console.error(`  ${v.file}:${v.line}  ${v.glyph}`)
     console.error(`    ${v.code}`)
   }
   if (violations.length > 20) console.error(`  ...and ${violations.length - 20} more`)

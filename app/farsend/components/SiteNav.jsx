@@ -31,8 +31,32 @@ export default function SiteNav({ current = 'product' }) {
 
     firstLinkRef.current?.focus()
 
+    // Focus containment. The panel covers the page, so Tab must not walk into
+    // the links behind it. The toggle stays reachable because it is how the
+    // panel closes.
+    const panel = document.getElementById('mobile-menu')
     const onKeyDown = event => {
-      if (event.key === 'Escape') close()
+      if (event.key === 'Escape') {
+        close()
+        return
+      }
+      if (event.key !== 'Tab' || !panel) return
+
+      const focusable = [toggleRef.current, ...panel.querySelectorAll('a[href], button')].filter(
+        el => el && !el.hasAttribute('disabled')
+      )
+      if (focusable.length === 0) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
 
     const previousOverflow = document.body.style.overflow
@@ -130,14 +154,14 @@ export default function SiteNav({ current = 'product' }) {
                 <Menu
                   size={16}
                   aria-hidden="true"
-                  className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-settle ${
+                  className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-settle motion-reduce:transform-none motion-reduce:transition-none ${
                     open ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'
                   }`}
                 />
                 <Close
                   size={16}
                   aria-hidden="true"
-                  className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-settle ${
+                  className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-settle motion-reduce:transform-none motion-reduce:transition-none ${
                     open ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'
                   }`}
                 />
@@ -151,11 +175,13 @@ export default function SiteNav({ current = 'product' }) {
       <div
         id="mobile-menu"
         aria-hidden={!open}
-        className={`fixed inset-0 z-40 bg-surface-1/95 backdrop-blur-2xl transition-[opacity,visibility] duration-500 ease-settle md:hidden ${
+        className={`fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-surface-1/95 backdrop-blur-2xl transition-[opacity,visibility] duration-500 ease-settle motion-reduce:transition-none md:hidden ${
           open ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
       >
-        <div className="flex h-full flex-col justify-center px-6 pb-16">
+        {/* min-h-full rather than h-full: the panel scrolls once its content is
+            taller than the viewport, which happens at large text sizes. */}
+        <div className="flex min-h-full flex-col justify-center px-6 py-24">
           <ul className="space-y-2">
             {LINKS.map((link, index) => (
               <li
@@ -163,7 +189,7 @@ export default function SiteNav({ current = 'product' }) {
                 style={{
                   transitionDelay: open ? `${index * 60}ms` : '0ms',
                 }}
-                className={`transition-[opacity,transform] duration-500 ease-settle ${
+                className={`transition-[opacity,transform] duration-500 ease-settle motion-reduce:transform-none motion-reduce:transition-none ${
                   open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
                 }`}
               >
@@ -179,7 +205,7 @@ export default function SiteNav({ current = 'product' }) {
             ))}
             <li
               style={{ transitionDelay: open ? '180ms' : '0ms' }}
-              className={`pt-4 transition-[opacity,transform] duration-500 ease-settle ${
+              className={`pt-4 transition-[opacity,transform] duration-500 ease-settle motion-reduce:transform-none motion-reduce:transition-none ${
                 open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
               }`}
             >
