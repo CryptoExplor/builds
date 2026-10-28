@@ -83,8 +83,9 @@ export default function BatchComposer() {
   const invalid = rows.filter(row => row.error)
   const valid = rows.filter(row => !row.error)
 
-  // Re-estimating runs on a short, visible delay so the loading state is a real
-  // part of the interaction rather than a flicker nobody sees.
+  // Re-estimating runs on a short, visible delay, and only when the number of
+  // recipients changes. Editing an amount updates the total instantly; adding a
+  // row is the moment that deserves a loading state.
   useEffect(() => {
     setEstimating(true)
     if (timer.current) clearTimeout(timer.current)
@@ -92,11 +93,12 @@ export default function BatchComposer() {
     return () => {
       if (timer.current) clearTimeout(timer.current)
     }
-  }, [value])
+  }, [rows.length])
 
   const total = valid.reduce((sum, row) => sum + Number(row.amount), 0)
-  const standaloneGas = rows.length * GAS_PER_STANDALONE_TRANSFER
-  const batchGas = rows.length ? GAS_BATCH_BASE + rows.length * GAS_PER_BATCHED_RECIPIENT : 0
+  const payable = valid.length
+  const standaloneGas = payable * GAS_PER_STANDALONE_TRANSFER
+  const batchGas = payable ? GAS_BATCH_BASE + payable * GAS_PER_BATCHED_RECIPIENT : 0
   const saved = standaloneGas && batchGas ? Math.round((1 - batchGas / standaloneGas) * 100) : 0
 
   const canSend = valid.length > 0 && invalid.length === 0

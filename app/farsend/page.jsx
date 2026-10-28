@@ -60,6 +60,10 @@ export const metadata = {
   },
 }
 
+export const viewport = {
+  themeColor: '#181818',
+}
+
 const BENEFITS = [
   {
     icon: Path,
