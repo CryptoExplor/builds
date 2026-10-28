@@ -10,13 +10,12 @@
     "lint": "next lint",
     "validate": "node scripts/validate-tools.cjs --list",
     "build:check": "NEXT_DIST_DIR=.next-build next build",
-    "test": "node scripts/build-icon-sheet.mjs && node scripts/check-no-emoji.mjs && node scripts/check-batch-parser.mjs",
+    "test": "node scripts/build-icon-sheet.mjs && node scripts/check-no-emoji.mjs",
     "icons": "node scripts/build-icon-sheet.mjs"
   },
   "dependencies": {
     "geist": "^1.8.2",
     "gsap": "^3.15.0",
-    "js-sha3": "^0.13.0",
     "next": "^14.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"

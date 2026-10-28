@@ -17,10 +17,10 @@ export default function PrivacyPage() {
     >
       <main id="main" className="mx-auto max-w-6xl px-6 pb-24 pt-16">
         <Link
-          href="/farsend"
+          href="/"
           className="text-sm text-white/60 transition-colors duration-300 ease-settle hover:text-white"
         >
-          Back to FarSend
+          Back to all projects
         </Link>
 
         <h1 className="mt-8 max-w-[680px] text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
