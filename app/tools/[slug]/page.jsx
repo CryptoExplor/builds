@@ -1,6 +1,6 @@
 import { loadTools } from '@/lib/loadTools'
 import { getStatusClass } from '@/lib/statusStyles'
-import { ArrowLeft, Calendar, External, Github, Tag } from '@/app/components/icons'
+import { ArrowLeft, Calendar, Dot, External, Github, Sparkle, Star, Tag, Target, Wrench } from '@/app/components/icons'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -114,8 +114,9 @@ export default function ToolPage({ params }) {
                   #{tool.serial.toString().padStart(3, '0')}
                 </span>
                 {tool.featured && (
-                  <span className="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded">
-                    ⭐ Featured
+                  <span className="inline-flex items-center gap-1.5 text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded">
+                    <Star size={11} className="fill-current" aria-hidden="true" />
+                    Featured
                   </span>
                 )}
               </div>
@@ -133,19 +134,31 @@ export default function ToolPage({ params }) {
           {tool.features && tool.features.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <span>✨</span> Key Features
+                <Sparkle size={18} className="text-indigo-400" aria-hidden="true" /> Key Features
               </h2>
               <div className="grid gap-3">
-                {tool.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
-                    <div className="text-lg mt-0.5">{feature.split(' - ')[0]}</div>
-                    <div className="flex-1">
-                      <p className="text-sm opacity-90">
-                        {feature.split(' - ').slice(1).join(' - ')}
-                      </p>
+                {tool.features.map((feature, idx) => {
+                  const [title, ...rest] = feature.split(' - ')
+                  const detail = rest.join(' - ')
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/5"
+                    >
+                      <Sparkle
+                        size={15}
+                        className="mt-0.5 shrink-0 text-indigo-400"
+                        aria-hidden="true"
+                      />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">{title}</p>
+                        {detail ? (
+                          <p className="text-sm opacity-70 mt-0.5">{detail}</p>
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}
@@ -154,12 +167,12 @@ export default function ToolPage({ params }) {
           {tool.useCases && tool.useCases.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <span>🎯</span> Use Cases
+                <Target size={18} className="text-indigo-400" aria-hidden="true" /> Use Cases
               </h2>
               <ul className="space-y-2">
                 {tool.useCases.map((useCase, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-sm opacity-80">
-                    <span className="text-indigo-400 mt-1">•</span>
+                    <Dot size={7} className="mt-1.5 shrink-0 text-indigo-400" aria-hidden="true" />
                     <span>{useCase}</span>
                   </li>
                 ))}
@@ -171,7 +184,7 @@ export default function ToolPage({ params }) {
           {tool.techStack && tool.techStack.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <span>🛠️</span> Tech Stack
+                <Wrench size={18} className="text-indigo-400" aria-hidden="true" /> Tech Stack
               </h2>
               <div className="flex flex-wrap gap-2">
                 {tool.techStack.map((tech, idx) => (

@@ -103,6 +103,10 @@ export const Layers = createIcon('layers')
 export const Cube = createIcon('cube')
 export const Route = createIcon('route')
 export const ChartUp = createIcon('chartUp')
+export const Sparkle = createIcon('sparkle')
+export const Wrench = createIcon('wrench')
+export const Flame = createIcon('flame')
+export const Dot = createIcon('dot')
 
 /** Name to component, for anything that picks an icon from data. */
 export const ICON_SET = {
@@ -137,4 +141,8 @@ export const ICON_SET = {
   cube: Cube,
   route: Route,
   chartUp: ChartUp,
+  sparkle: Sparkle,
+  wrench: Wrench,
+  flame: Flame,
+  dot: Dot,
 }

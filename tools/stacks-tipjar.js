@@ -23,14 +23,14 @@ module.exports = {
   
   // Features
   features: [
-    "💸 Accept Tips - Receive STX tips with custom on-chain messages",
-    "💬 UTF-8 Messages - Send tips with custom messages up to 280 characters",
-    "👑 Premium Badges - Unlock premium status with 10+ STX in total tips",
-    "📜 Transaction History - Full on-chain transaction history with messages",
-    "🔐 Secure Withdrawals - Owner-only with post-conditions",
-    "🦊 Multi-Wallet - Leather and Xverse wallet support",
-    "📊 Real-time Stats - Live balance, tip count, and tipper tracking",
-    "🔗 Farcaster Ready - Built-in Frame support for social sharing"
+    "Accept Tips - Receive STX tips with custom on-chain messages",
+    "UTF-8 Messages - Send tips with custom messages up to 280 characters",
+    "Premium Badges - Unlock premium status with 10+ STX in total tips",
+    "Transaction History - Full on-chain transaction history with messages",
+    "Secure Withdrawals - Owner-only with post-conditions",
+    "Multi-Wallet - Leather and Xverse wallet support",
+    "Real-time Stats - Live balance, tip count, and tipper tracking",
+    "Farcaster Ready - Built-in Frame support for social sharing"
   ],
   
   // Clarity 4 features

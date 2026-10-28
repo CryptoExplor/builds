@@ -23,16 +23,16 @@ module.exports = {
   chains: ["thru-betanet"],
 
   features: [
-    "🧩 Chrome MV3 - Manifest V3 extension, single popup UI stack with no legacy fallback",
-    "🗺️ 14 Popup Routes - Welcome, unlock, dashboard, accounts, account detail, add account, keyring, export, send, receive, faucet, history, settings, reset",
-    "🔏 Session-Only Signing - Explicit default; optional per-sign password re-authentication, and changing that setting is password-gated",
-    "🛡️ Signing Guardrails - Value-moving methods use centralized auth:'signing', checked account/network context, and a network-mutation lock through submission",
-    "🧪 Route Lifecycle Tests - test-route-lifecycle.mjs drives all 14 routes through the real Router, guards and bridge in no-vault / locked / unlocked states, asserting teardown, secret hygiene, modal focus trapping and Settings guarantees",
-    "⌨️ Focus Trapping - Password dialogs trap keyboard focus: Tab wraps inside the dialog, Escape cancels, focus returns to the opener",
-    "🚫 Custom Network Quarantine - Legacy saved networks stay listable and removable but can never be re-activated; a stale active selection self-heals to Betanet before RPC binding",
-    "📌 Side Panel Mode - Explicit Settings preference, persisted through the versioned backend preference service and re-applied after worker restart",
-    "🧱 Contract v16 - 81 methods, with reset and auto-lock hardened in the background since v6",
-    "🚷 Launchpad Quarantined - The legacy launchpad/DEX/prediction surface is deleted, not built into dist/, and a test keeps it out"
+    "Chrome MV3 - Manifest V3 extension, single popup UI stack with no legacy fallback",
+    "14 Popup Routes - Welcome, unlock, dashboard, accounts, account detail, add account, keyring, export, send, receive, faucet, history, settings, reset",
+    "Session-Only Signing - Explicit default; optional per-sign password re-authentication, and changing that setting is password-gated",
+    "Signing Guardrails - Value-moving methods use centralized auth:'signing', checked account/network context, and a network-mutation lock through submission",
+    "Route Lifecycle Tests - test-route-lifecycle.mjs drives all 14 routes through the real Router, guards and bridge in no-vault / locked / unlocked states, asserting teardown, secret hygiene, modal focus trapping and Settings guarantees",
+    "⌨Focus Trapping - Password dialogs trap keyboard focus: Tab wraps inside the dialog, Escape cancels, focus returns to the opener",
+    "Custom Network Quarantine - Legacy saved networks stay listable and removable but can never be re-activated; a stale active selection self-heals to Betanet before RPC binding",
+    "Side Panel Mode - Explicit Settings preference, persisted through the versioned backend preference service and re-applied after worker restart",
+    "Contract v16 - 81 methods, with reset and auto-lock hardened in the background since v6",
+    "Launchpad Quarantined - The legacy launchpad/DEX/prediction surface is deleted, not built into dist/, and a test keeps it out"
   ],
 
   techStack: [

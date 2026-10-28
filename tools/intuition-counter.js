@@ -17,14 +17,14 @@ module.exports = {
   
   // Features
   features: [
-    "🔢 Global Counter - Decentralized increment/decrement functionality",
-    "🏅 Evolving Badges - NFTs that evolve based on interaction count",
-    "📊 Top-50 Leaderboard - Global ranking by total interactions",
-    "🎨 4-Tier Badge System - Bronze (0-10), Silver (11-50), Gold (51-100), Platinum (100+)",
-    "🔗 Wallet Integration - Seamless Web3 wallet connection",
-    "📱 Farcaster Mini App - Native Farcaster Frame integration",
-    "⚡ Real-time Updates - Live counter and leaderboard synchronization",
-    "🛡️ Admin Controls - Administrative functions for dApp management"
+    "Global Counter - Decentralized increment/decrement functionality",
+    "Evolving Badges - NFTs that evolve based on interaction count",
+    "Top-50 Leaderboard - Global ranking by total interactions",
+    "4-Tier Badge System - Bronze (0-10), Silver (11-50), Gold (51-100), Platinum (100+)",
+    "Wallet Integration - Seamless Web3 wallet connection",
+    "Farcaster Mini App - Native Farcaster Frame integration",
+    "Real-time Updates - Live counter and leaderboard synchronization",
+    "Admin Controls - Administrative functions for dApp management"
   ],
   
   // Badge tiers

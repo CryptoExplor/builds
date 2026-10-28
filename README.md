@@ -154,6 +154,13 @@ Adding an icon means adding one entry to `icon-data.mjs` and one export in
 `docs/icon-sheet.html` and check it in a browser. `npm test` runs the same
 script as a validator and fails if any op leaves the 24 grid or has broken data.
 
+**No emoji.** Not in the UI, not in `tools/*.js`, not in section headings. An
+emoji depends on whatever font the reader's platform ships, so it changes shape,
+weight, colour and size on every device, and it cannot be aligned to a baseline.
+`scripts/check-no-emoji.mjs` scans `app/`, `lib/` and `tools/` and fails CI if one
+comes back. Terminal output in `scripts/` is exempt, since it never reaches a
+browser.
+
 ### 🧑‍💻 Profile data
 
 `lib/profile.js` holds the profile and org content shown on the homepage and footer —

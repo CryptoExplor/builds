@@ -20,11 +20,11 @@ module.exports = {
   featured: false,
 
   features: [
-    "🎯 Same Address Everywhere - Deterministic CREATE2 deployments via hardhat-deploy",
-    "📖 Step-by-Step Docs - Prerequisites and keys, Hardhat project setup, deployment and verification",
-    "📋 Ready-to-Copy Files - Configuration and deploy scripts written for beginners",
-    "🔎 Verification Tips - Etherscan and Blockscout contract verification",
-    "🤖 Sample CI Workflow - GitHub Actions workflow for automated deploys"
+    "Same Address Everywhere - Deterministic CREATE2 deployments via hardhat-deploy",
+    "Step-by-Step Docs - Prerequisites and keys, Hardhat project setup, deployment and verification",
+    "Ready-to-Copy Files - Configuration and deploy scripts written for beginners",
+    "Verification Tips - Etherscan and Blockscout contract verification",
+    "Sample CI Workflow - GitHub Actions workflow for automated deploys"
   ],
 
   techStack: [

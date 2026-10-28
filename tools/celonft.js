@@ -29,14 +29,14 @@ module.exports = {
   
   // Detailed features
   features: [
-    "🎯 60-Second Price Prediction - Guess UP/DOWN for 2x airdrop rewards",
-    "💰 Enhanced Airdrops - 0.005-0.033 CELO with lucky bonuses",
-    "🍀 Lucky Token System - Milestones (1.4x), Palindromes (2x), Sequential (1.2x)",
-    "🎨 Four-Tier Rarity - Common 60%, Rare 30%, Legendary 9%, Mythic 1%",
-    "🏆 Live Leaderboard - Top 10 collectors with rarity breakdowns",
-    "🏅 10 Achievements - Unlock badges for milestones and rarities",
-    "📊 TradingView Charts - Real-time CELO/USD price integration",
-    "📱 Farcaster Mini App - Native cast composer integration"
+    "60-Second Price Prediction - Guess UP/DOWN for 2x airdrop rewards",
+    "Enhanced Airdrops - 0.005-0.033 CELO with lucky bonuses",
+    "Lucky Token System - Milestones (1.4x), Palindromes (2x), Sequential (1.2x)",
+    "Four-Tier Rarity - Common 60%, Rare 30%, Legendary 9%, Mythic 1%",
+    "Live Leaderboard - Top 10 collectors with rarity breakdowns",
+    "10 Achievements - Unlock badges for milestones and rarities",
+    "TradingView Charts - Real-time CELO/USD price integration",
+    "Farcaster Mini App - Native cast composer integration"
   ],
   
   // Game mechanics

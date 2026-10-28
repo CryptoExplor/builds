@@ -20,14 +20,14 @@ module.exports = {
   chains: ["teqoin-l2-testnet"],
 
   features: [
-    "⛽ Native ETH - L2 gas token claims",
-    "💵 USDT - 25 tokens per claim",
-    "💵 USDC - 25 tokens per claim",
-    "💵 DAI - 25 tokens per claim",
-    "📱 Telegram Mini App - a mini app, not a bot",
-    "🔁 Same-origin proxy - the frontend POSTs { wallet, nativeOnly } to POST /api/claim, a Vercel serverless function that forwards to TeQoin server-to-server, so no CORS preflight is involved",
-    "📋 Verbatim pass-through - TeQoin's status and body are returned unchanged, so cooldowns and rate-limit errors surface exactly as the official API returns them",
-    "🧾 Claim ledger - keeps TeQoin's one-address-per-day, per-device-and-IP limits fair"
+    "Native ETH - L2 gas token claims",
+    "USDT - 25 tokens per claim",
+    "USDC - 25 tokens per claim",
+    "DAI - 25 tokens per claim",
+    "Telegram Mini App - a mini app, not a bot",
+    "Same-origin proxy - the frontend POSTs { wallet, nativeOnly } to POST /api/claim, a Vercel serverless function that forwards to TeQoin server-to-server, so no CORS preflight is involved",
+    "Verbatim pass-through - TeQoin's status and body are returned unchanged, so cooldowns and rate-limit errors surface exactly as the official API returns them",
+    "Claim ledger - keeps TeQoin's one-address-per-day, per-device-and-IP limits fair"
   ],
 
   techStack: [

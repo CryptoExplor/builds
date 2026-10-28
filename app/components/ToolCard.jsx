@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Code, Star, Zap } from '@/app/components/icons'
+import { Code, Sparkle, Star, Zap } from '@/app/components/icons'
 import StatusBadge from './StatusBadge'
 
 export default function ToolCard({ tool }) {
@@ -27,8 +27,11 @@ export default function ToolCard({ tool }) {
 
       {/* Feature Highlight */}
       {tool.features && tool.features.length > 0 && (
-        <div className="mt-3 text-xs opacity-60 line-clamp-2">
-          💡 {tool.features.length} features including {tool.features[0].split(' - ')[0]}
+        <div className="mt-3 flex items-start gap-1.5 text-xs opacity-60">
+          <Sparkle size={12} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <span className="line-clamp-2">
+            {tool.features.length} features including {tool.features[0].split(' - ')[0]}
+          </span>
         </div>
       )}
 

@@ -18,12 +18,12 @@ module.exports = {
   featured: false,
 
   features: [
-    "🔐 Local Encryption - Notes and passwords are encrypted and stored locally in the browser, protected by a master password",
-    "🗒️ Notes & Passwords Management - Add, edit, and delete notes and password entries",
-    "🏷️ Tagging & Import - Organize data with tags and convenient import",
-    "🕘 Version History - Track and restore previous versions of records",
-    "🚫 No Server Storage - Zero knowledge; data never leaves the device",
-    "🌐 No Install - Clone and open index.html in a browser, no server required"
+    "Local Encryption - Notes and passwords are encrypted and stored locally in the browser, protected by a master password",
+    "Notes & Passwords Management - Add, edit, and delete notes and password entries",
+    "Tagging & Import - Organize data with tags and convenient import",
+    "Version History - Track and restore previous versions of records",
+    "No Server Storage - Zero knowledge; data never leaves the device",
+    "No Install - Clone and open index.html in a browser, no server required"
   ],
 
   techStack: [

@@ -22,14 +22,14 @@ module.exports = {
   
   // Detailed features for showcase
   features: [
-    "💰 Token Management - Faucet, send, batch transfer, create tokens",
-    "🔄 Trading & Swaps - Exchange tokens with auto-liquidity creation",
-    "🎨 NFT Minting - Claim Tempo's official testnet NFTs",
-    "📊 Limit Orders - Place bid/ask orders on the DEX",
-    "🏊 Liquidity Pools - Add/remove liquidity from pools",
-    "🔐 TIP-403 Policies - Create transfer policies (whitelist/blacklist)",
-    "🌐 Domain Names - Register .tempo domain names",
-    "📈 Statistics - View detailed wallet and network analytics"
+    "Token Management - Faucet, send, batch transfer, create tokens",
+    "Trading & Swaps - Exchange tokens with auto-liquidity creation",
+    "NFT Minting - Claim Tempo's official testnet NFTs",
+    "Limit Orders - Place bid/ask orders on the DEX",
+    "Liquidity Pools - Add/remove liquidity from pools",
+    "TIP-403 Policies - Create transfer policies (whitelist/blacklist)",
+    "Domain Names - Register .tempo domain names",
+    "Statistics - View detailed wallet and network analytics"
   ],
   
   // Tech stack

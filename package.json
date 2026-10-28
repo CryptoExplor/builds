@@ -10,7 +10,7 @@
     "lint": "next lint",
     "validate": "node scripts/validate-tools.cjs --list",
     "build:check": "NEXT_DIST_DIR=.next-build next build",
-    "test": "node scripts/build-icon-sheet.mjs && node scripts/check-batch-parser.mjs",
+    "test": "node scripts/build-icon-sheet.mjs && node scripts/check-no-emoji.mjs && node scripts/check-batch-parser.mjs",
     "icons": "node scripts/build-icon-sheet.mjs"
   },
   "dependencies": {

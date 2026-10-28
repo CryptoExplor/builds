@@ -15,14 +15,14 @@ module.exports = {
   
   // Features
   features: [
-    "🌤️ Real-Time Weather - Current temp, humidity, wind speed, feels-like data",
-    "📍 Auto Location - Geolocation API for automatic city detection",
+    "Real-Time Weather - Current temp, humidity, wind speed, feels-like data",
+    "Auto Location - Geolocation API for automatic city detection",
     "⏰ Adaptive Greetings - Time-based messages (morning, afternoon, evening)",
-    "🌡️ Comprehensive Data - Temperature, humidity, wind, pressure, visibility",
-    "🎨 Weather Icons - Visual representations for different conditions",
-    "🔄 Auto-Refresh - Updates weather data automatically",
-    "📱 Responsive UI - Clean mobile-friendly design with gradients",
-    "🔗 Farcaster Frame - Optimized for Farcaster ecosystem"
+    "Comprehensive Data - Temperature, humidity, wind, pressure, visibility",
+    "Weather Icons - Visual representations for different conditions",
+    "Auto-Refresh - Updates weather data automatically",
+    "Responsive UI - Clean mobile-friendly design with gradients",
+    "Farcaster Frame - Optimized for Farcaster ecosystem"
   ],
   
   // Tech stack
