@@ -150,11 +150,16 @@ Adding an icon means adding one entry to `icon-data.mjs` and one export in
 `docs/icon-sheet.html` and check it in a browser. `npm test` validates the
 geometry and writes nothing.
 
-**No emoji.** Not in the UI, not in `tools/*.js`, not in section headings. An
-emoji depends on whatever font the reader's platform ships, so it changes shape,
-weight, colour and size on every device. `scripts/check-no-emoji.mjs` scans
-`app/`, `lib/` and `tools/` and fails CI if one comes back. Arrows, em dashes and
-`™` are typography, not emoji, and stay allowed.
+**No emoji in the product.** Not in the UI, not in `tools/*.js`, not in a
+heading the app renders. An emoji depends on whatever font the reader's platform
+ships, so it changes shape, weight, colour and size on every device.
+`scripts/check-no-emoji.mjs` scans `app/`, `lib/` and `tools/` and fails CI if one
+comes back.
+
+That scope is deliberate: the rule is about what ships to a reader, so this
+README and `docs/` keep their decorative headings and the check does not read
+them. Arrows, em dashes and `™` are typography rather than emoji, and stay
+allowed everywhere.
 
 ### 🧑‍💻 Profile data
 
