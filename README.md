@@ -134,7 +134,7 @@ Every icon on the site lives in `app/components/icons/` and is a hand drawn SVG.
 There is no icon package: `lucide-react` and `@phosphor-icons/react` were removed.
 
 ```js
-import { Github, ArrowLeft, CheckCircle } from '@/app/components/icons'
+import { Github, ArrowLeft, Star } from '@/app/components/icons'
 ```
 
 - `icon-data.mjs` holds the geometry. One grid, one weight: 24×24, 1.5px strokes,

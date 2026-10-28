@@ -4,9 +4,10 @@
  *
  *   node scripts/check-no-emoji.mjs
  *
- * Matches Extended_Pictographic plus ZWJ and variation selectors. It does not
- * ban arrows (→), em dashes (—), or ™. Those are typography, not emoji, and the
- * earlier version of this guard banned ™ and glued "Sheets™ add-on" into
+ * Catches every way an emoji can be spelled: a single pictograph, a ZWJ
+ * sequence, a regional-indicator flag pair, or a digit-plus-keycap. It does not
+ * ban arrows (→), em dashes (—), or ™. Those are typography, not emoji, and an
+ * earlier version of this guard banned ™ and glued "Sheets(TM) add-on" into
  * "Sheetsadd-on".
  *
  * Walks with readdirSync. fs.globSync only exists from Node 22 and CI pins 18.
@@ -21,9 +22,10 @@ import { fileURLToPath } from 'node:url'
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
 
 // Shipped UI and registry data. Scripts are out of scope: their output goes to
-// a terminal, not a browser.
+// a terminal, not a browser. CSS is in scope even though it holds no text today,
+// because a `content:` value is drawn in the UI like any other glyph.
 const TARGETS = ['app', 'lib', 'tools']
-const EXTENSIONS = ['.js', '.jsx', '.mjs']
+const EXTENSIONS = ['.js', '.jsx', '.mjs', '.css']
 const SKIP_DIRS = new Set(['node_modules', '.next', '.next-build', '.git', 'dist', 'build'])
 
 // Extended_Pictographic is the accurate property, but it also covers a handful
@@ -32,12 +34,19 @@ const SKIP_DIRS = new Set(['node_modules', '.next', '.next-build', '.git', 'dist
 const ALLOWED = new Set(['\u00A9', '\u00AE', '\u2122', '\u2139'])
 const PICTOGRAPHIC = /\p{Extended_Pictographic}/u
 
+// Extended_Pictographic alone is not exhaustive. A regional indicator (the
+// halves of 🇺🇸) is Emoji_Presentation but not pictographic, and a keycap such
+// as 1️⃣ is a plain digit followed by U+FE0F U+20E3, none of them pictographic.
+const PRESENTATION = /\p{Emoji_Presentation}/u
+const SEQUENCE = new Set(['\uFE0F', '\uFE0E', '\u20E3'])
+
 /** First character in the line that counts as emoji, or null. */
 function findEmoji(line) {
   for (const char of line) {
     if (ALLOWED.has(char)) continue
+    if (SEQUENCE.has(char)) return char
     if (char === '\u200D') return char
-    if (PICTOGRAPHIC.test(char)) return char
+    if (PICTOGRAPHIC.test(char) || PRESENTATION.test(char)) return char
   }
   return null
 }

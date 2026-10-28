@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "validate": "node scripts/validate-tools.cjs --list",
-    "build:check": "NEXT_DIST_DIR=.next-build next build",
+    "build:check": "node scripts/build-check.mjs",
     "test": "node scripts/build-icon-sheet.mjs --check && node scripts/check-no-emoji.mjs",
     "icons": "node scripts/build-icon-sheet.mjs"
   },
