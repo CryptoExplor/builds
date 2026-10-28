@@ -23,15 +23,6 @@ export default function Navbar({ toolCount }) {
             <span className="text-sm opacity-60 hidden sm:inline">{toolCount} projects</span>
           ) : null}
 
-          {/* Entry point to the FarSend landing page in app/farsend. */}
-          <Link
-            href="/farsend"
-            className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-sm text-white/70 hover:text-white hover:border-white/25 transition"
-          >
-            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            FarSend
-          </Link>
-
           <a
             href={PROFILE.twitter}
             target="_blank"
