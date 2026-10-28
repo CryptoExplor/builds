@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Code2, Zap, Star } from 'lucide-react'
+import { Code, Sparkle, Star, Zap } from '@/app/components/icons'
 import StatusBadge from './StatusBadge'
 
 export default function ToolCard({ tool }) {
@@ -14,7 +14,7 @@ export default function ToolCard({ tool }) {
           {/* Featured Badge - Inline with serial */}
           {tool.featured && (
             <span className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded-full px-2 py-0.5 text-xs font-semibold flex items-center gap-1">
-              <Star size={10} className="fill-current" />
+              <Star size={10} aria-hidden="true" />
               Featured
             </span>
           )}
@@ -27,8 +27,11 @@ export default function ToolCard({ tool }) {
 
       {/* Feature Highlight */}
       {tool.features && tool.features.length > 0 && (
-        <div className="mt-3 text-xs opacity-60 line-clamp-2">
-          💡 {tool.features.length} features including {tool.features[0].split(' - ')[0]}
+        <div className="mt-3 flex items-start gap-1.5 text-xs opacity-60">
+          <Sparkle size={12} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <span className="line-clamp-2">
+            {tool.features.length} features including {tool.features[0].split(' - ')[0]}
+          </span>
         </div>
       )}
 
@@ -47,7 +50,7 @@ export default function ToolCard({ tool }) {
 
       <div className="mt-auto flex gap-3 pt-4 border-t border-white/5">
         <div className="flex items-center gap-1 text-xs opacity-60">
-          <Code2 size={14} />
+          <Code size={14} />
           {tool.category[0]}
         </div>
         <div className="flex items-center gap-1 text-xs opacity-60">

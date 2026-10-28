@@ -102,6 +102,7 @@ builds/
 │   ├── not-found.jsx          # Themed 404
 │   ├── globals.css            # Global styles + Tailwind
 │   ├── components/
+│   │   ├── icons/             # Every icon on the site, hand drawn SVG
 │   │   ├── Navbar.jsx         # Navigation bar
 │   │   ├── ProfileHero.jsx    # Animated hero (GSAP) + profile stats
 │   │   ├── ProfileSections.jsx# Focus areas, Farcaster mini apps, signals
@@ -126,6 +127,39 @@ builds/
 ├── .github/                   # Templates & workflows
 └── public/                    # Static assets
 ```
+
+### 🎨 Icons
+
+Every icon on the site lives in `app/components/icons/` and is a hand drawn SVG.
+There is no icon package: `lucide-react` and `@phosphor-icons/react` were removed.
+
+```js
+import { Github, ArrowLeft, Star } from '@/app/components/icons'
+```
+
+- `icon-data.mjs` holds the geometry. One grid, one weight: 24×24, 1.5px strokes,
+  round caps and joins, nothing within 2px of an edge. Brand and glyph marks
+  (github, x, zap, boxes, star) are filled; everything else is stroked.
+- `index.jsx` is the only import surface. Props are `size`, `className`,
+  `strokeWidth` and `title`. No title means the icon is decorative and hidden
+  from screen readers; pass one and it becomes a labelled image.
+- Colour is always `currentColor`, so an icon matches the text around it.
+
+Adding an icon means adding one entry to `icon-data.mjs` and one export in
+`index.jsx`. Then run `npm run icons` to regenerate the contact sheet at
+`docs/icon-sheet.html` and check it in a browser. `npm test` validates the
+geometry and writes nothing.
+
+**No emoji in the product.** Not in the UI, not in `tools/*.js`, not in a
+heading the app renders. An emoji depends on whatever font the reader's platform
+ships, so it changes shape, weight, colour and size on every device.
+`scripts/check-no-emoji.mjs` scans `app/`, `lib/` and `tools/` and fails CI if one
+comes back.
+
+That scope is deliberate: the rule is about what ships to a reader, so this
+README and `docs/` keep their decorative headings and the check does not read
+them. Arrows, em dashes and `™` are typography rather than emoji, and stay
+allowed everywhere.
 
 ### 🧑‍💻 Profile data
 
@@ -156,7 +190,7 @@ Every push to `main` triggers auto-deployment.
 |-------|------------|
 | Framework | Next.js 14 (App Router) |
 | Styling | Tailwind CSS |
-| Icons | Lucide React |
+| Icons | Hand-drawn SVG (`app/components/icons`) |
 | Hosting | Vercel (Edge Network) |
 | Data Source | Git (tools/*.js files) |
 | Language | JavaScript |

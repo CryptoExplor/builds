@@ -1,4 +1,4 @@
-import { Github, Twitter, Mail, Globe, MapPin } from 'lucide-react'
+import { Flame, Github, Globe, Mail, MapPin, XSocial } from '@/app/components/icons'
 import { PROFILE } from '@/lib/profile'
 
 export default function Footer() {
@@ -55,7 +55,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-white/65 hover:text-white transition"
                 >
-                  <Twitter size={15} />
+                  <XSocial size={15} />
                   X · {PROFILE.twitterHandle}
                 </a>
               </li>
@@ -89,7 +89,8 @@ export default function Footer() {
               0x4f6Fb0A6c8A4C667bdF73C0257BE162B144c1624
             </code>
             <p className="mt-4 text-sm text-white/70">
-              Made with 🔥 by <span className="font-semibold">{PROFILE.handle}</span>
+              <Flame size={14} className="inline-block align-[-2px] mr-1" aria-hidden="true" />
+              Made by <span className="font-semibold">{PROFILE.handle}</span>
             </p>
             <p className="text-xs text-white/40 mt-1">Trust through transparency</p>
           </div>

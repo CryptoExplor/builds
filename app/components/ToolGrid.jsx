@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Search, Filter } from 'lucide-react'
+import { Filter, Search } from '@/app/components/icons'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ToolCard from './ToolCard'
@@ -120,6 +120,7 @@ export default function ToolGrid({ tools }) {
           <Filter size={18} className="opacity-40" />
           {allStatuses.map(status => (
             <button
+  type="button"
               key={status}
               onClick={() => setSelectedStatus(status)}
               className={`px-4 py-2 rounded-lg text-sm transition capitalize ${

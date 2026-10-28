@@ -8,7 +8,7 @@
 module.exports = {
   name: "Wallet Balance Tracker Docs",
   slug: "wallet-tracker-docs",
-  description: "Documentation and marketing site for the Wallet Balance Tracker Google Sheets™ add-on — a free Apps Script library that fetches live native coin balances across Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche, and any EVM chain with no API key required.",
+  description: "Documentation and marketing site for the Wallet Balance Tracker Google Sheets add-on — a free Apps Script library that fetches live native coin balances across Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche, and any EVM chain with no API key required.",
   category: ["Docs", "DeFi", "Tooling"],
   tags: ["google-sheets", "apps-script", "docs", "wallet-tracker", "evm", "balances", "vite", "multi-chain"],
   status: "production",
@@ -22,11 +22,11 @@ module.exports = {
   chains: ["ethereum", "polygon", "bsc", "arbitrum", "optimism", "avalanche"],
 
   features: [
-    "📊 Live Native Balances - Fetches native coin balances across Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche, and any EVM chain",
-    "🔑 No API Key - Works without any API key",
-    "📄 Four Pages - Home, Privacy Policy, Terms of Service, and Support",
-    "📋 Copy-Paste Wrapper - Support page ships an 18-line Code.gs wrapper block: thin one-line delegators with zero logic, meant to be pasted into a user's own bound project",
-    "⚡ Static & Fast - Vite + vanilla HTML/CSS deployed on Vercel"
+    "Live Native Balances - Fetches native coin balances across Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche, and any EVM chain",
+    "No API Key - Works without any API key",
+    "Four Pages - Home, Privacy Policy, Terms of Service, and Support",
+    "Copy-Paste Wrapper - Support page ships an 18-line Code.gs wrapper block: thin one-line delegators with zero logic, meant to be pasted into a user's own bound project",
+    "Static & Fast - Vite + vanilla HTML/CSS deployed on Vercel"
   ],
 
   techStack: [

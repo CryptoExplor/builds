@@ -18,22 +18,22 @@ module.exports = {
   featured: true,
 
   features: [
-    "🔒 100% Client-Side - Zero backend, zero network requests",
-    "🚫 No External Dependencies - All code runs locally",
-    "💾 No Data Storage - Nothing saved to disk or cloud",
-    "📴 Offline Ready - Works without an internet connection",
-    "📖 Open Source - Fully auditable single HTML file",
-    "🔥 Burn Session - Nuclear option to clear all data",
-    "✅ EIP-55 Checksum - Proper Ethereum address validation",
-    "🔑 Private Key Format - 64-char hex with optional 0x prefix",
-    "⚠️ Real-Time Errors - Shows exact line numbers of invalid entries",
-    "🧮 Count Mismatch Detection - Warns when private keys and addresses do not match",
-    "🚷 Zero-Key Detection - Prevents all-zero private keys",
-    "🌱 BIP-39 Mnemonic Validation - Checks every word against the real 2048-word list and verifies the cryptographic checksum bits via the browser's Web Crypto SHA-256",
-    "🌐 Multi-Chain Address Detection - Ethereum (0x), Bitcoin (legacy 1.../3... and bech32 bc1...), Tron (T...), and Solana, with a per-chain breakdown",
-    "🗂️ Mnemonic Field - Optional dedicated field for 12/15/18/21/24-word seed phrases, kept separate from keys and addresses",
-    "📌 Extra Column - Optional free-text column for tags, labels, or amounts",
-    "🖊️ Custom Column Headers - Rename output columns to match a downstream tool"
+    "100% Client-Side - Zero backend, zero network requests",
+    "No External Dependencies - All code runs locally",
+    "No Data Storage - Nothing saved to disk or cloud",
+    "Offline Ready - Works without an internet connection",
+    "Open Source - Fully auditable single HTML file",
+    "Burn Session - Nuclear option to clear all data",
+    "EIP-55 Checksum - Proper Ethereum address validation",
+    "Private Key Format - 64-char hex with optional 0x prefix",
+    "Real-Time Errors - Shows exact line numbers of invalid entries",
+    "Count Mismatch Detection - Warns when private keys and addresses do not match",
+    "Zero-Key Detection - Prevents all-zero private keys",
+    "BIP-39 Mnemonic Validation - Checks every word against the real 2048-word list and verifies the cryptographic checksum bits via the browser's Web Crypto SHA-256",
+    "Multi-Chain Address Detection - Ethereum (0x), Bitcoin (legacy 1.../3... and bech32 bc1...), Tron (T...), and Solana, with a per-chain breakdown",
+    "Mnemonic Field - Optional dedicated field for 12/15/18/21/24-word seed phrases, kept separate from keys and addresses",
+    "Extra Column - Optional free-text column for tags, labels, or amounts",
+    "Custom Column Headers - Rename output columns to match a downstream tool"
   ],
 
   techStack: [

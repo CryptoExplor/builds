@@ -32,14 +32,14 @@ module.exports = {
   
   // Detailed features
   features: [
-    "🎨 100% On-Chain SVG - Art generated deterministically from token ID, no IPFS",
-    "🔢 1.6M+ Combinations - 7-trait system: expression, mouth, aura, corruption, symbol, palette, background",
-    "✅ SIP-009 Compliant - Standard Stacks NFT interface",
-    "🔐 Clarity 4 - Latest Clarity version with advanced features",
-    "💰 Free Mint - One per address, 10,000 max supply",
-    "🔗 Multi-Wallet - Leather & Xverse wallet support",
-    "🌐 Network Toggle - Seamless mainnet/testnet switching",
-    "⚡ Gas Optimized - Minimal on-chain footprint with efficient SVG generation"
+    "100% On-Chain SVG - Art generated deterministically from token ID, no IPFS",
+    "1.6M+ Combinations - 7-trait system: expression, mouth, aura, corruption, symbol, palette, background",
+    "SIP-009 Compliant - Standard Stacks NFT interface",
+    "Clarity 4 - Latest Clarity version with advanced features",
+    "Free Mint - One per address, 10,000 max supply",
+    "Multi-Wallet - Leather & Xverse wallet support",
+    "Network Toggle - Seamless mainnet/testnet switching",
+    "Gas Optimized - Minimal on-chain footprint with efficient SVG generation"
   ],
   
   // On-chain generation system
@@ -102,11 +102,11 @@ module.exports = {
   
   // Use cases
   useCases: [
-    "🖼️ Schizocore PFP collection for profile pictures",
-    "🎭 Brutalist digital art collection",
-    "📚 Study case for on-chain NFT generation",
-    "🔬 Demonstration of Clarity 4 capabilities",
-    "💎 Collectible with true on-chain permanence"
+    "Schizocore PFP collection for profile pictures",
+    "Brutalist digital art collection",
+    "Study case for on-chain NFT generation",
+    "Demonstration of Clarity 4 capabilities",
+    "Collectible with true on-chain permanence"
   ],
   
   // Design philosophy

@@ -30,6 +30,11 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      # Validates the icon geometry and fails if an emoji reaches app/, lib/
+      # or tools/. Both are cheap and both have caught real regressions.
+      - name: Run unit checks
+        run: npm test
+
       - name: Build project
         run: npm run build
 

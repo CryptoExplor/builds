@@ -20,14 +20,14 @@ module.exports = {
   featured: false,
 
   features: [
-    "📄 Canonical Policy Home - Hosts the privacy policy at /privacy; the repository link is no longer used for it",
-    "🏗️ Architecture Diagram - Rendered ArchDiagram component explaining the extension's structure",
-    "🔐 Security Principles - Published securityPrinciples content",
-    "🧾 Changelog & Releases - Changelog entries plus release tracks and store status",
-    "⚙️ Install Instructions - Clone, npm install, npm test, npm run build for the extension",
-    "🤖 MCP Tables + llms.txt - Machine-readable tool tables and /llms.txt, /llms-full.txt for AI consumers",
-    "🔎 SEO & Structured Data - SoftwareApplication JSON-LD, OpenGraph image, metadataBase pinned to the live domain",
-    "🗄️ Notes Catalog - Drizzle ORM + Postgres-backed notes surfaced on the home route"
+    "Canonical Policy Home - Hosts the privacy policy at /privacy; the repository link is no longer used for it",
+    "Architecture Diagram - Rendered ArchDiagram component explaining the extension's structure",
+    "Security Principles - Published securityPrinciples content",
+    "Changelog & Releases - Changelog entries plus release tracks and store status",
+    "Install Instructions - Clone, npm install, npm test, npm run build for the extension",
+    "MCP Tables + llms.txt - Machine-readable tool tables and /llms.txt, /llms-full.txt for AI consumers",
+    "SEO & Structured Data - SoftwareApplication JSON-LD, OpenGraph image, metadataBase pinned to the live domain",
+    "Notes Catalog - Drizzle ORM + Postgres-backed notes surfaced on the home route"
   ],
 
   techStack: [

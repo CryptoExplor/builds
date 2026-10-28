@@ -19,16 +19,16 @@ module.exports = {
   chains: ["base", "arbitrum", "bsc", "celo", "monad"],
 
   features: [
-    "⚡ No Cooldown - Tap as fast as you want",
-    "🌐 5 Blockchains - Base, Arbitrum, BSC, Celo, Monad",
-    "🔄 Instant Actions - Increment or decrement the global counter",
-    "💰 Tiny Fees - 0.000001 ETH/token per tap",
-    "🎖️ 6 Badge Tiers - Newcomer through Legendary (5000+ taps)",
-    "🏅 11 Achievements - Unlock special milestones",
-    "🔥 Daily Streaks - Keep your streak alive for bonuses",
-    "📊 Top 100 Leaderboard - Per chain plus global rankings",
-    "👥 10% Referral Rewards - Earn from referred users' fees",
-    "🔗 Unified Multichain - One leaderboard across chains, seamless chain switching, same contracts and rules everywhere"
+    "No Cooldown - Tap as fast as you want",
+    "5 Blockchains - Base, Arbitrum, BSC, Celo, Monad",
+    "Instant Actions - Increment or decrement the global counter",
+    "Tiny Fees - 0.000001 ETH/token per tap",
+    "6 Badge Tiers - Newcomer through Legendary (5000+ taps)",
+    "11 Achievements - Unlock special milestones",
+    "Daily Streaks - Keep your streak alive for bonuses",
+    "Top 100 Leaderboard - Per chain plus global rankings",
+    "10% Referral Rewards - Earn from referred users' fees",
+    "Unified Multichain - One leaderboard across chains, seamless chain switching, same contracts and rules everywhere"
   ],
 
   techStack: [

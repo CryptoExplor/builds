@@ -25,14 +25,14 @@ module.exports = {
   
   // Features
   features: [
-    "🎮 Global Counter - Decentralized increment/decrement with blockchain state",
-    "🏆 Badge NFT System - 7 tiers: Bronze, Silver, Gold, Platinum, Diamond, Master, Legendary",
-    "📊 Top-20 Leaderboard - Real-time rankings by total actions",
-    "⏱️ Cooldown Mechanism - 1-hour wait between actions per user",
-    "💰 Fee System - Small NEX fee for each transaction",
-    "🔗 Multi-Wallet - Browser extensions, Farcaster, WalletConnect support",
-    "📱 Farcaster Mini App - Native integration for Farcaster users",
-    "🔐 Admin Controls - Owner-only reset functionality"
+    "Global Counter - Decentralized increment/decrement with blockchain state",
+    "Badge NFT System - 7 tiers: Bronze, Silver, Gold, Platinum, Diamond, Master, Legendary",
+    "Top-20 Leaderboard - Real-time rankings by total actions",
+    "Cooldown Mechanism - 1-hour wait between actions per user",
+    "Fee System - Small NEX fee for each transaction",
+    "Multi-Wallet - Browser extensions, Farcaster, WalletConnect support",
+    "Farcaster Mini App - Native integration for Farcaster users",
+    "Admin Controls - Owner-only reset functionality"
   ],
   
   // Badge tiers

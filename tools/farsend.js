@@ -28,24 +28,24 @@ module.exports = {
   
   // Detailed features
   features: [
-    "📤 Batch Transfers - Send ETH/ERC-20 to multiple addresses in one transaction",
-    "💰 Gas Optimization - Save 40-60% on gas costs vs individual transfers",
-    "📊 Smart Import - CSV/JSON upload with automatic parsing and validation",
-    "✅ Address Validation - Automatic Ethereum address checksumming",
-    "💎 ERC-20 Support - Send any ERC-20 token with built-in approval workflow",
-    "🔗 Wallet Integration - Reown AppKit for seamless multi-wallet connection",
-    "📱 Farcaster Native - Full Farcaster Mini App integration",
-    "🎉 Live Preview - Review recipients and amounts before dispatching"
+    "Batch Transfers - Send ETH/ERC-20 to multiple addresses in one transaction",
+    "Gas Optimization - Save 40-60% on gas costs vs individual transfers",
+    "Smart Import - CSV/JSON upload with automatic parsing and validation",
+    "Address Validation - Automatic Ethereum address checksumming",
+    "ERC-20 Support - Send any ERC-20 token with built-in approval workflow",
+    "Wallet Integration - Reown AppKit for seamless multi-wallet connection",
+    "Farcaster Native - Full Farcaster Mini App integration",
+    "Live Preview - Review recipients and amounts before dispatching"
   ],
   
   // Use cases
   useCases: [
-    "🎁 Community rewards and token distributions",
-    "🪂 Airdrops for marketing campaigns",
-    "💼 DAO payouts and contributor compensation",
-    "🎨 Creator rewards on Farcaster",
-    "👥 Team salary and bonus distributions",
-    "🎮 Gaming rewards and NFT currency distribution"
+    "Community rewards and token distributions",
+    "Airdrops for marketing campaigns",
+    "DAO payouts and contributor compensation",
+    "Creator rewards on Farcaster",
+    "Team salary and bonus distributions",
+    "Gaming rewards and NFT currency distribution"
   ],
   
   // Input formats supported

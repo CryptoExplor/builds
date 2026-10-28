@@ -20,20 +20,20 @@ module.exports = {
   chains: ["base"],
 
   features: [
-    "⚔️ Battle Arena - Real-time turn-based battles between NFTs from different collections",
-    "📐 Universal Stat Normalization - Every NFT (Base Invaders, BaseHeads 404, BaseMoods, VoidPFPs, and more) converts into HP, ATK, DEF, SPD, CRIT, Dodge, Lifesteal, Regen",
-    "🛡️ Passive Abilities - Ghost Step, Iron Wall, Drain, Berserker, Regen Burst, each with cooldowns and trigger conditions",
-    "🎬 Animated Combat - Particle effects, floating damage numbers, crit bursts, dodge ghosts, screen shake, slash trails, cinematic round splashes",
-    "🤖 AI Opponents - Challenge AI-controlled fighters with configurable win rates",
-    "🔐 Anti-Cheat Snapshots - Stat snapshots hashed with SHA-256 to prevent drift abuse",
-    "📋 Challenge Board - Post challenges, accept fights, collection-themed card UI",
-    "🎨 NFT Minting - Mint from curated Base collections with auto-discovery",
-    "🖼️ Bandwidth-Smart OpenSea Gallery - Lazy display previews while browsing, original resolution only after opening an item, opt-in animation playback",
-    "🔍 Rich NFT Details - OpenSea rarity rank, estimated value, ownership, traits, trust flags, marketplace links",
-    "📊 Reliable Mint Analytics - Browser-persistent outbox, local and OpenSea historical reconciliation, receipt-derived token IDs, no always-on server required",
-    "🏆 Points & Gamification - Streaks, status badges, global leaderboards",
-    "📣 Social Sharing - Farcaster cast composing, share cards, replay-to-play conversion",
-    "📱 Farcaster Mini App - Native integration with Farcaster frames"
+    "Battle Arena - Real-time turn-based battles between NFTs from different collections",
+    "Universal Stat Normalization - Every NFT (Base Invaders, BaseHeads 404, BaseMoods, VoidPFPs, and more) converts into HP, ATK, DEF, SPD, CRIT, Dodge, Lifesteal, Regen",
+    "Passive Abilities - Ghost Step, Iron Wall, Drain, Berserker, Regen Burst, each with cooldowns and trigger conditions",
+    "Animated Combat - Particle effects, floating damage numbers, crit bursts, dodge ghosts, screen shake, slash trails, cinematic round splashes",
+    "AI Opponents - Challenge AI-controlled fighters with configurable win rates",
+    "Anti-Cheat Snapshots - Stat snapshots hashed with SHA-256 to prevent drift abuse",
+    "Challenge Board - Post challenges, accept fights, collection-themed card UI",
+    "NFT Minting - Mint from curated Base collections with auto-discovery",
+    "Bandwidth-Smart OpenSea Gallery - Lazy display previews while browsing, original resolution only after opening an item, opt-in animation playback",
+    "Rich NFT Details - OpenSea rarity rank, estimated value, ownership, traits, trust flags, marketplace links",
+    "Reliable Mint Analytics - Browser-persistent outbox, local and OpenSea historical reconciliation, receipt-derived token IDs, no always-on server required",
+    "Points & Gamification - Streaks, status badges, global leaderboards",
+    "Social Sharing - Farcaster cast composing, share cards, replay-to-play conversion",
+    "Farcaster Mini App - Native integration with Farcaster frames"
   ],
 
   techStack: [

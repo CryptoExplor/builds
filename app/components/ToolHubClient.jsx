@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { ExternalLink, Github, Filter, Search, Code2, Zap } from 'lucide-react';
-
+import { Code, External, Filter, Github, Search, Zap } from '@/app/components/icons'
 export default function ToolHubClient({ tools }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -29,7 +28,7 @@ export default function ToolHubClient({ tools }) {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
-              <Code2 size={24} />
+              <Code size={24} />
             </div>
             <div>
               <h1 className="text-xl font-bold">CryptoExplor</h1>
@@ -67,6 +66,7 @@ export default function ToolHubClient({ tools }) {
             <Filter size={18} className="opacity-40" />
             {allStatuses.map(status => (
               <button
+  type="button"
                 key={status}
                 onClick={() => setSelectedStatus(status)}
                 className={`px-4 py-2 rounded-lg text-sm transition ${
@@ -152,7 +152,7 @@ const ToolCard = ({ tool, onClick }) => {
 
       <div className="flex gap-3 mt-4 pt-4 border-t border-white/5">
         <div className="flex items-center gap-1 text-xs opacity-60">
-          <Code2 size={14} />
+          <Code size={14} />
           {tool.category[0]}
         </div>
         <div className="flex items-center gap-1 text-xs opacity-60">
@@ -204,7 +204,7 @@ const ToolDetail = ({ tool, onClose }) => {
             rel="noopener noreferrer"
             className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition font-medium"
           >
-            <ExternalLink size={18} />
+            <External size={18} />
             Live App
           </a>
           <a 
@@ -219,6 +219,7 @@ const ToolDetail = ({ tool, onClose }) => {
         </div>
 
         <button 
+  type="button"
           onClick={onClose}
           className="mt-6 w-full py-2 text-sm opacity-60 hover:opacity-100 transition"
         >

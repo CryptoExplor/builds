@@ -1,4 +1,4 @@
-import { Boxes, Github, Twitter } from 'lucide-react'
+import { ArrowUpRight, Boxes, Github, XSocial } from '@/app/components/icons'
 import Link from 'next/link'
 import { PROFILE } from '@/lib/profile'
 
@@ -30,7 +30,7 @@ export default function Navbar({ toolCount }) {
             aria-label={`${PROFILE.handle} on X`}
             className="opacity-60 hover:opacity-100 transition"
           >
-            <Twitter size={18} />
+            <XSocial size={18} />
           </a>
 
           <a
@@ -41,7 +41,8 @@ export default function Navbar({ toolCount }) {
             className="flex items-center gap-2 text-sm opacity-60 hover:opacity-100 transition"
           >
             <Github size={18} />
-            <span className="hidden sm:inline">GitHub →</span>
+            <span className="hidden sm:inline">GitHub</span>
+            <ArrowUpRight size={14} aria-hidden="true" />
           </a>
         </div>
       </div>
