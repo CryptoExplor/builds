@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "validate": "node scripts/validate-tools.cjs --list"
+    "validate": "node scripts/validate-tools.cjs --list",
+    "build:check": "NEXT_DIST_DIR=.next-build next build",
+    "test": "node scripts/check-batch-parser.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

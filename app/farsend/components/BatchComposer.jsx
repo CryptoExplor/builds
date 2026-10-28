@@ -13,21 +13,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowSquareOut, CheckCircle, Trash, WarningCircle } from '@phosphor-icons/react'
 
-const ADDRESS_PATTERN = /^0x[a-fA-F0-9]{40}$/
-const MAX_ROWS = 400
-
-// ERC20 payouts are where batching pays off most: a standalone transfer carries
-// its own 21000 base cost plus a cold storage slot, a dispersed one shares the
-// base cost across the whole list.
-const GAS_PER_STANDALONE_TRANSFER = 65000
-const GAS_BATCH_BASE = 21000
-const GAS_PER_BATCHED_RECIPIENT = 30500
-
-const SAMPLE = [
-  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045, 120.5',
-  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, 48',
-  '0x8878b70a01bdda92ab8ea48dd7893b64c69298c0, 300.25',
-].join('\n')
+import { MAX_ROWS, parseBatch, summarize } from '../lib/batch.mjs'
 
 const formatNumber = value => new Intl.NumberFormat('en-US').format(value)
 const formatAmount = value =>
@@ -36,57 +22,35 @@ const formatAmount = value =>
     maximumFractionDigits: 2,
   }).format(value)
 
-function parseList(input) {
-  const lines = input.split('\n')
-  const seen = new Map()
-  const rows = []
-
-  lines.forEach((line, index) => {
-    const trimmed = line.trim()
-    if (!trimmed) return
-
-    const parts = trimmed.split(/[\s,;]+/).filter(Boolean)
-    const [address, amount] = parts
-    const row = { line: index + 1, address: address || '', amount, error: null }
-
-    if (parts.length > 2) {
-      row.error = 'Extra column found. Each line takes an address and an amount.'
-    } else if (!address) {
-      row.error = 'No address on this line.'
-    } else if (!ADDRESS_PATTERN.test(address)) {
-      row.error = `Address has ${address.replace(/^0x/, '').length} characters after 0x. An address has 40.`
-    } else if (!amount) {
-      row.error = 'No amount on this line.'
-    } else if (!/^\d+(\.\d+)?$/.test(amount) || Number(amount) <= 0) {
-      row.error = `"${amount}" is not a positive number.`
-    } else {
-      const key = address.toLowerCase()
-      if (seen.has(key)) {
-        row.error = `Same address as line ${seen.get(key)}.`
-      } else {
-        seen.set(key, index + 1)
-      }
-    }
-
-    rows.push(row)
-  })
-
-  return rows
-}
+const SAMPLE = [
+  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045, 120.5',
+  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, 48',
+  '0x8878b70a01bdda92ab8ea48dd7893b64c69298c0, 300.25',
+].join('\n')
 
 export default function BatchComposer() {
   const [value, setValue] = useState(SAMPLE)
   const [estimating, setEstimating] = useState(false)
   const timer = useRef(null)
 
-  const rows = useMemo(() => parseList(value), [value])
-  const invalid = rows.filter(row => row.error)
-  const valid = rows.filter(row => !row.error)
+  const { rows, truncated } = useMemo(() => parseBatch(value), [value])
+  const { valid, invalid, total, standaloneGas, batchGas, savedPercent, canSend } = useMemo(
+    () => summarize(rows),
+    [rows]
+  )
 
   // Re-estimating runs on a short, visible delay, and only when the number of
   // recipients changes. Editing an amount updates the total instantly; adding a
-  // row is the moment that deserves a loading state.
+  // row is the moment that deserves a loading state. The first pass is skipped
+  // so the initial render shows real numbers instead of skeletons that flash
+  // on and straight back off.
+  const firstPass = useRef(true)
   useEffect(() => {
+    if (firstPass.current) {
+      firstPass.current = false
+      return
+    }
+
     setEstimating(true)
     if (timer.current) clearTimeout(timer.current)
     timer.current = setTimeout(() => setEstimating(false), 420)
@@ -94,14 +58,6 @@ export default function BatchComposer() {
       if (timer.current) clearTimeout(timer.current)
     }
   }, [rows.length])
-
-  const total = valid.reduce((sum, row) => sum + Number(row.amount), 0)
-  const payable = valid.length
-  const standaloneGas = payable * GAS_PER_STANDALONE_TRANSFER
-  const batchGas = payable ? GAS_BATCH_BASE + payable * GAS_PER_BATCHED_RECIPIENT : 0
-  const saved = standaloneGas && batchGas ? Math.round((1 - batchGas / standaloneGas) * 100) : 0
-
-  const canSend = valid.length > 0 && invalid.length === 0
 
   return (
     <div className="rounded-2xl bg-surface-2 p-6">
@@ -224,16 +180,22 @@ export default function BatchComposer() {
             </div>
           ) : null}
 
+          {truncated ? (
+            <p className="mt-3 text-xs text-white/55">
+              Only the first {MAX_ROWS} lines are counted. Split anything larger.
+            </p>
+          ) : null}
+
           {/* Summary */}
           <div aria-live="polite" className="mt-4 grid gap-4 sm:grid-cols-3">
             <SummaryCell label="Recipients" value={formatNumber(valid.length)} loading={estimating} />
             <SummaryCell label="Total to send" value={`${formatAmount(total)} USDC`} loading={estimating} />
             <SummaryCell
               label="Gas saved"
-              value={saved > 0 ? `${saved}%` : 'None'}
-              hint={saved > 0 ? `${formatNumber(standaloneGas)} gas down to ${formatNumber(batchGas)}` : undefined}
+              value={savedPercent > 0 ? `${savedPercent}%` : 'None'}
+              hint={savedPercent > 0 ? `${formatNumber(standaloneGas)} gas down to ${formatNumber(batchGas)}` : undefined}
               loading={estimating}
-              accent={saved > 0}
+              accent={savedPercent > 0}
             />
           </div>
         </>

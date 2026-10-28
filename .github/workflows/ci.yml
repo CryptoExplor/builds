@@ -30,6 +30,12 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      # Pure logic checks for the FarSend batch parser and gas model. These are
+      # the numbers quoted on /farsend, so a failing check means the page is
+      # making a claim its own code no longer supports.
+      - name: Check batch parser
+        run: npm test
+
       - name: Build project
         run: npm run build
 

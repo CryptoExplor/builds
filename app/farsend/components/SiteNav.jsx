@@ -39,10 +39,20 @@ export default function SiteNav({ current = 'product' }) {
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
+    // The panel is mobile only. If the viewport grows past the breakpoint while
+    // it is open, the panel is hidden by CSS but the scroll lock would stay on,
+    // leaving the desktop page unable to scroll.
+    const desktop = window.matchMedia('(min-width: 768px)')
+    const onBreakpoint = event => {
+      if (event.matches) setOpen(false)
+    }
+    desktop.addEventListener('change', onBreakpoint)
+
     document.addEventListener('keydown', onKeyDown)
     return () => {
       document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', onKeyDown)
+      desktop.removeEventListener('change', onBreakpoint)
     }
   }, [open, close])
 

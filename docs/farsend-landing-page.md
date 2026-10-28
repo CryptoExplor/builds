@@ -124,12 +124,31 @@ with it. Real content, in the product's own voice, which is what the rule is act
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000/farsend
+npm run dev        # http://localhost:3000/farsend
+npm test           # batch parser and gas model, 51 checks
 npm run lint
-npm run build
 npm run validate
+npm run build:check   # production build, safe to run while dev is up
 ```
 
-`next build` produces 31 static pages with `/farsend` prerendered. Lint is clean apart from two
-pre existing `<img>` warnings in unrelated files, and the registry validator still reports 24
-tool files, 24 unique slugs, 23 public.
+`build:check` sets `NEXT_DIST_DIR=.next-build`, which `next.config.js` reads as
+`distDir`. Run a plain `next build` while `next dev` is running and the build
+overwrites `.next` underneath the dev server: every `/_next/static` request then
+404s and the site renders as unstyled HTML until dev is restarted. That is what
+`build:check` exists to avoid.
+
+## 5. Audit notes
+
+Found and fixed while reviewing the first pass:
+
+- **The gas claim overstated short lists.** The model saves 21% at one recipient, 37% at two, 42% at three, and tops out near 53%. The benefit card and the FAQ both claimed a flat 40% to 60%, which is only true from three recipients up. Both now say the saving grows with the list and give the real figures. `npm test` asserts the band and that it is never exceeded.
+- **The row cap was decorative.** The helper text said 400 lines were allowed and nothing enforced it. Parsing now caps at 400 and the panel says when it has.
+- **Skeletons flashed on first paint.** The loading state fired on mount, so real numbers appeared, vanished into skeletons, then came back. The first pass is now skipped; skeletons only follow a change in recipient count.
+- **Scroll lock could stick.** Opening the mobile menu above the breakpoint and then resizing left `body` overflow hidden, with the panel itself hidden by CSS. The menu now closes on the breakpoint change.
+- **Placeholder contrast.** `white/40` on `#181818` is about 3.3:1. Raised to `white/55`.
+- **Duplicated logic.** The parser and gas model lived inside the component where nothing could exercise them. They are now `app/farsend/lib/batch.mjs`, with `scripts/check-batch-parser.mjs` covering 51 cases and running in CI.
+
+Not changed, worth knowing:
+
+- The page has no screenshots. Nothing here could be rendered headlessly in the sandbox, so the layout is verified through the served CSS, the asset graph and the DOM, not by eye. Open `/farsend` on a phone before merging.
+- The hero menu button, the FAQ `<details>` and the mobile panel behave correctly by markup, but their motion has not been watched in a browser.

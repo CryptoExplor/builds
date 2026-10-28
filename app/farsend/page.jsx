@@ -72,8 +72,8 @@ const BENEFITS = [
   },
   {
     icon: Cube,
-    title: 'Roughly half the gas',
-    body: 'Batching shares the base cost across every recipient, which lands between 40% and 60% on typical ERC20 payout lists.',
+    title: 'Up to half the gas',
+    body: 'Batching shares the base cost across every recipient. The saving grows with the list, from about 42% at three recipients to around 53% on long ones.',
   },
   {
     icon: CheckCircle,
@@ -105,7 +105,7 @@ const STEPS = [
 const FAQS = [
   {
     q: 'How much does a batch cost?',
-    a: 'One transaction fee instead of one per recipient. On typical ERC20 payout lists that lands between 40% and 60% below sending each transfer separately. The preview on this page models 65,000 gas for a standalone transfer against 30,500 per batched recipient plus a 21,000 base.',
+    a: 'One transaction fee instead of one per recipient. The saving grows with the list, because each standalone transfer would carry its own 21,000 base cost: about 42% at three recipients, 50% at ten, and 53% on long lists. The preview on this page models 65,000 gas for a standalone transfer against 30,500 per batched recipient plus a 21,000 base, so you can check the maths for your own list.',
   },
   {
     q: 'Which chains does it work on?',
