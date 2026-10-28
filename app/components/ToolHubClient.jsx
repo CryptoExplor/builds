@@ -66,6 +66,7 @@ export default function ToolHubClient({ tools }) {
             <Filter size={18} className="opacity-40" />
             {allStatuses.map(status => (
               <button
+  type="button"
                 key={status}
                 onClick={() => setSelectedStatus(status)}
                 className={`px-4 py-2 rounded-lg text-sm transition ${
@@ -218,6 +219,7 @@ const ToolDetail = ({ tool, onClose }) => {
         </div>
 
         <button 
+  type="button"
           onClick={onClose}
           className="mt-6 w-full py-2 text-sm opacity-60 hover:opacity-100 transition"
         >
