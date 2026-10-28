@@ -115,7 +115,7 @@ export default function ToolPage({ params }) {
                 </span>
                 {tool.featured && (
                   <span className="inline-flex items-center gap-1.5 text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded">
-                    <Star size={11} className="fill-current" aria-hidden="true" />
+                    <Star size={11} aria-hidden="true" />
                     Featured
                   </span>
                 )}

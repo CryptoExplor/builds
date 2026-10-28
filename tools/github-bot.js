@@ -16,7 +16,7 @@ module.exports = {
     "AI Commit Messages - Gemini API for context-aware, human-like messages",
     "Live Heatmap - Real-time GitHub contribution graph visualization",
     "PWA Support - Install as standalone app, works offline",
-    "⏰ Auto/Manual Commits - Scheduled automation or on-demand commits",
+    "Auto/Manual Commits - Scheduled automation or on-demand commits",
     "Client-Side Only - Token stored locally, never uploaded",
     "Usage Analytics - Track activity, stats, and patterns",
     "Commit Preview - Review and edit commits before publishing"

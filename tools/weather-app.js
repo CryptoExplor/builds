@@ -17,7 +17,7 @@ module.exports = {
   features: [
     "Real-Time Weather - Current temp, humidity, wind speed, feels-like data",
     "Auto Location - Geolocation API for automatic city detection",
-    "⏰ Adaptive Greetings - Time-based messages (morning, afternoon, evening)",
+    "Adaptive Greetings - Time-based messages (morning, afternoon, evening)",
     "Comprehensive Data - Temperature, humidity, wind, pressure, visibility",
     "Weather Icons - Visual representations for different conditions",
     "Auto-Refresh - Updates weather data automatically",

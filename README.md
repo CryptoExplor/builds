@@ -100,10 +100,9 @@ builds/
 │   ├── layout.jsx             # Root layout + metadata (metadataBase, OG, Twitter)
 │   ├── page.jsx               # Home page (server-rendered)
 │   ├── not-found.jsx          # Themed 404
-│   ├── icon.svg               # Branded favicon
 │   ├── globals.css            # Global styles + Tailwind
 │   ├── components/
-│   │   ├── icons/             # Every icon on the site, hand drawn SVG (see below)
+│   │   ├── icons/             # Every icon on the site, hand drawn SVG
 │   │   ├── Navbar.jsx         # Navigation bar
 │   │   ├── ProfileHero.jsx    # Animated hero (GSAP) + profile stats
 │   │   ├── ProfileSections.jsx# Focus areas, Farcaster mini apps, signals
@@ -148,15 +147,14 @@ import { Github, ArrowLeft, CheckCircle } from '@/app/components/icons'
 
 Adding an icon means adding one entry to `icon-data.mjs` and one export in
 `index.jsx`. Then run `npm run icons` to regenerate the contact sheet at
-`docs/icon-sheet.html` and check it in a browser. `npm test` runs the same
-script as a validator and fails if any op leaves the 24 grid or has broken data.
+`docs/icon-sheet.html` and check it in a browser. `npm test` validates the
+geometry and writes nothing.
 
 **No emoji.** Not in the UI, not in `tools/*.js`, not in section headings. An
 emoji depends on whatever font the reader's platform ships, so it changes shape,
-weight, colour and size on every device, and it cannot be aligned to a baseline.
-`scripts/check-no-emoji.mjs` scans `app/`, `lib/` and `tools/` and fails CI if one
-comes back. Terminal output in `scripts/` is exempt, since it never reaches a
-browser.
+weight, colour and size on every device. `scripts/check-no-emoji.mjs` scans
+`app/`, `lib/` and `tools/` and fails CI if one comes back. Arrows, em dashes and
+`™` are typography, not emoji, and stay allowed.
 
 ### 🧑‍💻 Profile data
 
@@ -187,7 +185,7 @@ Every push to `main` triggers auto-deployment.
 |-------|------------|
 | Framework | Next.js 14 (App Router) |
 | Styling | Tailwind CSS |
-| Icons | Lucide React |
+| Icons | Hand-drawn SVG (`app/components/icons`) |
 | Hosting | Vercel (Edge Network) |
 | Data Source | Git (tools/*.js files) |
 | Language | JavaScript |

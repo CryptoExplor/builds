@@ -25,7 +25,7 @@ module.exports = {
     "Persistent Analytics - Vercel KV (Redis) for real-time stats that survive restarts",
     "Multi-Network - ARC, ETH, AVAX, MATIC, SOL, ARB, UNI, BASE, OP, APTOS testnets",
     "Dual Token - USDC & EURC distribution via Circle APIs",
-    "⏱Rate Limiting - 1 claim/wallet/network/24h (default mode), DoS protection",
+    "Rate Limiting - 1 claim/wallet/network/24h (default mode), DoS protection",
     "Live Dashboard - Success rates, key usage, network distribution, uptime tracking"
   ],
   

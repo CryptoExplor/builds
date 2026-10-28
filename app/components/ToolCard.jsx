@@ -14,7 +14,7 @@ export default function ToolCard({ tool }) {
           {/* Featured Badge - Inline with serial */}
           {tool.featured && (
             <span className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded-full px-2 py-0.5 text-xs font-semibold flex items-center gap-1">
-              <Star size={10} className="fill-current" />
+              <Star size={10} aria-hidden="true" />
               Featured
             </span>
           )}

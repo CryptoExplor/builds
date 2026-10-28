@@ -8,7 +8,7 @@
 module.exports = {
   name: "Wallet Balance Tracker Docs",
   slug: "wallet-tracker-docs",
-  description: "Documentation and marketing site for the Wallet Balance Tracker Google Sheetsadd-on — a free Apps Script library that fetches live native coin balances across Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche, and any EVM chain with no API key required.",
+  description: "Documentation and marketing site for the Wallet Balance Tracker Google Sheets add-on — a free Apps Script library that fetches live native coin balances across Ethereum, Polygon, BSC, Arbitrum, Optimism, Avalanche, and any EVM chain with no API key required.",
   category: ["Docs", "DeFi", "Tooling"],
   tags: ["google-sheets", "apps-script", "docs", "wallet-tracker", "evm", "balances", "vite", "multi-chain"],
   status: "production",

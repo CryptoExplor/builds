@@ -73,8 +73,6 @@ export const XSocial = createIcon('xSocial')
 export const ArrowLeft = createIcon('arrowLeft')
 export const ArrowUpRight = createIcon('arrowUpRight')
 export const External = createIcon('external')
-export const Menu = createIcon('menu')
-export const Close = createIcon('close')
 
 export const Globe = createIcon('globe')
 export const MapPin = createIcon('mapPin')
@@ -86,12 +84,7 @@ export const Boxes = createIcon('boxes')
 export const Search = createIcon('search')
 export const SearchX = createIcon('searchX')
 export const Filter = createIcon('filter')
-export const Plus = createIcon('plus')
-export const Trash = createIcon('trash')
 
-export const CheckCircle = createIcon('checkCircle')
-export const Alert = createIcon('alert')
-export const Shield = createIcon('shield')
 export const Star = createIcon('star')
 
 export const Zap = createIcon('zap')
@@ -100,49 +93,7 @@ export const Target = createIcon('target')
 export const Rocket = createIcon('rocket')
 export const Compass = createIcon('compass')
 export const Layers = createIcon('layers')
-export const Cube = createIcon('cube')
-export const Route = createIcon('route')
-export const ChartUp = createIcon('chartUp')
 export const Sparkle = createIcon('sparkle')
 export const Wrench = createIcon('wrench')
 export const Flame = createIcon('flame')
 export const Dot = createIcon('dot')
-
-/** Name to component, for anything that picks an icon from data. */
-export const ICON_SET = {
-  github: Github,
-  xSocial: XSocial,
-  arrowLeft: ArrowLeft,
-  arrowUpRight: ArrowUpRight,
-  external: External,
-  menu: Menu,
-  close: Close,
-  globe: Globe,
-  mapPin: MapPin,
-  calendar: Calendar,
-  mail: Mail,
-  tag: Tag,
-  boxes: Boxes,
-  search: Search,
-  searchX: SearchX,
-  filter: Filter,
-  plus: Plus,
-  trash: Trash,
-  checkCircle: CheckCircle,
-  alert: Alert,
-  shield: Shield,
-  star: Star,
-  zap: Zap,
-  code: Code,
-  target: Target,
-  rocket: Rocket,
-  compass: Compass,
-  layers: Layers,
-  cube: Cube,
-  route: Route,
-  chartUp: ChartUp,
-  sparkle: Sparkle,
-  wrench: Wrench,
-  flame: Flame,
-  dot: Dot,
-}

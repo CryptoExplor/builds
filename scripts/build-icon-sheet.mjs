@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /**
  * Renders every icon in app/components/icons/icon-data.mjs into a single static
- * page so the set can be reviewed at a glance.
+ * page so the set can be reviewed at a glance, and validates the geometry.
  *
- *   node scripts/build-icon-sheet.mjs
+ *   node scripts/build-icon-sheet.mjs           # validate, then write the sheet
+ *   node scripts/build-icon-sheet.mjs --check   # validate only, write nothing
  *
- * Writes docs/icon-sheet.html. Open it directly, or serve docs/ over http.
- * Not part of the app build: it exists to judge the drawings, not to ship.
+ * `npm test` uses --check so a test run never touches the working tree.
+ * `npm run icons` writes docs/icon-sheet.html for review in a browser.
  */
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -41,7 +42,7 @@ for (const name of ICON_NAMES) {
 }
 
 if (problems.length) {
-  console.error(`\n✗ icon set: ${problems.length} problem(s)`)
+  console.error(`\nFAIL: icon set: ${problems.length} problem(s)`)
   for (const problem of problems) console.error(`  ${problem}`)
   process.exit(1)
 }
@@ -162,9 +163,13 @@ const html = `<!doctype html>
 </html>
 `
 
-const out = join(root, 'docs', 'icon-sheet.html')
-mkdirSync(dirname(out), { recursive: true })
-writeFileSync(out, html)
-console.log(
-  `✓ icon set: ${ICON_NAMES.length} icons, all within the 24 grid → docs/icon-sheet.html`
-)
+const checkOnly = process.argv.includes('--check')
+
+if (checkOnly) {
+  console.log(`ok: ${ICON_NAMES.length} icons, all within the 24 grid`)
+} else {
+  const out = join(root, 'docs', 'icon-sheet.html')
+  mkdirSync(dirname(out), { recursive: true })
+  writeFileSync(out, html)
+  console.log(`ok: ${ICON_NAMES.length} icons -> docs/icon-sheet.html`)
+}

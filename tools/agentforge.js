@@ -31,11 +31,11 @@ module.exports = {
     "Operator Registry - Explicit, revocable validator role grants; unauthorized submissions are rejected with 403 in production",
     "Task Discovery - SQL-backed public discovery with keyset-cursor and offset pagination",
     "Marketplace Fee - Generic service fee (none | fixed | bps, operator-capped) settled exactly on the internal mock ledger; refunds and slashes never carry a fee",
-    "⏱Clock-Drift Defence - Monotonic-anchored server clock, per-request received_at, 60-second signed-request drift window, and a database-clock cross-check",
+    "Clock-Drift Defence - Monotonic-anchored server clock, per-request received_at, 60-second signed-request drift window, and a database-clock cross-check",
     "Mock Ledger & Escrow - Behind a SettlementProvider boundary with a MOCK / TEST_CREDIT asset allow-list",
     "Python SDK - Client library for the AgentForge API",
     "Operator Daemons - agent_worker.py (discover, claim, heartbeat the lease, run a pluggable handler, submit signed proof) and validator_worker.py (re-derive acceptance independently, submit signed decisions)",
-    "⌨Operator CLI - Unified agentforge-cli; every command maps to an existing SDK method or public read, no new API surface",
+    "Operator CLI - Unified agentforge-cli; every command maps to an existing SDK method or public read, no new API surface",
     "Event Outbox - Durable signed outbox with dual attribution (actor + publisher) and a feature-flagged transport"
   ],
 
