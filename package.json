@@ -14,7 +14,6 @@
     "icons": "node scripts/build-icon-sheet.mjs"
   },
   "dependencies": {
-    "geist": "^1.8.2",
     "gsap": "^3.15.0",
     "next": "^14.2.3",
     "react": "^18.3.0",
