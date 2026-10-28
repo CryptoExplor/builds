@@ -189,7 +189,7 @@ export default function BatchComposer() {
           {/* Summary */}
           <div aria-live="polite" className="mt-4 grid gap-4 sm:grid-cols-3">
             <SummaryCell label="Recipients" value={formatNumber(valid.length)} loading={estimating} />
-            <SummaryCell label="Total to send" value={`${formatAmount(total)} USDC`} loading={estimating} />
+            <SummaryCell label="Total to send, in token units" value={formatAmount(total)} loading={estimating} />
             <SummaryCell
               label="Gas saved"
               value={savedPercent > 0 ? `${savedPercent}%` : 'None'}

@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Path,
   Cube,
+  ChartLineUp,
   GithubLogo,
 } from '@phosphor-icons/react/dist/ssr'
 
@@ -19,10 +20,29 @@ import BatchComposer from './components/BatchComposer'
 
 const farsend = loadTools().find(tool => tool.slug === 'farsend')
 
-const CHAINS = ['Base', 'Ethereum', 'Optimism', 'Arbitrum']
-const CHAIN_PHRASE = `${CHAINS.slice(0, -1).join(', ')} or ${CHAINS[CHAINS.length - 1]}`
-const CONTRACT = farsend?.deployment?.base?.address ?? ''
-const CONTRACT_LINK = farsend?.deployment?.base?.explorer ?? ''
+// Read from public/chains.json in CryptoExplor/FarSend. Every one of these has
+// its own deployed contract; the addresses are in CONTRACTS below.
+const CHAINS = [
+  'Base',
+  'Ethereum',
+  'Optimism',
+  'Arbitrum',
+  'Polygon PoS',
+  'BNB Smart Chain',
+  'Avalanche C-Chain',
+  'LitVM LiteForge',
+]
+// Verified against https://github.com/CryptoExplor/FarSend/blob/main/public/chains.json
+const CONTRACTS = [
+  { name: 'Base', chainId: 8453, address: '0x8878b70a01bdda92ab8ea48dd7893b64c69298c0', explorer: 'https://basescan.org' },
+  { name: 'Ethereum', chainId: 1, address: '0xF2168287245b647DEacA4562e4b80AC78868Ade5', explorer: 'https://etherscan.io' },
+  { name: 'Optimism', chainId: 10, address: '0x8e33e8149756D5aA9E81763EAF82bA5702B6Ab50', explorer: 'https://optimistic.etherscan.io' },
+  { name: 'Arbitrum', chainId: 42161, address: '0xa3781e8cd25b5E7741E2903b24e5B7157938594d', explorer: 'https://arbiscan.io' },
+  { name: 'Polygon PoS', chainId: 137, address: '0x9EEf8a9117272c1b5c4A4181f888000637317ea8', explorer: 'https://polygonscan.com' },
+  { name: 'BNB Smart Chain', chainId: 56, address: '0x0a9a78d663593Fd521C0DC69d5206d35B6287143', explorer: 'https://bscscan.com' },
+  { name: 'Avalanche C-Chain', chainId: 43114, address: '0x099B63ed3B51149ca8e2e77Eb4Cd6186AC4dd782', explorer: 'https://snowtrace.io' },
+  { name: 'LitVM LiteForge', chainId: 4441, address: '0xeb0EB0986AC42831F62856a0E90a6B9B0A4fe492', explorer: 'https://liteforge.explorer.caldera.xyz' },
+]
 const APP_URL = farsend?.liveUrl ?? 'https://farsend.vercel.app'
 const REPO_URL = farsend?.github ?? 'https://github.com/CryptoExplor/farsend'
 const LAUNCHED = '26 January 2026'
@@ -30,7 +50,7 @@ const LAUNCHED = '26 January 2026'
 export const metadata = {
   title: 'FarSend: batch send ETH and ERC20 in one transaction',
   description:
-    'FarSend batches ETH and ERC20 payouts into a single transaction on Base, Ethereum, Optimism and Arbitrum. Import a CSV, review the total, sign once.',
+    'FarSend batches ETH and ERC20 payouts into a single transaction across 8 networks including Base, Ethereum, Optimism and Arbitrum. Import a CSV, review the total, sign once.',
   keywords: [
     'batch sender',
     'batch send ERC20',
@@ -40,6 +60,9 @@ export const metadata = {
     'ethereum',
     'optimism',
     'arbitrum',
+    'polygon',
+    'bnb chain',
+    'avalanche',
     'farcaster mini app',
   ],
   alternates: { canonical: '/farsend' },
@@ -72,8 +95,8 @@ const BENEFITS = [
   },
   {
     icon: Cube,
-    title: 'Up to half the gas',
-    body: 'Batching shares the base cost across every recipient. The saving grows with the list, from about 42% at three recipients to around 53% on long ones.',
+    title: 'Up to 40% less gas',
+    body: 'Every transfer you send separately pays its own 21,000 base cost. A batch pays it once, which is about 36% saved at ten recipients and close to 40% on long lists.',
   },
   {
     icon: CheckCircle,
@@ -81,20 +104,25 @@ const BENEFITS = [
     body: 'Every line is checksummed, every amount validated, every duplicate caught, all before the wallet opens.',
   },
   {
+    icon: ChartLineUp,
+    title: 'Fixed amounts or a range',
+    body: 'Pay everyone the same, or spread a total across a minimum and maximum so no two recipients receive an identical figure.',
+  },
+  {
     icon: ShieldCheck,
-    title: 'You keep custody',
-    body: 'Funds move from your wallet through the disperse contract straight to recipients. No escrow, no account, no middle step.',
+    title: 'Nothing sits between calls',
+    body: 'ETH goes from your wallet to each recipient directly. ERC20 totals are pulled in, paid out and any remainder refunded inside the same transaction. No escrow, no account.',
   },
 ]
 
 const STEPS = [
   {
     title: 'Import the list',
-    body: 'Paste rows, or drop a CSV or JSON file. Address and amount per row. Extra columns are pointed out rather than silently dropped.',
+    body: 'Paste rows, drop a CSV or a JSON array, or apply one amount to the whole list. Extra columns are pointed out rather than silently dropped.',
   },
   {
     title: 'Review the batch',
-    body: 'Totals, gas estimate and every recipient in one view. Anything that would bounce is flagged with the reason.',
+    body: 'Totals, gas estimate and every recipient in one view. Amounts can be fixed or spread across a minimum and maximum range. Anything that would bounce is flagged with the reason.',
   },
   {
     title: 'Sign once',
@@ -105,11 +133,11 @@ const STEPS = [
 const FAQS = [
   {
     q: 'How much does a batch cost?',
-    a: 'One transaction fee instead of one per recipient. The saving grows with the list, because each standalone transfer would carry its own 21,000 base cost: about 42% at three recipients, 50% at ten, and 53% on long lists. The preview on this page models 65,000 gas for a standalone transfer against 30,500 per batched recipient plus a 21,000 base, so you can check the maths for your own list.',
+    a: 'One transaction fee instead of one per recipient, and the saving grows with the list because each standalone ERC20 transfer would carry its own 21,000 base cost: about 20% saved at two recipients, 36% at ten, and close to 40% on long lists. Batching a single transfer saves nothing. The preview on this page models 51,000 gas for a standalone transfer against 30,500 per batched recipient plus a 21,000 base, so you can check the maths against your own list.',
   },
   {
     q: 'Which chains does it work on?',
-    a: 'The contract is deployed on Base, where FarSend has been live since 26 January 2026. The app also supports Ethereum, Optimism and Arbitrum.',
+    a: 'Eight networks, each with its own deployed contract: Base, Ethereum, Optimism, Arbitrum, Polygon PoS, BNB Smart Chain, Avalanche C-Chain and LitVM LiteForge. The addresses are listed further up this page and link to each explorer.',
   },
   {
     q: 'Do I need an account to send?',
@@ -129,7 +157,7 @@ const FAQS = [
   },
   {
     q: 'Is the contract audited?',
-    a: 'Not by a third party. It is a small disperse style contract, reviewed internally and non custodial by construction, and the source is public. Send a small batch first, then scale up.',
+    a: 'The contract has not been audited by a third party. It is short enough to read in one sitting: two functions, no owner, no pause, no withdraw. Note that an ERC20 batch pulls the total into the contract and pays it out within the same transaction, so the contract holds tokens mid-call and refunds any remainder before returning. Send a small batch first, then scale up.',
   },
   {
     q: 'How many recipients fit in one batch?',
@@ -187,7 +215,8 @@ export default function FarSendPage() {
 
           <p className="mt-6 max-w-[680px] text-lg text-white/60">
             FarSend turns a spreadsheet of addresses and amounts into a single signed transaction
-            on {CHAIN_PHRASE}. Import a CSV, check the total, send.
+            across {CHAINS.length} networks, including {CHAINS[0]}, {CHAINS[1]} and {CHAINS[2]}. Import
+            a CSV, check the total, send.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -316,31 +345,42 @@ export default function FarSendPage() {
                 What the contract does, and what it does not
               </h2>
               <p className="mt-4 max-w-[680px] text-base leading-relaxed text-white/55">
-                Two functions, both public: disperseEther and disperseToken. It never holds your
-                funds, never keeps a balance and has no owner key to pause it.
+                Two functions, both public: disperseEther and disperseToken. No owner, no pause
+                switch, no withdraw path. ERC20 batches move tokens through the contract inside one
+                transaction and refund the remainder before returning.
               </p>
             </SectionReveal>
 
             <SectionReveal className="lg:col-span-7" delay={80}>
-              <dl className="grid gap-px overflow-hidden rounded-2xl bg-surface-3 sm:grid-cols-2">
-                <Fact label="Contract on Base" mono>
-                  <a
-                    href={CONTRACT_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 break-all text-white transition-colors duration-300 ease-settle hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                  >
-                    {CONTRACT.slice(0, 8)}…{CONTRACT.slice(-6)}
-                    <ArrowSquareOut size={14} weight="regular" aria-hidden="true" />
-                  </a>
-                </Fact>
-                <Fact label="Custody">None. Funds pass straight through.</Fact>
-                <Fact label="Audit">Reviewed internally, not third party audited.</Fact>
-                <Fact label="Live since">{LAUNCHED}</Fact>
-              </dl>
+              <div className="overflow-hidden rounded-2xl bg-surface-2">
+                <div className="grid grid-cols-[1fr_auto] gap-x-4 px-6 pb-2 pt-5 text-sm text-white/55">
+                  <span>Network</span>
+                  <span>Contract</span>
+                </div>
+                <ul className="divide-y divide-surface-3">
+                  {CONTRACTS.map(contract => (
+                    <li
+                      key={contract.chainId}
+                      className="grid grid-cols-[1fr_auto] items-center gap-x-4 px-6 py-3"
+                    >
+                      <span className="text-base text-white/80">{contract.name}</span>
+                      <a
+                        href={`${contract.explorer}/address/${contract.address}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-mono text-sm text-white/60 transition-colors duration-300 ease-settle hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                      >
+                        {contract.address.slice(0, 6)}…{contract.address.slice(-4)}
+                        <ArrowSquareOut size={13} weight="regular" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <p className="mt-4 max-w-[680px] text-sm leading-relaxed text-white/55">
-                Source is public. Read it, fork it, or send a small batch before a large one.
+                Source is public and short. Read it, verify the addresses, and send a small batch
+                before a large one.
               </p>
             </SectionReveal>
           </div>
@@ -398,17 +438,6 @@ export default function FarSendPage() {
       </main>
 
       <SiteFooter />
-    </div>
-  )
-}
-
-function Fact({ label, children, mono = false }) {
-  return (
-    <div className="bg-surface-2 p-6">
-      <dt className="text-sm text-white/55">{label}</dt>
-      <dd className={`mt-2 text-base text-white/80 ${mono ? 'font-mono text-sm' : ''}`}>
-        {children}
-      </dd>
     </div>
   )
 }

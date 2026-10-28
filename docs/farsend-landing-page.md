@@ -141,12 +141,25 @@ overwrites `.next` underneath the dev server: every `/_next/static` request then
 
 Found and fixed while reviewing the first pass:
 
-- **The gas claim overstated short lists.** The model saves 21% at one recipient, 37% at two, 42% at three, and tops out near 53%. The benefit card and the FAQ both claimed a flat 40% to 60%, which is only true from three recipients up. Both now say the saving grows with the list and give the real figures. `npm test` asserts the band and that it is never exceeded.
+- **The gas claim was wrong twice over.** It first claimed a flat 40% to 60%; the model actually topped out near 53%, and the 65,000 gas figure behind it was inflated. Re-derived against the real contract (51,000 for a standalone ERC20 transfer, 30,500 per batched recipient plus one 21,000 base), the saving is 0% at one recipient, 20% at two, 36% at ten, and approaches 40% on long lists. Copy and model now agree, and `npm test` pins the band.
 - **The row cap was decorative.** The helper text said 400 lines were allowed and nothing enforced it. Parsing now caps at 400 and the panel says when it has.
 - **Skeletons flashed on first paint.** The loading state fired on mount, so real numbers appeared, vanished into skeletons, then came back. The first pass is now skipped; skeletons only follow a change in recipient count.
 - **Scroll lock could stick.** Opening the mobile menu above the breakpoint and then resizing left `body` overflow hidden, with the panel itself hidden by CSS. The menu now closes on the breakpoint change.
 - **Placeholder contrast.** `white/40` on `#181818` is about 3.3:1. Raised to `white/55`.
 - **Duplicated logic.** The parser and gas model lived inside the component where nothing could exercise them. They are now `app/farsend/lib/batch.mjs`, with `scripts/check-batch-parser.mjs` covering 51 cases and running in CI.
+
+### Checked against the real app and repo
+
+The copy was re-verified against `farsend.vercel.app`, `public/chains.json` and `BatchSender.sol`:
+
+| Claim | Before | Now |
+|---|---|---|
+| Networks | Four (Base, Ethereum, Optimism, Arbitrum) | Eight, each with its own deployed contract, listed with explorer links read from `chains.json` |
+| Custody | "Never holds your funds" | False for ERC20: `disperseToken` pulls the total with `transferFrom` into the contract, pays out, then refunds the remainder. Now stated exactly |
+| Gas | 65,000 standalone, "40 to 60%" | 51,000 standalone against 30,500 per batched recipient plus one 21,000 base, so 36% at ten and approaching 40% |
+| Licence | "on GitHub under the MIT licence", "fork it" | The contract declares SPDX MIT, but the repo has no top level licence file, so the page no longer invites reuse |
+| Total units | Labelled USDC | The app lets you choose the asset, so the preview no longer names one |
+| Random amounts | Not mentioned | Added as a benefit and in the steps: fixed, apply to all, or spread across a min and max |
 
 Not changed, worth knowing:
 

@@ -9,7 +9,11 @@
 export const ADDRESS_PATTERN = /^0x[a-fA-F0-9]{40}$/
 export const MAX_ROWS = 400
 
-export const GAS_PER_STANDALONE_TRANSFER = 65000
+// An ERC20 transfer sent on its own pays the 21,000 transaction base cost plus
+// roughly 30,000 of work, about 51,000 in total. Inside a batch the base cost is
+// paid once and each extra recipient costs the transfer work only. These are the
+// figures published on the page, so they live here and the tests check the band.
+export const GAS_PER_STANDALONE_TRANSFER = 51000
 export const GAS_BATCH_BASE = 21000
 export const GAS_PER_BATCHED_RECIPIENT = 30500
 
@@ -69,7 +73,11 @@ export function summarize(rows) {
   const payable = valid.length
   const standaloneGas = payable * GAS_PER_STANDALONE_TRANSFER
   const batchGas = payable ? GAS_BATCH_BASE + payable * GAS_PER_BATCHED_RECIPIENT : 0
-  const savedPercent = standaloneGas ? Math.round((1 - batchGas / standaloneGas) * 100) : 0
+  // Batching a single transfer saves nothing; it can even cost marginally more.
+  // Never report a negative saving as if it were one.
+  const savedPercent = standaloneGas
+    ? Math.max(0, Math.round((1 - batchGas / standaloneGas) * 100))
+    : 0
 
   return {
     valid,

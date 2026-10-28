@@ -87,9 +87,9 @@ const sum = summarize(parseBatch(`${A}, 120.5\n${B}, 48\n${C}, 300.25`).rows)
 check('total adds the amounts', Math.abs(sum.total - 468.75) < 1e-9, String(sum.total))
 check('no saved percent on an empty list', summarize([]).savedPercent === 0)
 
-// The page claims 40% to 60% from three recipients upward, and up to about 53%
-// on long lists. Anything outside that band would be a false claim on the page.
-for (const n of [3, 4, 10, 100, 400]) {
+// The page claims the saving grows with the list and approaches about 40% on
+// long lists, for ERC20 transfers. Anything outside that band is a false claim.
+for (const n of [2, 3, 10, 100, 400]) {
   const rows = Array.from({ length: n }, (_, i) => ({
     address: `0x${(i + 1).toString(16).padStart(40, '0')}`,
     amount: '1',
@@ -98,20 +98,20 @@ for (const n of [3, 4, 10, 100, 400]) {
   const s = summarize(rows)
   check(`gas maths holds at n=${n}`, s.standaloneGas === n * GAS_PER_STANDALONE_TRANSFER)
   check(`batch gas holds at n=${n}`, s.batchGas === GAS_BATCH_BASE + n * GAS_PER_BATCHED_RECIPIENT)
-  check(`saving at n=${n} is within the advertised band`, s.savedPercent >= 40 && s.savedPercent <= 60, `${s.savedPercent}%`)
+  check(`saving at n=${n} is within the advertised band`, s.savedPercent >= 0 && s.savedPercent <= 40, `${s.savedPercent}%`)
 }
 
 // Very short lists save less, which the copy now says out loud instead of
 // claiming a flat 40 to 60 percent.
 const one = summarize([{ address: A, amount: '1', error: null }])
-check('a single recipient saves less than the headline band', one.savedPercent < 40, `${one.savedPercent}%`)
-check('a single recipient still saves something', one.savedPercent > 0, `${one.savedPercent}%`)
+check('a single recipient saves nothing, and is never shown a negative saving', one.savedPercent === 0, `${one.savedPercent}%`)
+check('a single recipient costs about the same either way', Math.abs(one.batchGas - one.standaloneGas) < 1000, `${one.batchGas} vs ${one.standaloneGas}`)
 
 const growth = [3, 10, 400].map(n =>
   summarize(Array.from({ length: n }, (_, i) => ({ address: `0x${i.toString(16).padStart(40, '0')}`, amount: '1', error: null }))).savedPercent
 )
 check('saving grows with the list', growth[0] < growth[1] && growth[1] < growth[2], growth.join(' < '))
-check('saving tops out at the 53% asymptote the copy quotes', growth[2] <= 53, `${growth[2]}%`)
+check('saving tops out at the 40% asymptote the copy quotes', growth[2] === 40, `${growth[2]}%`)
 
 // ── Mixed valid and invalid ───────────────────────────────────────────────
 const mixed = summarize(parseBatch(`${A}, 5\nbad, 1\n${B}, 5`).rows)

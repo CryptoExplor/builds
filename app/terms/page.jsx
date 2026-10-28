@@ -33,8 +33,10 @@ export default function TermsPage() {
 
         <div className="mt-12 grid max-w-[680px] gap-10">
           <Section title="What you are using">
-            A web app and a public smart contract. The source is on GitHub under the MIT licence,
-            and the contract on Base can be read by anyone at any time.
+            A web app and public smart contracts on eight networks. The source is on GitHub and
+            readable by anyone. The contract file declares the MIT licence in its SPDX header; the
+            repository as a whole carries no top level licence file, so treat the code as published
+            for reading and verification rather than for reuse.
           </Section>
 
           <Section title="Your responsibility">
