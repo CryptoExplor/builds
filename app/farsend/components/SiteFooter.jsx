@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { GithubLogo, Globe, EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
-
+import { Github, Globe, Mail } from '@/app/components/icons'
 import { PROFILE } from '@/lib/profile'
 
 export default function SiteFooter() {
@@ -80,7 +79,7 @@ export default function SiteFooter() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/70 transition-colors duration-300 ease-settle hover:text-white"
             >
-              <Globe size={15} weight="regular" aria-hidden="true" />
+              <Globe size={15} aria-hidden="true" />
               {PROFILE.twitterHandle}
             </a>
             <a
@@ -89,14 +88,14 @@ export default function SiteFooter() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/70 transition-colors duration-300 ease-settle hover:text-white"
             >
-              <GithubLogo size={15} weight="regular" aria-hidden="true" />
+              <Github size={15} aria-hidden="true" />
               {PROFILE.handle}
             </a>
             <a
               href={`mailto:${PROFILE.email}`}
               className="flex items-center gap-2 break-all text-white/70 transition-colors duration-300 ease-settle hover:text-white"
             >
-              <EnvelopeSimple size={15} weight="regular" aria-hidden="true" />
+              <Mail size={15} aria-hidden="true" />
               Email
             </a>
           </div>

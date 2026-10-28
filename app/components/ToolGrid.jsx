@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Search, Filter } from 'lucide-react'
+import { Filter, Search } from '@/app/components/icons'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ToolCard from './ToolCard'

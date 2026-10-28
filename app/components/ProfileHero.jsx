@@ -9,7 +9,7 @@
  */
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { MapPin, Globe, CalendarDays, Github, Twitter } from 'lucide-react'
+import { Calendar, Github, Globe, MapPin, XSocial } from '@/app/components/icons'
 import { PROFILE } from '@/lib/profile'
 
 export default function ProfileHero({ toolCount, miniAppCount, chainCount }) {
@@ -155,7 +155,7 @@ export default function ProfileHero({ toolCount, miniAppCount, chainCount }) {
             {PROFILE.location}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <CalendarDays size={14} />
+            <Calendar size={14} />
             Shipping since {new Date(PROFILE.accountSince).getFullYear()}
           </span>
           <a
@@ -164,7 +164,7 @@ export default function ProfileHero({ toolCount, miniAppCount, chainCount }) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 hover:text-white transition"
           >
-            <Twitter size={14} />
+            <XSocial size={14} />
             {PROFILE.twitterHandle}
           </a>
           <a

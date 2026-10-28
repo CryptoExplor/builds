@@ -1,4 +1,4 @@
-import { Github, Twitter, Mail, Globe, MapPin } from 'lucide-react'
+import { Github, Globe, Mail, MapPin, XSocial } from '@/app/components/icons'
 import { PROFILE } from '@/lib/profile'
 
 export default function Footer() {
@@ -55,7 +55,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-white/65 hover:text-white transition"
                 >
-                  <Twitter size={15} />
+                  <XSocial size={15} />
                   X · {PROFILE.twitterHandle}
                 </a>
               </li>

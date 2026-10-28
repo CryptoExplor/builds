@@ -1,4 +1,4 @@
-import { ExternalLink, Rocket, Target, Compass, Layers } from 'lucide-react'
+import { Compass, External, Layers, Rocket, Target } from '@/app/components/icons'
 import { PROFILE } from '@/lib/profile'
 import Reveal from './Reveal'
 
@@ -59,7 +59,7 @@ export default function ProfileSections() {
                 </div>
                 <p className="text-xs text-white/55 mt-1 leading-relaxed">{app.detail}</p>
               </div>
-              <ExternalLink
+              <External
                 size={15}
                 className="mt-0.5 shrink-0 opacity-35 group-hover:opacity-90 transition"
               />
@@ -94,7 +94,7 @@ export default function ProfileSections() {
                 </div>
                 <p className="text-xs text-white/55 mt-2 leading-relaxed">{account.note}</p>
               </div>
-              <ExternalLink
+              <External
                 size={15}
                 className="mt-0.5 shrink-0 opacity-35 group-hover:opacity-90 transition"
               />

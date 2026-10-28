@@ -106,6 +106,7 @@ builds/
 │   ├── icon.svg               # Branded favicon
 │   ├── globals.css            # Global styles + Tailwind
 │   ├── components/
+│   │   ├── icons/             # Every icon on the site, hand drawn SVG (see below)
 │   │   ├── Navbar.jsx         # Navigation bar
 │   │   ├── ProfileHero.jsx    # Animated hero (GSAP) + profile stats
 │   │   ├── ProfileSections.jsx# Focus areas, Farcaster mini apps, signals
@@ -130,6 +131,28 @@ builds/
 ├── .github/                   # Templates & workflows
 └── public/                    # Static assets
 ```
+
+### 🎨 Icons
+
+Every icon on the site lives in `app/components/icons/` and is a hand drawn SVG.
+There is no icon package: `lucide-react` and `@phosphor-icons/react` were removed.
+
+```js
+import { Github, ArrowLeft, CheckCircle } from '@/app/components/icons'
+```
+
+- `icon-data.mjs` holds the geometry. One grid, one weight: 24×24, 1.5px strokes,
+  round caps and joins, nothing within 2px of an edge. Brand and glyph marks
+  (github, x, zap, boxes, star) are filled; everything else is stroked.
+- `index.jsx` is the only import surface. Props are `size`, `className`,
+  `strokeWidth` and `title`. No title means the icon is decorative and hidden
+  from screen readers; pass one and it becomes a labelled image.
+- Colour is always `currentColor`, so an icon matches the text around it.
+
+Adding an icon means adding one entry to `icon-data.mjs` and one export in
+`index.jsx`. Then run `npm run icons` to regenerate the contact sheet at
+`docs/icon-sheet.html` and check it in a browser. `npm test` runs the same
+script as a validator and fails if any op leaves the 24 grid or has broken data.
 
 ### 🧑‍💻 Profile data
 

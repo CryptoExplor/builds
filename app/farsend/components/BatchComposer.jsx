@@ -11,8 +11,7 @@
  * loading (skeletons shaped like the numbers they replace), and disabled.
  */
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowSquareOut, CheckCircle, Trash, WarningCircle } from '@phosphor-icons/react'
-
+import { Alert, CheckCircle, External, Trash } from '@/app/components/icons'
 import { MAX_ROWS, parseBatch, summarize } from '../lib/batch.mjs'
 
 const formatNumber = value => new Intl.NumberFormat('en-US').format(value)
@@ -80,7 +79,7 @@ export default function BatchComposer() {
             onClick={() => setValue('')}
             className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-white/60 transition-colors duration-300 ease-settle hover:bg-surface-3 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            <Trash size={15} weight="regular" aria-hidden="true" />
+            <Trash size={15} aria-hidden="true" />
             Clear
           </button>
         </div>
@@ -130,16 +129,14 @@ export default function BatchComposer() {
               >
                 <span className="flex min-w-0 items-center gap-2 font-mono text-xs text-white/70">
                   {row.error ? (
-                    <WarningCircle
+                    <Alert
                       size={15}
-                      weight="fill"
                       className="shrink-0 text-danger"
                       aria-hidden="true"
                     />
                   ) : (
                     <CheckCircle
                       size={15}
-                      weight="fill"
                       className="shrink-0 text-accent"
                       aria-hidden="true"
                     />
@@ -165,7 +162,7 @@ export default function BatchComposer() {
               className="mt-4 border border-danger/40 bg-surface-1 p-4"
             >
               <p className="flex items-center gap-2 text-sm font-semibold text-danger">
-                <WarningCircle size={16} weight="fill" aria-hidden="true" />
+                <Alert size={16} aria-hidden="true" />
                 {invalid.length === 1
                   ? 'One line needs a fix'
                   : `${invalid.length} lines need a fix`}
@@ -211,9 +208,8 @@ export default function BatchComposer() {
             className="group inline-flex items-center gap-2 rounded-full bg-accent px-3 py-2 text-base font-semibold text-surface-1 transition-colors duration-300 ease-settle hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Send this batch
-            <ArrowSquareOut
+            <External
               size={17}
-              weight="regular"
               aria-hidden="true"
               className="transition-transform duration-500 ease-settle group-hover:-translate-y-px"
             />
@@ -224,7 +220,7 @@ export default function BatchComposer() {
             className="inline-flex items-center gap-2 rounded-full bg-surface-4 px-3 py-2 text-base font-semibold text-white/55"
           >
             Send this batch
-            <ArrowSquareOut size={17} weight="regular" aria-hidden="true" />
+            <External size={17} aria-hidden="true" />
           </span>
         )}
       </div>

@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, SearchX } from 'lucide-react'
-
+import { ArrowLeft, SearchX } from '@/app/components/icons'
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#0b0f14] text-white flex items-center justify-center px-6">

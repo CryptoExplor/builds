@@ -1,6 +1,6 @@
 import { loadTools } from '@/lib/loadTools'
 import { getStatusClass } from '@/lib/statusStyles'
-import { ExternalLink, Github, Calendar, Tag, ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Calendar, External, Github, Tag } from '@/app/components/icons'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -248,7 +248,7 @@ export default function ToolPage({ params }) {
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition font-medium"
               >
-                <ExternalLink size={18} />
+                <External size={18} />
                 Open Live App
               </a>
               <a

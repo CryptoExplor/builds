@@ -9,8 +9,7 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { GithubLogo, List, X } from '@phosphor-icons/react'
-
+import { Close, Github, Menu } from '@/app/components/icons'
 const LINKS = [
   { href: '#how-it-works', label: 'How it works' },
   { href: '#security', label: 'Security' },
@@ -106,7 +105,7 @@ export default function SiteNav({ current = 'product' }) {
               aria-label="FarSend source on GitHub"
               className="hidden h-9 w-9 items-center justify-center rounded-full text-white/60 transition-colors duration-300 ease-settle hover:bg-surface-3 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:flex"
             >
-              <GithubLogo size={18} weight="regular" />
+              <Github size={18} />
             </a>
 
             <a
@@ -128,17 +127,15 @@ export default function SiteNav({ current = 'product' }) {
               {/* Both glyphs sit in the same box and cross fade, so the control
                   transforms between states instead of swapping instantly. */}
               <span className="relative block h-4 w-4">
-                <List
+                <Menu
                   size={16}
-                  weight="bold"
                   aria-hidden="true"
                   className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-settle ${
                     open ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'
                   }`}
                 />
-                <X
+                <Close
                   size={16}
-                  weight="bold"
                   aria-hidden="true"
                   className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-settle ${
                     open ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'

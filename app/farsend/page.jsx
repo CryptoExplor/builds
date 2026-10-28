@@ -2,15 +2,15 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import {
   ArrowUpRight,
-  ArrowSquareOut,
+  ChartUp,
   CheckCircle,
-  ShieldCheck,
-  Path,
   Cube,
-  ChartLineUp,
-  GithubLogo,
-} from '@phosphor-icons/react/dist/ssr'
-
+  External,
+  Github,
+  Plus,
+  Route,
+  Shield,
+} from '@/app/components/icons'
 import { loadTools } from '@/lib/loadTools'
 import SiteNav from './components/SiteNav'
 import SiteFooter from './components/SiteFooter'
@@ -89,7 +89,7 @@ export const viewport = {
 
 const BENEFITS = [
   {
-    icon: Path,
+    icon: Route,
     title: 'One signature for the whole list',
     body: 'Forty recipients or four hundred, the transaction count stays at one. The wallet opens once.',
   },
@@ -104,12 +104,12 @@ const BENEFITS = [
     body: 'Every line is checksummed, every amount validated, every duplicate caught, all before the wallet opens.',
   },
   {
-    icon: ChartLineUp,
+    icon: ChartUp,
     title: 'Fixed amounts or a range',
     body: 'Pay everyone the same, or spread a total across a minimum and maximum so no two recipients receive an identical figure.',
   },
   {
-    icon: ShieldCheck,
+    icon: Shield,
     title: 'Nothing sits between calls',
     body: 'ETH goes from your wallet to each recipient directly. ERC20 totals are pulled in, paid out and any remainder refunded inside the same transaction. No escrow, no account.',
   },
@@ -225,7 +225,7 @@ export default function FarSendPage() {
               className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-2 text-base font-semibold text-surface-1 transition-colors duration-300 ease-settle hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Open batch sender
-              <ArrowUpRight size={17} weight="bold" aria-hidden="true" />
+              <ArrowUpRight size={17} aria-hidden="true" />
             </a>
             <a
               href={REPO_URL}
@@ -233,7 +233,7 @@ export default function FarSendPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-white/60 transition-colors duration-300 ease-settle hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              <GithubLogo size={16} weight="regular" aria-hidden="true" />
+              <Github size={16} aria-hidden="true" />
               Read the contract
             </a>
             <span className="text-sm text-white/55">
@@ -295,7 +295,7 @@ export default function FarSendPage() {
               return (
                 <SectionReveal key={benefit.title} delay={index * 60}>
                   <div className="h-full rounded-2xl bg-surface-2 p-6">
-                    <Icon size={22} weight="regular" className="text-accent" aria-hidden="true" />
+                    <Icon size={22} className="text-accent" aria-hidden="true" />
                     <h3 className="mt-4 text-lg font-semibold">{benefit.title}</h3>
                     <p className="mt-2 text-base leading-relaxed text-white/55">
                       {benefit.body}
@@ -371,7 +371,7 @@ export default function FarSendPage() {
                         className="inline-flex items-center gap-2 font-mono text-sm text-white/60 transition-colors duration-300 ease-settle hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                       >
                         {contract.address.slice(0, 6)}…{contract.address.slice(-4)}
-                        <ArrowSquareOut size={13} weight="regular" aria-hidden="true" />
+                        <External size={13} aria-hidden="true" />
                       </a>
                     </li>
                   ))}
@@ -398,14 +398,11 @@ export default function FarSendPage() {
                 <details className="group h-full rounded-2xl bg-surface-2 p-6">
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-lg font-semibold text-white marker:content-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
                     {item.q}
-                    <span
+                    <Plus
+                      size={16}
                       aria-hidden="true"
                       className="mt-1 shrink-0 text-white/55 transition-transform duration-500 ease-settle group-open:rotate-45"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.5" />
-                      </svg>
-                    </span>
+                    />
                   </summary>
                   <p className="mt-3 text-base leading-relaxed text-white/55">{item.a}</p>
                 </details>
@@ -430,7 +427,7 @@ export default function FarSendPage() {
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-3 py-2 text-base font-semibold text-surface-1 transition-colors duration-300 ease-settle hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Open batch sender
-                <ArrowUpRight size={17} weight="bold" aria-hidden="true" />
+                <ArrowUpRight size={17} aria-hidden="true" />
               </a>
             </div>
           </SectionReveal>

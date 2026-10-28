@@ -1,4 +1,4 @@
-import { Boxes, Github, Twitter } from 'lucide-react'
+import { Boxes, Github, XSocial } from '@/app/components/icons'
 import Link from 'next/link'
 import { PROFILE } from '@/lib/profile'
 
@@ -30,7 +30,7 @@ export default function Navbar({ toolCount }) {
             aria-label={`${PROFILE.handle} on X`}
             className="opacity-60 hover:opacity-100 transition"
           >
-            <Twitter size={18} />
+            <XSocial size={18} />
           </a>
 
           <a

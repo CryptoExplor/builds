@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Code2, Zap, Star } from 'lucide-react'
+import { Code, Star, Zap } from '@/app/components/icons'
 import StatusBadge from './StatusBadge'
 
 export default function ToolCard({ tool }) {
@@ -47,7 +47,7 @@ export default function ToolCard({ tool }) {
 
       <div className="mt-auto flex gap-3 pt-4 border-t border-white/5">
         <div className="flex items-center gap-1 text-xs opacity-60">
-          <Code2 size={14} />
+          <Code size={14} />
           {tool.category[0]}
         </div>
         <div className="flex items-center gap-1 text-xs opacity-60">
