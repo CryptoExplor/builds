@@ -100,6 +100,10 @@ builds/
 │   ├── layout.jsx             # Root layout + metadata (metadataBase, OG, Twitter)
 │   ├── page.jsx               # Home page (server-rendered)
 │   ├── not-found.jsx          # Themed 404
+│   ├── farsend/               # FarSend landing page (see docs/farsend-landing-page.md)
+│   ├── privacy/               # Privacy page
+│   ├── terms/                 # Terms page
+│   ├── icon.svg               # Branded favicon
 │   ├── globals.css            # Global styles + Tailwind
 │   ├── components/
 │   │   ├── Navbar.jsx         # Navigation bar
@@ -204,6 +208,7 @@ Newest additions: [AgentForge](https://github.com/CryptoExplor/agentforge), [TeQ
 - [ ] Project screenshots/thumbnails
 - [ ] RSS feed for new projects
 - [ ] Analytics dashboard
+- [x] Product landing pages (`/farsend`, built with the landing page design system)
 
 ---
 

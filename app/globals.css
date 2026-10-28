@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+  /* Headings never leave an orphaned word on their last line; body copy breaks
+     where it reads best instead of filling every line to the edge. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
   body {
     @apply bg-[#0b0f14] text-white antialiased;
   }
